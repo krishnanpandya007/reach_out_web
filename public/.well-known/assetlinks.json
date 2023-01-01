@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "in.org.reach_out",
+      "package_name": "in.org.reachout",
       "sha256_cert_fingerprints": ["DE:C1:58:46:C9:3B:CC:09:20:D7:F1:A4:AB:03:7C:6A:D2:BB:C4:AF:69:95:09:1D:2A:25:0D:58:1E:F5:84:8A"]
     }
   }
