@@ -10,7 +10,7 @@ export default function App() {
   }, [appRef.current]);
 
   return (
-    <a href="reachoutapp://reachout.org.in/welcome">Open the APK</a>
+    <a ref={appRef} href="reachoutapp://reachout.org.in/welcome">Open the APK</a>
   )
 
 }
