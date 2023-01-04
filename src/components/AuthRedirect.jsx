@@ -25,6 +25,8 @@ function AuthRedirect() {
       setData({platform: platform, revoked_action: revoked_action, uid: uid});
       if(!params.has('code')){
         setCurrentSyncState('failed');
+        setErrorFullURL(true);
+
         return;
         // Cancelled by Authorization Server/ Client
       }
