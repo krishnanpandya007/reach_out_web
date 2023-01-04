@@ -1,0 +1,116 @@
+.container{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 350px;
+    top: 50%;
+    font-family: Poppins;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+}
+
+.container p{
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.container a{
+    font-size: 0.6rem;
+}
+
+.container b{
+    font-size: 0.6rem;
+    color: gray;
+}
+
+.social__container{
+    display: flex;
+    align-items: center;
+    width: 200px;
+}
+.bottom__banner{
+    padding-top: 3rem;
+    width: 100%;
+    display: flex;
+    gap: 0.8rem;
+}
+
+.connector{
+    width: 100%;
+    flex: 1;
+    height: 50%;
+    border-top: 3px solid #D7D7D7;
+    bottom: 0;
+    position: relative;
+}
+.indicator{
+    position: absolute;
+    padding: 8px;
+    border-radius: 100px;
+    border: 3px solid #D7D7D7;
+    left: 50%;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    /* top: -50%; */
+}
+
+.status__icon{
+    position: absolute;
+    border: 3px solid #D7D7D7;
+    left: 50%;
+    border-radius: 100px;
+    padding: 3px;
+    width: 23px;
+    height: 23px;
+    display: grid;
+    place-items: center;
+    /* padding: ; */
+    background-color: white;
+    transform: translate(-50%, -50%);
+    
+}
+
+.spinner{
+    width: 15px;
+    height: 15px;
+    border: 2px solid #59CE8F;
+    border-bottom-color: white;
+    border-radius: 100px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform: rotate(360deg);
+
+    }
+}
+
+.anonymousMedia{
+    width: 58px;
+    height: 58px;
+    border: 2px solid #D7D7D7;
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+}
+
+.relogin__button{
+    padding: 0.8rem 1.7rem;
+    background-color: transparent;
+    border-radius: 100px;
+    border: 2px solid #3CCF4E;
+    color: #3CCF4E;
+    font-family: Poppins;
+    transition: 0.2s ease;
+    outline-color: chartreuse;
+}
+
+.relogin__button:hover{
+    background-color:#3CCF4E ;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
