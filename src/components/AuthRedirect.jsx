@@ -14,17 +14,21 @@ function AuthRedirect() {
 
   useEffect(() => {
 
-    console.log(window.location)
     let params = new URL(window.location.href).searchParams;
-    console.log(params.has('code'))
-    console.log(!params.has('code') || !params.has('state') || (params.get('state').split('-').length-1 !== 2))
-    if(!params.has('code') || !params.has('state') || (params.get('state').split('-').length-1 !== 2)){
+    if(!params.has('state') || (params.get('state').split('-').length-1 !== 2)){
       setErrorFullURL(true);
       setCurrentSyncState('failed');
       return;
     } else {
+      
       let [ revoked_action, platform, uid ] = params.get('state').split('-');
       setData({platform: platform, revoked_action: revoked_action, uid: uid});
+      if(!params.has('code')){
+        setCurrentSyncState('failed');
+        return;
+        // Cancelled by Authorization Server/ Client
+      }
+
       setTimeout(() => {
         setCurrentSyncState(() => {
           setCurrentSyncState('success');
