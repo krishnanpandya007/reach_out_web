@@ -45,7 +45,7 @@ function AuthRedirect() {
           (<>
             <p>Looks like you got redirected at Wrong place 🤔</p>
             <br/>
-            <button className='relogin__button'>Retry from App</button>
+            <button className='relogin__button' onClick={() => {window.location.href=`${APP_URL}/link_socials`}}>Retry from App</button>
           </>):
           <>
           <p>You’ll be automatically redirected to the app when process completed!😎</p>
