@@ -3,7 +3,7 @@ export const socials = [
     'LinkedIn',
     'Snapchat',
     'Twitter',
-    'Facebook',
+    'Reddit',
     'Discord'
 ];
 

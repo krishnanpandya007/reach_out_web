@@ -9,7 +9,7 @@ function AuthRedirect() {
   const [data, setData] = useState({platform: null, revoked_action: null, uid: -1})
 
   const redirectToApp = () => {
-    window.location.href = `${APP_URL}/link/socials`
+    window.location.href = `${APP_URL}/home`
   }
 
   useEffect(() => {
