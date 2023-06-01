@@ -1,28 +1,161 @@
 import React, { useEffect, useState } from 'react'
 import { APP_URL, socials } from '../constants';
 import './styles/AuthRedirect.css'
+import { useToast } from '@chakra-ui/react';
+import axios from './configs/customAxios'
+// This page visits at @login_with_social, @linking(also kind of login)
+// must have code & state (must have -- in it) else error show (NOREQ)
+
+// Checks
+/*
+  - Not Computer oriented device
+  - Has Code & State params
+
+  if(failed):
+    no_redirection_to_app
+  else:
+    redirect('access_token=J4DHehduIHEdur3WHDWEd&refresh_token=89uh898uhuyhbd&expires_in')::encrypted(.profile_id)
+*/
+/*
+PROTECTION_LAYER: disabled (now)
+- We are assuming no one can spoof this page along with the domain name otherwise they can get the clean credtkns (sending back to APK.)
+*/
 
 function AuthRedirect() {
 
   const [errorFullURL, setErrorFullURL] = useState(false);
-  const [currentSyncState, setCurrentSyncState] = useState('loading');
+  const [currentSyncState, setCurrentSyncState] = useState('loading'); // loading | failed | success
   const [data, setData] = useState({platform: null, revoked_action: null, uid: -1})
+  const [profileUrlManipulated, setProfileUrlManipulated] = React.useState(true);
+  const [formData, setFormData] = React.useState({data: '', error: true, loading: false});
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ?? false; // Referenced from stackoverflow.com :D
+  const toast = useToast();
 
-  const redirectToApp = () => {
-    window.location.href = `${APP_URL}/home`
+  const redirectToApp = (path='home', addon_params='') => {
+    window.location.href = addon_params.length !== 0 ? `${APP_URL}/${path}?${addon_params}` : `${APP_URL}/${path}`
+  }
+
+  const sendDataBackend = (with_data=false) => {
+    // If Backend respond code != 201, change icon to :cross_sign: 
+    // @depends with_data 
+    // POST, {state, code, data?}
+    axios.post('/auth2/login/',{mode: 'social', code: (new URL(window.location.href).searchParams).get('code'), state: data.syncKey ?? false, profile_link: with_data}).then((res) => {
+      if(res.status === 200){
+        // Either its linking or login : we try to recieve acccess_token ifexists => LoginWorkflow::then;LinkingWorkflow just redirect
+        setCurrentSyncState('success');
+        setTimeout(() => {
+          let { access_token } = res.data;
+          if(access_token){
+            // Login Workflow
+            let {refresh_token, expires_in} = res.data;
+            // Redirection through Deep-Linking
+            redirectToApp('signin', `access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`)
+          } else {
+            // Linking workflow
+            redirectToApp('link/socials')
+          }
+        }, 1000)
+      } else {
+        setCurrentSyncState('failed');
+        setErrorFullURL(true);
+        let { message } = res.data;
+        toast({
+          status: 'error',
+          description: message,
+          title: 'Oh, no!',
+          isClosable: true
+        })
+      }
+    });
+
+  }
+
+  const sendFormBackendForValidation = () => {
+    // If Backend respond code != 201
+    // API call for formData validation
+    // POST, {paltform: 'LinkedIn', authKey: '1e2hu37d8yr4ugfyuerggfgre', data: 'https://linkedin.com/in/as'}
+    axios.post('/api/validate/', {platform: data.platform, profile_link: formData.data}).then((res) => {
+      if(res.status === 200){
+        setProfileUrlManipulated(true);
+        sendDataBackend(formData.data);
+
+      }else{
+        toast({
+          status: 'error',
+          description: 'Username/Link already exists on this platform!',
+          title: 'Duplication detected',
+          isClosable: true
+        })
+      }
+    });
+
+    
+  }
+
+  const handleFormSubmit = async () => {
+
+    setFormData(curr => ({...curr, loading: true}))
+
+    // do API call to check if that snapchat username already exists or not
+
+    setTimeout(() => {
+      
+      setFormData(curr => ({...curr, loading: false}))
+      // If SuccessFull view detection, redirect to another view seamlessly
+
+      sendFormBackendForValidation();
+    }, 5000)
+
+  }
+
+  const checkLinkedInProfileUrlValidity = (e) => {
+    setFormData({...formData, data: e.target.value})
+    let re = new RegExp("^https?://((www|\w\w)\.)?linkedin.com/((in/[^/]+/?)|(pub/[^/]+/((\w|\d)+/?){3}))$");
+    if(re.test(e.target.value)){
+      // No Error
+      setFormData(data => ({...data, error: false}))
+    } else {
+      setFormData(data => ({...data, error: true}))
+
+    }
+  }
+
+  const checkFacebookProfileUrlValidity = (e) => {
+    setFormData({...formData, data: e.target.value})
+    let re = new RegExp("^(https?://)?(www\.)?facebook\.com/[a-zA-Z0-9_.-]+/?$");
+    if(re.test(e.target.value)){
+      // No Error
+      setFormData(data => ({...data, error: false}))
+    } else {
+      setFormData(data => ({...data, error: true}))
+
+    }
+  }
+
+  const checkSnapchatUsernameValidity = (e) => {
+    setFormData({...formData, data: e.target.value})
+
+    if(/^[a-zA-Z][\w-_.]{1,13}[\w]$/.test(e.target.value)){
+      // No Error
+      setFormData(data => ({...data, error: false}))
+    } else {
+      setFormData(data => ({...data, error: true}))
+
+    }
   }
 
   useEffect(() => {
 
     let params = new URL(window.location.href).searchParams;
-    if(!params.has('state') || (params.get('state').split('-').length-1 !== 2)){
+    alert(params.get('state'))
+    if(!params.has('state') || (params.get('state').split('--').length !== 2)){
       setErrorFullURL(true);
       setCurrentSyncState('failed');
       return;
     } else {
       
-      let [ revoked_action, platform, uid ] = params.get('state').split('-');
-      setData({platform: platform, revoked_action: revoked_action, uid: uid});
+      let [ platform, syncKey ] = params.get('state').split('--');
+      setData({platform: platform, syncKey: syncKey});
       if(!params.has('code')){
         setCurrentSyncState('failed');
         setErrorFullURL(true);
@@ -31,12 +164,26 @@ function AuthRedirect() {
         // Cancelled by Authorization Server/ Client
       }
 
-      setTimeout(() => {
-        setCurrentSyncState(() => {
-          setCurrentSyncState('success');
-          redirectToApp();
+      if(!isMobile){
+        setCurrentSyncState('failed');
+        setErrorFullURL(true);
+        toast({
+          status: 'error',
+          description: 'Social linking only allowed on Phone/Tablet devices!',
+          title: 'Wrong Device!',
+          isClosable: true
         })
-      }, 10000);
+        return
+      }
+
+      if(platform === 'LinkedIn' || platform === 'Facebook' || platform === 'Snapchat'){
+        setProfileUrlManipulated(false);
+      }else{
+
+        sendDataBackend();
+
+      }
+
     }
 
   }, []);
@@ -47,23 +194,48 @@ function AuthRedirect() {
       <br/>
       <br/>
       {
-        errorFullURL ?
+        profileUrlManipulated ? (errorFullURL ?
           (<>
-            <p>Looks like you got redirected at Wrong place 🤔</p>
+            <p>Something went wrong, maybe incorrect redirection 🤔</p>
             <br/>
             <button className='relogin__button' onClick={() => {window.location.href=`${APP_URL}/link_socials`}}>Retry from App</button>
           </>):
           <>
           <p>You’ll be automatically redirected to the app when process completed!😎</p>
           <h4>So, how's your day??</h4>
-        </>
+        </>) : <>
+                <label for="profile_url">
+                  {data.platform === 'LinkedIn' ? "LinkedIn Profile URL" : data.platform === 'Facebook' ? "Facebook Profile URL" : "Provide Snapchat Username"}
+                </label>
+                {data.platform === 'LinkedIn' ? 
+
+                  <input onChange={checkLinkedInProfileUrlValidity} pattern="^https?://((www|\w\w)\.)?linkedin.com/((in/[^/]+/?)|(pub/[^/]+/((\w|\d)+/?){3}))$" placeholder="Paste Link here..." type="url" name="formData" id="profile_url"/>
+                  :data.platform === 'Facebook' ? <input onChange={checkFacebookProfileUrlValidity} pattern="^(https?://)?(www\.)?facebook\.com/[a-zA-Z0-9_.-]+/?$" placeholder="Paste Link here..." type="url" name="formData" id="profile_url_facebook"/> : <input onChange={checkSnapchatUsernameValidity} pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,13}[a-zA-Z0-9]$" type="text" name="formData" id="snap_username"/>
+                }
+                <br/>
+                {
+                  data.platform === 'LinkedIn' ? 
+                    <div id="linkedin__guide">
+                      <b>Help Guide</b>
+                      <ol>
+                        <li>On Profile Page, click on <b>three dots</b></li>
+                        <li>On opened modal, click <b>Share profile via..</b></li>
+                        <li>Copy URL as text</li>
+                        <li>Paste above</li>
+                      </ol>
+                    </div> : null
+                }
+                
+                <br/>
+                <button onClick={handleFormSubmit} id="profile_link_btn" disabled={formData.error || formData.loading}>{formData.loading ? 'Linking...' : 'Link Up'}</button>
+              </>
       }
-      <div className='bottom__banner'>
-      
-      <a href="https://reachout.org.in/terms_and_conditions">Terms</a>
-      <a href="https://www.google.com">Policy</a>
-      <div style={{flex: '1'}}/>
-      <b>ReachOut&copy; 2023</b>
+        <div className='bottom__banner'>
+          <a  end href='/docs/'>Terms</a>
+          <a  href='/docs/Legal/policy'>Terms</a>
+          <a href='/contact'>Support</a>
+        <div style={{flex: '1'}}/>
+        <b>ReachOut&copy; 2023</b>
       </div>
     </div>
   )

@@ -11,6 +11,12 @@
 # production
 /build
 
+# temperory
+/src/components/analytic_views
+/src/utils/
+/src/Analytics.jsx
+/src/UnlockAnalytics.jsx
+
 # misc
 .DS_Store
 .env.local
@@ -21,3 +27,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.md
