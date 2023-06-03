@@ -14,8 +14,7 @@
 # temperory
 /src/components/analytic_views
 /src/utils/
-/src/Analytics.jsx
-/src/UnlockAnalytics.jsx
+
 
 # misc
 .DS_Store
