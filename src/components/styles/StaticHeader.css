@@ -1,0 +1,22 @@
+#header__main{
+    width: clamp(300px, 80%, 800px);
+    border-bottom: 2px solid #c4c4c460;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+}
+
+#header__main img{
+    border-radius: 10px;
+}
+
+#header__main h2{
+
+    margin-left: 0;
+    padding-left: 1rem;
+    border-left: 3px solid #59CE8F;
+
+}

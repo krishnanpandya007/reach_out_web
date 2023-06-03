@@ -1,0 +1,195 @@
+body{
+    background: none;
+}
+
+.contact_container{
+    width: clamp(300px, 80%, 800px);
+}
+
+.indicator_container{
+    display: flex;
+    margin-bottom: 5rem;
+    width: 80%;
+    align-items: center;
+}
+
+.contact__indicator{
+    border: 2px solid #59CE8F;
+    width: 30px;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+    font-family: 'Poppins';
+    font-size: 0.8rem;
+    position: relative;
+    align-items: center;
+    height: 30px;
+    border-radius: 100px;
+    padding: none;
+    transition: 0.2s ease;
+}
+
+.contact__indicator:hover{
+    cursor: pointer;
+    background-color: #59CE8F;
+    color: white;
+}
+
+.contact__connector{
+    flex: 1;
+    position: relative;
+    border: 1px solid #c4c4c450;
+}
+
+.contact__indicator b{
+    text-align: center;
+    color: black !important;
+    top: 120%;
+    font-size: 0.7rem;
+    position: absolute;
+
+}
+
+.reason_button{
+    background-color: #59CE8F;
+    color: white;
+    border-radius: 10px;
+    margin-right: 0 !important;
+    outline: black;
+    padding: 0.6rem 1.2rem;
+    font-family: 'Poppins';
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.reason_button:hover{
+    cursor: pointer;
+}
+.contact_title{
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+    font-family: 'Poppins';
+    border-radius: 0px;
+    border: 1px solid #c6c6c6;
+    width: 80%;
+}
+
+.contact__continue{
+    padding: 0.85rem 1.7rem;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border: 2px solid #59CE8F;
+    color: #59CE8F;
+    font-family: 'Poppins';
+    border-radius: 100px;
+    transition: 0.1s linear;
+}
+
+.contact__continue:hover{
+    cursor: pointer;
+    transform: scale(0.97);
+}
+.trace_container{
+    width: 100%;
+    font-size: 0.8rem;
+    font-family: 'Poppins';
+    color: #59CE8F;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.undo_trace{
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background-color: #c4c4c440;
+}
+
+.undo_trace:hover{
+    background-color: #c4c4c480;
+    cursor: pointer;
+}
+
+.undo_trace:active{
+    background-color: #c4c4c4;
+}
+
+.reason_title{
+    text-decoration: underline;
+}
+
+.info_container{
+    display: flex;
+    justify-content: center;
+    width: clamp(300px, 100%, 500px);
+    flex-direction: column;
+}
+
+.info_input{
+
+    padding: 0.7rem 0.85rem;
+    font-family: 'Poppins';
+    border-radius: 10px;
+    border: 1px solid #C4C4C4;
+    outline: none;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    position: relative;
+    display: inline;
+}
+
+.info_input::before{
+    position: absolute;
+    content: 'FirstName';
+    top: 0;
+}
+
+.info_input:focus{
+
+    box-shadow: 0 0 0 3px #59CE8F50;
+
+    /* padding: 0.7rem 0.85rem;
+    font-family: 'Poppins';
+    border-radius: 10px;
+    border: 1px solid #59CE8F; */
+
+}
+
+div#contact-trace-review-title{
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    background-color: #59CE8F;
+    border-radius: 15px 15px 0 0;
+    padding: 0.8rem;
+}
+
+div#contact-trace-review-title b{
+    font-size: 0.9rem;
+}
+
+div#contact-trace-review-title svg:hover{
+    cursor: pointer;
+}
+
+div#contact-trace-review-content{
+    border-radius: 0 0 15px 15px;
+    border: 1px solid #59CE8F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+}
+
+.erorr_message_container{
+    color: tomato;
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+}

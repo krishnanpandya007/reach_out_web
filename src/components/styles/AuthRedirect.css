@@ -1,30 +1,14 @@
-body{
-    position: initial !important;
-    background: url('../../../public/assets/social_login_bg.svg') !important;
-    background-size: fit;
-    background-repeat: no-repeat;
-}
-
 .container{
-    color: black !important;
-    all: unset;
-    background-color: #FFFFFF;
-    box-shadow: 0 0 0 10px #ffffff80;
-    /* backdrop-filter: blur(50px); */
     position: absolute;
-    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* max-width: 350px; */
-    width: clamp(250px, 20vw, 500px);
+    max-width: 350px;
     top: 50%;
     font-family: Poppins;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 2rem;
-    border: 1px solid #c4c4c450;
-    padding: 1.5rem 2rem;
 }
 
 .container p{
@@ -73,7 +57,6 @@ body{
 }
 
 .status__icon{
-    all:unset;
     position: absolute;
     border: 3px solid #D7D7D7;
     left: 50%;
@@ -81,8 +64,8 @@ body{
     padding: 3px;
     width: 23px;
     height: 23px;
-    display: grid !important;
-    place-items: center !important;
+    display: grid;
+    place-items: center;
     /* padding: ; */
     background-color: white;
     transform: translate(-50%, -50%);
@@ -103,81 +86,6 @@ body{
         transform: rotate(360deg);
 
     }
-}
-
-label[for="profile_url"]{
-    font-weight: bold;
-    font-size: 0.8rem;
-    /* text-align: left; */
-    margin-right: auto;
-}
-
-div#linkedin__guide ol{
-    padding-left: 0;
-}
-div#linkedin__guide{
-    box-sizing: border-box;
-    background-color: #c4c4c450;
-    padding: 0.5rem 1.5rem;
-}
-
-div#linkedin__guide > b{
-    font-size: 0.8rem;
-}
-
-button#profile_link_btn{
-    padding: 0.5rem 1rem;
-    border-radius: 200px;
-    font-family: 'Poppins';
-    font-size: 0.7rem;
-    font-weight: 500;
-    background-color: #59CE8F;
-    border: none;
-    outline: none;
-    color: white;
-    letter-spacing: 1px;
-    
-}
-
-button#profile_link_btn:disabled:hover{
-    cursor: not-allowed;
-    
-}
-
-button#profile_link_btn:disabled{
-
-    background-color: #59CE8F90;
-}
-
-
-button#profile_link_btn:hover{
-    cursor: pointer;
-}
-
-div#linkedin__guide ol li{
-    font-size: 0.7rem;
-}
-
-input[name="formData"]{
-    outline: none;
-    border: none;
-    color: Text;
-    box-shadow: 0 0 0 1px #c4c4c480;
-    width: 100%;
-    padding: 0.6rem 0.8rem;
-    /* letter-spacing: 1px; */
-    /* font-family: monospace; */
-    /* font-weight: 600; */
-    box-sizing: border-box;
-    border-radius: 8px;
-    font-family: 'Poppins';
-
-}
-input[name="formData"]::placeholder{
-    opacity: 0.6;
-}
-input[name="formData"]:invalid{
-    box-shadow: 0 0 0 2px rgba(255, 99, 71, 0.5);
 }
 
 .anonymousMedia{
