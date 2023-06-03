@@ -175,12 +175,12 @@ function SignIn() {
             <div class="submission_container">
 
                 <HStack style={{position: 'relative'}}>
-                <PinInput onChange={(newVal) => {setSignInData({...signInData, code: newVal})}} type='alphanumeric'>
+                <PinInput onComplete={(e) => {alert(e)}} onChange={(newVal) => {setSignInData({...signInData, code: newVal})}} type='alphanumeric'>
                     <PinInputField />
                     <PinInputField />
                     <PinInputField />
                     <PinInputField />
-                    <PinInputField  />
+                    <PinInputField onKeyUp={({key: pressedKey})=> {if(pressedKey === 'Enter'){submitForm()}}} />
                 </PinInput>
                 {
                     signInData.code_error && 
