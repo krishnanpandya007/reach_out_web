@@ -2,9 +2,60 @@ export const socials = [
     'Instagram',
     'LinkedIn',
     'Snapchat',
-    'Twitter',
+    // Twitter is disabled as authentication service is not working well
+    'Facebook',
+    // 'Twitter',
     'Reddit',
     'Discord'
 ];
+
+export const FRONTEND_ROOT_URL = "http://127.0.0.1:3000";
+export const BACKEND_ROOT_URL = 'http:///192.168.177.153:8000'
+export const base_json_header = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'raw-platform': 'Web'
+}
+
+export const ANALYTICS_PLANS = [
+    {
+        'duration_in_days': 28,
+        'amount_in_inr': {
+            'original': 19.00,
+            'addon': 0.00
+        },
+        'amount_in_usd': {
+            'original': 0.35,
+            'addon': 0.00
+        },
+        'tag': null
+    },
+    {
+        'duration_in_days': 84,
+        'amount_in_inr': {
+            'original': 49.00,
+            'addon': 0.00
+        },
+        'amount_in_usd': {
+            'original': 0.75,
+            'addon': 0.00
+        },
+        'tag': 'Suggested'
+    },
+    {
+        'duration_in_days': 180,
+        'amount_in_inr': {
+            'original': 99.00,
+            'addon': 0.00
+        },
+        'amount_in_usd': {
+            'original': 1.29,
+            'addon': 0.00
+        },
+        'tag': null
+    },
+]
+
+export const ANONYMOUS_AVATAR_URL = `${BACKEND_ROOT_URL}/media/images/profile_pics/anonymous.png`
 
 export const APP_URL = 'reachoutapp://reachout.org.in';
