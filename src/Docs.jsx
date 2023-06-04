@@ -197,12 +197,17 @@ const LazyGuidesWebSignIn = lazy(() => import('./components/docs/GuideWebSignIn'
 const LazyGuidesMakeFullProfile = lazy(() => import('./components/docs/GuideMakeFullProfile'));
 const LazyBasicsEncryptionPromise = lazy(() => import('./components/docs/SecurityEncryptionPromise'))
 const LazyHelpSignIn = lazy(() => import('./components/docs/HelpSignIn'))
+const LazyBasicsAbout = lazy(() => import('./components/docs/BasicsAbout'))
 
 export const docs_tree = {
 
     'Legal': {
         'terms-and-conditions': LazyLegalTerms,
         'policy': LazyLegalPolicy,
+    },
+
+    'Basics': {
+        'about': LazyBasicsAbout,
     },
 
     'Security': {
