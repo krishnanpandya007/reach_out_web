@@ -28,7 +28,6 @@ export default function Docs(){
         let docs_path = location.pathname.split('/').filter(val => val !== '');
         if(docs_path.length !== 3 || (!(Object.keys(docs_tree).includes(docs_path[1])) || !(docs_tree[docs_path[1]][docs_path[2]]))){
             // path: /docs => redirect to /docs/Legal/terms-and-conditions default
-            // alert('bef')
             navigate(`${sections[0]}/${Object.keys(docs_tree[sections[0]])[0]}`);
         } 
 

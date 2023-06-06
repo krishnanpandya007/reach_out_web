@@ -157,8 +157,7 @@ function SplashScreen({ triggerDataLoaded }) {
   const checkCredentials = () => {
 
     if(getCookie('stale_authenticated') !== 'true'){
-      alert('no')
-      window.location.href = `../signin?msg_code=required_signin`
+      window.location.href = `../signin?msg_code=required_signin&next=${encodeURIComponent(window.location.href)}`
       
     }else{
 

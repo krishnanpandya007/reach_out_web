@@ -23,10 +23,10 @@ customAxios.interceptors.response.use(undefined, async function (err) {
             })
             if(res.status !== 200){
                 // AGHHH, redirect this to signin
-                window.location.href = `${FRONTEND_ROOT_URL}/signin?msg_code=signin_to_continue`
+                window.location.href = `${FRONTEND_ROOT_URL}/signin?msg_code=signin_to_continue&next=${encodeURIComponent( typeof window === 'undefined' ? FRONTEND_ROOT_URL :  window.location.href)}`
             }
         } else if (err.response.data.code === 'REQUIRED_RELOGIN'){
-            window.location.href = `${FRONTEND_ROOT_URL}/signin?msg_code=signin_to_continue`
+            window.location.href = `${FRONTEND_ROOT_URL}/signin?msg_code=signin_to_continue&next=${encodeURIComponent( typeof window === 'undefined' ? FRONTEND_ROOT_URL :  window.location.href)}`
         }
 
         const res = await customAxios.request(err.config);

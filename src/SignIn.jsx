@@ -8,6 +8,11 @@ import { BACKEND_ROOT_URL, base_json_header } from './constants';
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 const PHONE_REGEX = /^\+\d{2,3}\s\d{5}\-\d{5}$/
 
+const codeToMessage = {
+    'required_signin': 'Sign in is required to proceed further...',
+    'signin_to_continue': 'To continue, please sign in!'
+}
+
 function SignIn() {
 
     const [signInData, setSignInData] = React.useState({mode: 'email', mode_value: '', code: '', mode_error: false, code_error: false});
@@ -65,11 +70,25 @@ function SignIn() {
 
             
             if (response.status === 200){
+                const urlParams = new URLSearchParams(window.location.search);
+                const nextUrl = urlParams.get('next') ?? false;
+        
                 toast({
                     title: `Logged In! 😎`,
                     status: 'success',
                     isClosable: true,
                 });
+                if(nextUrl){
+                    // Redirecting back
+                    nextUrl = decodeURIComponent(nextUrl);
+                    setStatus({...status, loading: false});
+                    setTimeout(() => {
+
+                        window.location.href = nextUrl;
+                    }, 1000)
+                    return;
+                }
+                // Usual flow redirects to webApp page
             } else {
                 const dataj = await response.json();
                 toast({
@@ -103,6 +122,21 @@ function SignIn() {
         }
 
     }, [modeValue, codeValue])
+
+    React.useEffect(() => {
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const msgCode = urlParams.get('msg_code');
+
+        const message = codeToMessage[msgCode] ?? "Oops! looks like sign in is required."
+
+        toast({
+            description: message,
+            status: 'info',
+            isClosable: true,
+        });
+
+    }, [])
 
   return (
     <Center h="100vh">

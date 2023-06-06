@@ -1,71 +1,329 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import axios from "./components/configs/customAxios";
-import { BACKEND_ROOT_URL, base_json_header } from "./constants";
+import { BACKEND_ROOT_URL, FRONTEND_ROOT_URL, base_json_header } from "./constants";
 import ReachoutTitle from './components/ReachOutTitle'
-import {Heading, Flex, Button, Stack, Badge, Center, Link} from '@chakra-ui/react'
-
+import {Heading, Flex, Button, Stack, Badge, Center, useColorMode, Link, ButtonGroup, Tooltip} from '@chakra-ui/react'
+import ReachOutTitle from "./components/ReachOutTitle";
+import { getCookie } from './components/configs/utils'
+import {useCallback} from 'react'
+import {BsArrowRight, BsLinkedin, BsTwitter} from 'react-icons/bs'
+import {GrDocumentText} from 'react-icons/gr'
+import {AnimatePresence, motion} from 'framer-motion'
+import {TbBrandAndroid, TbWorld} from 'react-icons/tb'
+import {IoEarth, IoLogoApple, IoLogoGooglePlaystore} from 'react-icons/io5'
+import { AiFillApple, AiFillAndroid } from 'react-icons/ai'
+import {Link as ReactRouterLink} from 'react-router-dom'
+// import Particles from 'react-tsparticles';
+// import { loadFull } from "tsparticles";
+/*
+ENSURE LIGHT MODE HERE.
+HEADER SHOW ON SCROLL DOWN
+*/
 export default function Home() {
+  const {colorMode, toggleColorMode} = useColorMode();
+  useEffect(() => {
+    // If below dark mode checking gives error, try directly cheking item from localStorage 
+    if(colorMode === 'dark'){
+      toggleColorMode()
+    }
+  }, [])
+  return (
+    <>
+      <HomeHeader />
+      <Hero />
+      
+      {/* Features */}
+        <HomeFeatures />
+        <HomeContent />
+
+      <Footer />
+    </>
+    
+  )
+
+}
+
+function HomeHeader() {
+
+  const checkIsAuthenticated = () => {
+
+    if(getCookie('stale_authenticated') !== 'true'){
+      return false;
+    }
+
+    return true;
+
+  }
+
+  const isAuthenticated = checkIsAuthenticated();
+
+  return (
+    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '1.5rem'}}>
+      <ReachOutTitle imgStyle={{width: '40px', height: '40px'}}>
+        <small>ReachOut</small>
+      </ReachOutTitle>
+
+      <a href={`${FRONTEND_ROOT_URL}/${isAuthenticated ? 'web' : 'signin'}`}>
+        <Button variant='outline' rightIcon={<BsArrowRight size={'15px'} />} fontWeight={300} fontSize={'0.8rem'} p={"0 2.3rem"} borderRadius={'100px'}>
+          {isAuthenticated ? 'Web App' : 'Sign In'}&nbsp;
+        </Button>
+      </a>
+    </div>
+  )
+
+}
+
+function Hero() {
+
+  return (
+    <div style={{ display: 'grid', placeItems: 'center', height: '60vh', position: 'relative' , backgroundColor: '#00DFA2'}}>
+      <svg style={{position: 'absolute', bottom: '0'}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fillOpacity="1" d="M0,192L720,288L1440,224L1440,320L720,320L0,320Z"></path></svg>
+      <motion.div animate={{rotateX: '0deg', scale: 1, borderWidth: '3px', opacity :'1', lineHeight: '3rem', translateY: '0px', rotateZ: '0deg'}} transition={{duration: 0.8}} initial={{rotateX: '0deg', translateY: '100px', rotateZ: '6deg', borderWidth :'1px', lineHeight :'6.5rem', scale :'1.2'}} style={{border: '5px solid white', textAlign :'center', color: 'white', borderRadius: '5px', padding: '2rem 3rem', width: 'fit-content', background: '#00DFA2', position: 'relative'}}>
+        {/* Left */}
+        <div style={{position: 'absolute', border: '2px dashed white', right: '100%', width: 'calc(50vw - 50% - 12px)'}}/>
+        <div style={{position: 'absolute', backgroundColor: '#00DFA2', border: '3px solid white', left: '-13px', top: '20px', borderRadius :'100px', width: '25px', height: '25px', display :'grid', placeItems: 'center', }}><div style={{height: '10px', width: '10px' , backgroundColor :'white', borderRadius: '100px'}} /></div>
+        {/* Right */}
+        <div style={{position: 'absolute', border: '2px dashed white', left: '100%', width: 'calc(50vw - 50% - 12px)',bottom: '30px' }}/>
+        <div style={{position: 'absolute', backgroundColor: '#00DFA2', border: '3px solid white', right: '-13px', bottom: '20px', borderRadius :'100px', width: '25px', height: '25px',display :'grid', placeItems: 'center' }}><div style={{height: '10px', width: '10px' , backgroundColor :'white', borderRadius: '100px'}} /></div>
+        {/* Bottom */}
+        <div style={{position: 'absolute', border: '2px dashed white', top: '100%', height: 'calc(30vh - 50%)'}}/>
+        <div style={{position: 'absolute', backgroundColor: '#00DFA2', border: '3px solid white', bottom: '-13px', left: '37px', borderRadius :'100px', width: '25px', height: '25px',display :'grid', placeItems: 'center' }}><div style={{height: '10px', width: '10px' , backgroundColor :'white', borderRadius: '100px'}} /></div>
+        {/* Top */}
+        <div style={{position: 'absolute', border: '2px dashed white', bottom: '100%', right: '32px', height: 'calc(30vh - 50%)', }}/>
+        <div style={{position: 'absolute', backgroundColor: '#00DFA2', border: '3px solid white', right: '20px', top: '-13px', borderRadius :'100px', width: '25px', height: '25px',display :'grid', placeItems: 'center' }}><div style={{height: '10px', width: '10px' , backgroundColor :'white', borderRadius: '100px'}} /></div>
+
+
+        <h2 style={{fontSize: '2.1rem', fontWeight: 'bolder'}}>Sync all socials,</h2>
+        <h2 style={{fontSize: '2.1rem', fontWeight: 'bolder'}}>at one place.</h2>
+      </motion.div>
+    </div>
+  )
+
+}
+
+function HomeFeatures() {
+
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream; // Referenced from stackoverflow.com :D
   const isAndroid = /windows phone|android/i.test(navigator.userAgent); // Referenced from stackoverflow.com :D
-  // const appRef = useRef(null);
 
-  // useEffect( () => {
-  //   if(appRef.current != null){
-  //     appRef.current.click();
-  //   }
+  const currentDevice = isIOS ? 'ios' : isAndroid ? 'android' : 'web'
 
-  // }, [appRef.current]);
-  
+  const [viewDevice, setViewDevice] = useState(currentDevice);
+
   return (
-    <Center>
+    <BodyPart>
+      <Flex gap='3rem' flexWrap={'wrap'} width='min(60%, 480px)' alignItems={'flex-start'} justifyContent={'space-between'} textAlign={currentDevice === 'web' ? 'left' : 'center'}>
+        <div>
+          <BodyCaption text={'Platform'} />
 
-    <Flex width="min(800px, 100vw)" height='100vh' flexDirection='column' gap='1rem' padding='0.8rem'>
-    {/* <a ref={appRef} href="reachoutapp://reachout.org.in/welcome">Open the APK</a>
-    <button
-    onClick={async() => {alert((await axios.get('/api/profile')).data);}}
-    >
-    asdsad
-    </button>
-  <img height='300px' width='300px' style={{borderRadius: '10px', border: '1px solid #c4c4c4', padding: '0.75rem'}} src='/qr_to_socials.gif' /> */}
-      <ReachoutTitle>
+          <ButtonGroup style={{marginTop: '2rem'}}>
+
+            <Button p='0 !important' onClick={()=> {setViewDevice('android')} } borderRadius={'100px'} isActive={viewDevice === 'android'} _active={{backgroundColor: '#0BB65A20'}}>
+              <AiFillAndroid size='25px' />
+            </Button>
+
+            <Button p='0 !important' onClick={()=> {setViewDevice('ios')} } isActive={viewDevice === 'ios'} _active={{backgroundColor: '#0BB65A20'}} borderRadius={'100px'}>
+              <AiFillApple size='25px' />
+            </Button>
+
+            <Button p='0 !important' onClick={()=> {setViewDevice('web')} } isActive={viewDevice === 'web'} _active={{backgroundColor: '#0BB65A20'}} borderRadius={'100px'}>
+              <TbWorld size='25px' />
+            </Button>
+
+          </ButtonGroup>
+        </div>
+          <Flex flexDirection={'column'} gap='1.6rem'>
+          <AnimatePresence mode="wait">
+            {
+             viewDevice === 'android' &&  
+              <motion.div key="android" initial={{translateY: '20px', opacity: 0}} transition={{type: 'tween'}} animate={{ translateY: 0, opacity: 1 }} exit={{ translateY: -20, opacity: 0 }} style={{fontSize: '1.2rem', fontWeight :'700'}}>
+                Android
+              </motion.div>
+
+            }
+
+            {
+             viewDevice === 'ios' &&  
+              <motion.div key="ios" initial={{translateY: '20px', opacity: 0}} transition={{type: 'tween'}} animate={{ translateY: 0, opacity: 1 }} exit={{ translateY: -20, opacity: 0 }} style={{fontSize: '1.2rem', fontWeight :'700'}}>
+                Ios
+              </motion.div>
+
+            }
+
+            {
+              viewDevice === 'web' &&  
+              <motion.div key="web" initial={{translateY: '20px', opacity: 0}} transition={{type: 'tween'}} animate={{ translateY: 0, opacity: 1 }} exit={{ translateY: -20, opacity: 0 }} style={{fontSize: '1.2rem', fontWeight :'700'}}>
+                Web
+              </motion.div>
+
+            }
+            </AnimatePresence>
+
+
+            <AnimatePresence mode="wait">
+            {
+             viewDevice === 'android' &&  
+              <motion.div key="android" initial={{translateX: '20px', opacity: 0}} transition={{type: 'tween'}} animate={{ translateX: 0, opacity: 1 }} exit={{ translateX: -20, opacity: 0 }} style={{maxWidth :'250px', color: '#a2a2a2', fontSize: '0.9rem', display: 'inline-block'}}>
+              Android ipsum dolor sit amet consectetur adipisicing elit. Sunt, ad.
+              <br/>
+              <br/>
+              <Tooltip label='Comming soon'>
+                <Button isDisabled variant={'outline'} color={'black'} fontSize={'0.8rem'} fontWeight={'300'} rightIcon={<IoLogoGooglePlaystore size={'15px'}/>}>
+                  Get at playstore
+                </Button>
+              </Tooltip>
+              </motion.div>
+
+            }
+
+            {
+             viewDevice === 'ios' &&  
+              <motion.div key="ios" initial={{translateX: '20px', opacity: 0}} transition={{type: 'tween'}} animate={{ translateX: 0, opacity: 1 }} exit={{ translateX: -20, opacity: 0 }} style={{maxWidth :'250px', color: '#a2a2a2', fontSize: '0.9rem', display: 'inline-block'}}>
+              Ios ipsum dolor sit amet consectetur adipisicing elit. Sunt, ad.
+              <br/>
+              <br/>
+              <Tooltip label='Comming soon'>
+                <Button isDisabled variant={'outline'} color={'black'} fontSize={'0.8rem'} fontWeight={'300'} rightIcon={<IoLogoApple size={'15px'}/>}>
+                  Direct Download
+                </Button>
+              </Tooltip>
+              </motion.div>
+
+            }
+
+            {
+              viewDevice === 'web' &&  
+              <motion.div key="web" initial={{translateX: '20px', opacity: 0}} transition={{type: 'tween'}} animate={{ translateX: 0, opacity: 1 }} exit={{ translateX: -20, opacity: 0 }} style={{maxWidth :'250px', color: '#a2a2a2', fontSize: '0.9rem', display: 'inline-block'}}>
+              Web ipsum dolor sit amet consectetur adipisicing elit. Sunt, ad.
+              <br/>
+              <br/>
+              <a href={`${FRONTEND_ROOT_URL}/web`}>
+                <Button variant={'outline'} color={'black'} fontSize={'0.8rem'} fontWeight={'300'} rightIcon={<IoEarth size={'15px'}/>}>
+                  Continue on web
+                </Button>
+              </a>
+              </motion.div>
+
+            }
+            </AnimatePresence>
+
+          </Flex>
+      </Flex>
+    </BodyPart>
+  )
+
+}
+
+function HomeContent() {
+
+  return (
+    <>
+    <BodyPart>
+      <Flex flexWrap='wrap' width={'min(60%, 500px)'} justifyContent={'space-between'} gap='2rem'>
+        <Flex flexDirection={'column'} width='max(38%, 260px)'>
+          <BodyCaption text={<p>Why ReachOut?</p>} />
+          <b style={{fontWeight: '300', fontSize: '0.9rem', marginTop: '1.6rem', display: 'block', color: '#6c6c6c'}}>Place where you can find all socials of people who have linked their socials already.
+          <br/>
+          <br/>Learn more at <a href={`${FRONTEND_ROOT_URL}/docs/Basics/about`} style={{textDecoration: 'underline'}}>About us.</a></b>
+        </Flex>
         <div>
 
-        <b style={{fontSize:'1.5rem'}}>ReachOut</b>
-        <br/>
-        <Badge>BETA</Badge>
+        <img width={150} height={150} src='/qr_to_socials.gif' />
         </div>
-      </ReachoutTitle>
+      </Flex>
+    </BodyPart>
 
-      <Heading variant='h2' color='#59CE8F' fontFamily='Poppins'>Attach your socials<br/> at 1 place.</Heading> 
-  <p style={{border: '1px solid #c4c4c4', fontSize: 'small', borderRadius: '8px', padding: '0.5rem'}}>
-    <Badge fontSize='small' colorScheme='linkedin' mb='8px'>More info</Badge>
-    <br/>
-    Sync all your social handles link to your profile on this platform. One QR for all socials you linked. easy to share, easy to scan.
-  </p> 
-      <div style={{margin: '3rem 0', display: 'grid', placeItems: 'center'}} >
-        <img style={{borderRadius: '10px'}} src='/qr_to_socials.gif' height='200px' width='200px' />
+    <BodyPart>
+      <Flex flexWrap='wrap' gap='4rem' width={'min(70%, 500px)'}>
+      <BodyCaption style={{width: 'min(60%, 450px)'}} text={<p>Features</p>} />
+        <Flex gap='2rem'>
+          <FeatureCard imgSize={150} imgSrc={'/assets/engagive_logo.png'} caption={'ENGAGIVE'} />
+          <p style={{fontSize :'0.8rem',color: '#6c6c6c'}}>This platform has given social media effect to make it more engagive for you, recommending your possible friends or people you may know.<br/><br/> Connect their all socials to being updated about them fully!</p>
+        </Flex>
+        <Flex gap='2rem'>
+          <p style={{fontSize :'0.8rem', color: '#6c6c6c'}}>Your Social Information is being synced frequently, keeping the info safe from stale states.<br/><br/> You can also choose your profile pics from on of your linked socials :D</p>
+          <FeatureCard imgSize={80} imgSrc={'/assets/social_sync_logo.png'} caption={'SOCIAL SYNC'} />
+        </Flex>
+        <Flex gap='2rem'>
+          <FeatureCard imgSize={80} imgSrc={'/assets/profile_analytics_logo.png'} caption={'PROFILE ANALYTICS'} />
+          <p style={{fontSize :'0.8rem', color: '#6c6c6c'}}>This is pre-beta feature, yet to release. You can view all analytics done on your profile such as views, engagements, reports etc... (numerically & visually)</p>
+        </Flex>
+
+      </Flex>
+    </BodyPart>
+
+    <BodyPart>
+      <Flex flexWrap='wrap' gap='4rem' width={'min(70%, 500px)'}>
+        <BodyCaption style={{width: 'min(60%, 450px)'}} text={<p>Updates</p>} />
+        
+        <b style={{fontWeight: '300', marginTop: '-2rem', marginLeft: '1.2rem', fontSize: '0.9rem', display: 'block', color: '#6c6c6c'}}>We’ll always update our docs for upcoming changes or future patch releases. connect our socials for regular updates/news/upcoming events.</b>
+
+        <ButtonGroup>
+          <a target="_blank" href="https://twitter.com/krishnan_pandya">
+            <Button borderRadius={'0px'} variant={'outline'}><BsTwitter size='20px'/></Button>
+          </a>
+          <a target="_blank" href="https://www.linkedin.com/company/reachoutconnects/">
+            <Button borderRadius={'0px'} variant={'outline'}><BsLinkedin size='20px'/></Button>
+          </a>
+            <a target="_blank" href={`${FRONTEND_ROOT_URL}/docs/Basics/about`}>
+              <Button borderRadius={'0px'} variant={'outline'} gap='0.8rem' fontSize={'0.8rem'}>Surf Docs<GrDocumentText size='20px'/></Button>
+            </a>
+        </ButtonGroup>
+
+      </Flex>
+    </BodyPart>
+
+    </>
+  )
+}
+
+function BodyPart({children}) {
+
+  return (
+    <div style={{width: '100%', margin: '20vh 0',display: 'flex',alignItems: 'center',justifyContent: 'center'}}>
+      {children}
+    </div>
+  )
+
+}
+
+function BodyCaption({text, style}) {
+  return (
+
+    <caption style={{borderLeft: '1px solid #BDBDBD', display: 'flex', textOverflow: 'initial', position: 'relative', paddingLeft: '1.2rem', color: '#0BB65A', fontSize :'1.1rem', fontWeight: '200', ...style}}>
+      <div style={{position: 'absolute', right: '100%', top: '0.75rem', width: '100vw', borderTop: '1px solid #BDBDBD'}}/>
+      {text}
+    </caption>
+
+  )
+}
+
+function FeatureCard({ imgSrc, imgSize, caption }) {
+
+  return (
+
+    <div style={{whiteSpace: 'nowrap', display: 'flex', flexDirection: 'column', gap:'0.5rem', alignItems :'center', justifyContent :'center'}}>
+      <img width={`${imgSize}px`} height={`${imgSize}px`} src={imgSrc} />
+      <p>{caption}</p>
+    </div>
+
+  )
+
+}
+
+function Footer() {
+
+  return (
+
+    <Flex justifyContent='space-between' backgroundColor={'#59CE8F'} alignItems={'center'} padding={'1rem'}>
+      <div style={{display: 'flex', gap: '1rem'}}>
+        <Button borderRadius={'100px'} variant={'outline'} fontSize={'0.9rem'} _hover={{backgroundColor: '#00000020'}} color='white' fontWeight={'400'}>Contact Us</Button>
+        <Button borderRadius={'100px'} variant={'outline'} fontSize={'0.9rem'} _hover={{backgroundColor: '#00000020'}} color='white' fontWeight={'400'}>E-mail</Button>
       </div>
 
-      <Stack gap='0.5rem'>
-        {
-          isAndroid ? 
-            <Button width='100%' p='2rem 0' gap='1rem' size='lg' rightIcon={<img src='assets/playstore.png' width='35px' height='35px' />}>Get from Playstore</Button>
-            : isIOS && 
-            <Button width='100%' p='2rem 0' gap='1rem' size='lg' rightIcon={<img src='assets/apple_logo.png' width='35px' height='35px' />}>Grab IOS version</Button>
-        }
-        <Button as={Link} href='/web' width='100%' fontSize='md' fontWeight={'md'} p='1.5rem 0' gap='1rem' size='lg' variant='outline' rightIcon={<svg width="18" height="18" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M12 13C12.5523 13 13 12.5523 13 12V3C13 2.44771 12.5523 2 12 2H3C2.44771 2 2 2.44771 2 3V6.5C2 6.77614 2.22386 7 2.5 7C2.77614 7 3 6.77614 3 6.5V3H12V12H8.5C8.22386 12 8 12.2239 8 12.5C8 12.7761 8.22386 13 8.5 13H12ZM9 6.5C9 6.5001 9 6.50021 9 6.50031V6.50035V9.5C9 9.77614 8.77614 10 8.5 10C8.22386 10 8 9.77614 8 9.5V7.70711L2.85355 12.8536C2.65829 13.0488 2.34171 13.0488 2.14645 12.8536C1.95118 12.6583 1.95118 12.3417 2.14645 12.1464L7.29289 7H5.5C5.22386 7 5 6.77614 5 6.5C5 6.22386 5.22386 6 5.5 6H8.5C8.56779 6 8.63244 6.01349 8.69139 6.03794C8.74949 6.06198 8.80398 6.09744 8.85143 6.14433C8.94251 6.23434 8.9992 6.35909 8.99999 6.49708L8.99999 6.49738" fill="currentColor"></path></svg>}>Continue on webApp</Button>
-        <Flex justifyContent='space-between'>
-          <Flex fontSize='0.7rem' gap='0.5rem'>
-            <a href='/docs/Basics/about' style={{textDecoration: 'underline'}}>About ReachOut</a>
-            <a href='/docs/Legal/terms-and-conditions' style={{textDecoration: 'underline'}}>Terms</a>
-            <a href='/contact' style={{textDecoration: 'underline'}}>Contact</a>
-          </Flex>
-          <b>&copy;2023</b>
-        </Flex>
-      </Stack>
-
+      <b style={{color: 'white'}}>ReachOut &copy; 2023</b>
     </Flex>
-  </Center>
+
   )
 
 }

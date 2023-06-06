@@ -32,7 +32,7 @@ export default function App() {
         <Routes>
           <Route path="/docs/terms_and_conditions" element={<LazyTermsAndConditions />} />
           <Route path="/docs/policy" element={<LazyPolicy />} />
-          <Route path="/contact" element={<LazyContactAndSupport />} />
+          <Route path="/contact" element={<LazyContactAndSupport />} /><Route path="/support" element={<LazyContactAndSupport />} />
           <Route path="/auth/redirect/" element={<LazyAuthRedirect />} />
           <Route path="/" element={<LazyHome/>} />
           <Route path="/signin" element={<LazySignIn/>} /> 
