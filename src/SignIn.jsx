@@ -27,7 +27,6 @@ function SignIn() {
         if(signInData.mode === 'email'){
             return EMAIL_REGEX.test(signInData.mode_value);
         }
-        console.log(signInData.mode_value);
         return PHONE_REGEX.test(signInData.mode_value);
 
     }
@@ -138,7 +137,7 @@ function SignIn() {
 
     }, [])
 
-    useEffect(() => {
+    React.useEffect(() => {
         document.title = "SignIn - ReachOut"
      }, []);
 
