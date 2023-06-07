@@ -39,6 +39,10 @@ export default function UnlockAnalytics() {
 
     }, [])
 
+    useEffect(() => {
+        document.title = "Unlock Analytics - ReachOut"
+     }, []);
+
 
     return (
 
@@ -369,9 +373,7 @@ function GpayUpiButton() {
         // Create payment request object.
         let request = null;
         try {
-            console.log("Before")
         request = new PaymentRequest(supportedInstruments, details);
-        console.log("After")
 
         } catch (e) {
             console.log('Payment Request Error: ' + e.message);
@@ -395,13 +397,9 @@ function GpayUpiButton() {
         }
     
         var canMakePaymentPromise = checkCanMakePayment(request);
-        console.log("AfterAfter")
         canMakePaymentPromise
             .then((result) => {
-                console.log("BeforeAAA: ", request)
             showPaymentUI(request, result);
-            console.log("AfterXXX")
-
             })
             .catch((err) => {
                 toast({
@@ -466,7 +464,6 @@ function GpayUpiButton() {
                 isClosable: true,
                 duration: 9000
             })
-            console.log("Are bhai :", err)
             // console.log(err);
         });
     }

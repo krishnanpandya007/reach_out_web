@@ -43,7 +43,6 @@ function ProfileCardSection({ profiles, loadMoreProfiles }) {
 }
 
 function ProfileCard({ id, profilePicUrl, reached, name, bio, socials }){
-    console.log('socials:', socials)
     const [isReached, setReached] = React.useState(reached);
     const toast = useToast();
 

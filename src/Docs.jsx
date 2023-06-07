@@ -33,6 +33,10 @@ export default function Docs(){
 
     }, [location.pathname])
 
+    useEffect(() => {
+        document.title = "Docs - ReachOut"
+     }, []);
+
     return  (
         <>
             <Flex>

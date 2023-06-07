@@ -138,6 +138,10 @@ function SignIn() {
 
     }, [])
 
+    useEffect(() => {
+        document.title = "SignIn - ReachOut"
+     }, []);
+
   return (
     <Center h="100vh">
 
