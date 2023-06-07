@@ -246,7 +246,8 @@ function HomeContent() {
         </Flex>
         <Flex gap='2rem'>
           <FeatureCard imgSize={80} imgSrc={'/assets/profile_analytics_logo.png'} caption={'PROFILE ANALYTICS'} />
-          <p style={{fontSize :'0.8rem', color: '#6c6c6c'}}>This is pre-beta feature, yet to release. You can view all analytics done on your profile such as views, engagements, reports etc... (numerically & visually)</p>
+          <p style={{fontSize :'0.8rem', color: '#6c6c6c'}}>This is pre-beta feature, yet to release.View your profile stats by unlocking analytics feature!,<br/> View plans <a href={`${FRONTEND_ROOT_URL}/unlock_analytics`} style={{textDecoration: 'underline', fontWeight: 'bold'}}>here</a></p>
+          {/* <p style={{fontSize :'0.8rem', color: '#6c6c6c'}}>This is pre-beta feature, yet to release. You can view all analytics done on your profile such as views, engagements, reports etc... (numerically & visually)</p> */}
         </Flex>
 
       </Flex>
