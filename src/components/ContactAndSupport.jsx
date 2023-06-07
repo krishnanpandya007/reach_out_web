@@ -81,6 +81,10 @@ function ContactAndSupport() {
     }, 5000)
   }
 
+  React.useEffect(() => {
+    document.title = "Contact & Support - ReachOut"
+  }, []);
+
   return (
     <>
       <Header title='Contact & Support' />

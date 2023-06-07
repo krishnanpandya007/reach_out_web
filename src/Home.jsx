@@ -320,8 +320,12 @@ function Footer() {
 
     <Flex justifyContent='space-between' backgroundColor={'#59CE8F'} alignItems={'center'} padding={'1rem'}>
       <div style={{display: 'flex', gap: '1rem'}}>
-        <Button borderRadius={'100px'} variant={'outline'} fontSize={'0.9rem'} _hover={{backgroundColor: '#00000020'}} color='white' fontWeight={'400'}>Contact Us</Button>
-        <Button borderRadius={'100px'} variant={'outline'} fontSize={'0.9rem'} _hover={{backgroundColor: '#00000020'}} color='white' fontWeight={'400'}>E-mail</Button>
+        <a href={`${FRONTEND_ROOT_URL}/contact`}>
+          <Button borderRadius={'100px'} variant={'outline'} fontSize={'0.9rem'} _hover={{backgroundColor: '#00000020'}} color='white' fontWeight={'400'}>Contact Us</Button>
+        </a>
+        <a href="mailto:server.reachout@gmail.com">
+          <Button borderRadius={'100px'} variant={'outline'} fontSize={'0.9rem'} _hover={{backgroundColor: '#00000020'}} color='white' fontWeight={'400'}>E-mail</Button>
+        </a>
       </div>
 
       <b style={{color: 'white'}}>ReachOut &copy; 2023</b>
