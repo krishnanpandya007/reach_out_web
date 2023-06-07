@@ -18,11 +18,11 @@ const LazyTermsAndConditions = lazy(() => import('./TermsAndConditions'));
 const LazyPolicy = lazy(() => import('./Policy'));
 const LazyContactAndSupport = lazy(() => import('./components/ContactAndSupport'));
 const LazyAuthRedirect = lazy(() => import('./components/AuthRedirect'));
-// const LazyUnlockAnalytics = lazy(() => import('./UnlockAnalytics'));
+const LazyUnlockAnalytics = lazy(() => import('./UnlockAnalytics'));
 const LazyHome = lazy(() => import('./Home'));
 const LazySignIn = lazy(() => import('./SignIn'));
 const LazyWebApp = lazy(() => import('./WebApp'));
-// const LazyAnalytics = lazy(() => import('./Analytics'));
+const LazyAnalytics = lazy(() => import('./Analytics'));
 const LazyDocs = lazy(() => import('./Docs'))
 
 
@@ -37,9 +37,9 @@ export default function App() {
           <Route path="/" element={<LazyHome/>} />
           <Route path="/signin" element={<LazySignIn/>} /> 
           <Route path="/web" element={<LazyWebApp />} />
-          {/* <Route path="/analytics" element={<LazyAnalytics />} /> */}
+          <Route path="/analytics" element={<LazyAnalytics />} />
           <Route path="/docs/*" element={<LazyDocs />} />
-          {/* <Route path="/unlock_analytics" element={<LazyUnlockAnalytics />} /> */}
+          <Route path="/unlock_analytics" element={<LazyUnlockAnalytics />} />
         </Routes>
   )
 

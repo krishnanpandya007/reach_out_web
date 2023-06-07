@@ -258,14 +258,10 @@ function Payment () {
                     <GpayUpiButton />
 
             </div>}
-            <div style={{border: '1px solid #c4c4c4', marginTop: '0.7rem', borderRadius: '5px', padding: '0.3rem 0.5rem'}}>
+            {/* <div style={{border: '1px solid #c4c4c4', marginTop: '0.7rem', borderRadius: '5px', padding: '0.3rem 0.5rem'}}>
+                NOTE: TEMPERORILY DISABLED
                 <Badge>Worlwide acceptable</Badge><br/>
-                {/* <GooglePayButton
-                    environment="TEST"
-                    buttonColor="default"
-                    buttonType="buy"
-                /> */}
-            </div>
+            </div> */}
 
         </div>
     )
@@ -476,8 +472,8 @@ function GpayUpiButton() {
     }
 
     return (
-        <button onClick={onBuyClicked}>
-            Pay with GPay UPI
+        <button style={{border: '1px solid grey', padding: '0.6rem 1rem', display: 'flex', alignItems: 'center', gap: '0.6rem'}} onClick={onBuyClicked}>
+            Pay with <img style={{height: '50px'}} src="/assets/gpay.png" /> 
         </button>
     )
 
