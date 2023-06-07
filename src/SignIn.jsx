@@ -214,7 +214,7 @@ function SignIn() {
                     <PinInputField />
                     <PinInputField />
                     <PinInputField />
-                    <PinInputField  />
+                    <PinInputField onKeyUp={({key: pressedKey})=> {if(pressedKey === 'Enter'){submitForm()}}} />
                 </PinInput>
                 {
                     signInData.code_error && 

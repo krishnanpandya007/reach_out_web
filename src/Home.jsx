@@ -57,6 +57,8 @@ function HomeHeader() {
 
   const isAuthenticated = checkIsAuthenticated();
 
+  // }, [appRef.current]);
+  
   return (
     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '1.5rem'}}>
       <ReachOutTitle imgStyle={{width: '40px', height: '40px'}}>
