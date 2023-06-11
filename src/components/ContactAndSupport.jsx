@@ -91,7 +91,7 @@ function ContactAndSupport() {
     <>  
     <Center>
 
-      <Flex alignItems={'center'} width='clamp(300px, 80%, 800px)' justifyContent={'space-between'}>
+      <Flex alignItems={'center'} flexWrap={'wrap'} mb='1rem' width='clamp(300px, 80%, 800px)' justifyContent={'space-between'}>
         <Header title='Contact & Support' />
         <Stack direction={'row'}>
           <Link isExternal href='https://www.linkedin.com/company/reachoutconnects/'>
