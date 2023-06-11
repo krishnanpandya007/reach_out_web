@@ -2,7 +2,9 @@ import React from 'react'
 import { createContext } from 'react'
 import Header from './StaticHeader'
 import './styles/ContactAndSupport.css'
-
+import { Badge, Center, Flex, IconButton, Link, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Stack } from '@chakra-ui/react'
+import {MdOutlineLocalPhone, MdOutlineMail} from 'react-icons/md'
+import {TfiLinkedin} from 'react-icons/tfi'
 const ContactDataContext = createContext({tracePath: [], otherReasonTitle: '', currentStep: 1, info: {firstName: '', lastName: '', email: '', descr: ''}, changeTrace: (newTrace) => {}, changeOtherReasonTitle: (new_title) => {}, changeStep: (toStep) => {}, changeInfo: (field_name, new_value) => {}, submitForm: () => {}})
 
 const contactReasonTree = {
@@ -78,7 +80,7 @@ function ContactAndSupport() {
     setTimeout(() => {
       setData(curr => ({...curr, loading: false}));
       setSuccess(true);
-    }, 5000)
+    }, 2000)
   }
 
   React.useEffect(() => {
@@ -86,8 +88,48 @@ function ContactAndSupport() {
   }, []);
 
   return (
-    <>
-      <Header title='Contact & Support' />
+    <>  
+    <Center>
+
+      <Flex alignItems={'center'} width='clamp(300px, 80%, 800px)' justifyContent={'space-between'}>
+        <Header title='Contact & Support' />
+        <Stack direction={'row'}>
+          <Link isExternal href='https://www.linkedin.com/company/reachoutconnects/'>
+              <IconButton>
+                <TfiLinkedin />
+              </IconButton>
+          </Link>
+          <Popover>
+            <PopoverTrigger>
+              <IconButton>
+                <MdOutlineMail />
+              </IconButton>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>Contact email</PopoverHeader>
+              <PopoverBody><a href='mailto:server.reachout@gmail.com'><Badge textTransform={'initial'} size={'lg'} colorScheme='facebook'>server.reachout@gmail.com</Badge></a> <br/> <small><b>Suggestion:</b> prefix your email with "urgent:" for quick support.</small></PopoverBody>
+            </PopoverContent>
+          </Popover>
+
+          <Popover>
+            <PopoverTrigger>
+              <IconButton>
+                <MdOutlineLocalPhone />
+              </IconButton>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>Contact PhoneNo.</PopoverHeader>
+              <PopoverBody><Badge textTransform={'initial'} size={'lg'} colorScheme='facebook'>+91 95105-39042</Badge> <br/> <small><b>Note:</b> Call support only available from 9:00 to 20:00 IST.</small></PopoverBody>
+            </PopoverContent>
+          </Popover>
+
+        </Stack>
+      </Flex>
+    </Center>
       <div style={{display: 'flex', justifyContent: 'center'}}>
         <div class="contact_container">
             { success
@@ -158,7 +200,7 @@ Also make a mechanism for updating the `Other` title to contextAPI
             : tracePath.map((reason_title) => (
               <>
                 <span className="reason_title">{reason_title}</span>
-                &nbsp;<b>></b>&nbsp;
+                &nbsp;<b>{'>'}</b>&nbsp;
               </>
             ))
         }
