@@ -336,9 +336,9 @@ function GpayUpiButton() {
         {
             supportedMethods: ['https://tez.google.com/pay'],
             data: {
-            pa: '9510539042@okbizaxis',
+            pa: '9510539042@paytm',
             pn: 'ReachOut',
-            tr: '1234ABCD',  // Your custom transaction reference ID
+            tr: '1234ABCSD',  // Your custom transaction reference ID
             url: window.location.href,
             mc: '5816', //originally: 7372
             tn: `ReachOut UnlockAnalytics - Plan duration: (${plans[currentPlan]['duration_in_days']} days)`,
@@ -396,9 +396,8 @@ function GpayUpiButton() {
             return;
         }
     
-        var canMakePaymentPromise = checkCanMakePayment(request);
-        canMakePaymentPromise
-            .then((result) => {
+        var canMakePaymentPromise = checkCanMakePayment(request).then((result) => {
+                alert(result);
             showPaymentUI(request, result);
             })
             .catch((err) => {
@@ -424,7 +423,7 @@ function GpayUpiButton() {
     function showPaymentUI(request, canMakePayment) {
     if (!canMakePayment) {
         // handleNotReadyToPay();
-        console.log("Not reaady")
+        alert("Not reaady")
         return;
     }
     
@@ -448,19 +447,17 @@ function GpayUpiButton() {
             });
     }, 20 * 60 * 1000); /* 20 minutes */
     
-    request.show()
-        .then(function(instrument) {
+    request.show().then(function(instrument) {
     
             window.clearTimeout(paymentTimeout);
             console.log(instrument);
             // processResponse(instrument); // Handle response from browser.
-        })
-        .catch(function(err) {
+        }).catch(function(err) {
             toast({
                 status: 'error',
                 title: 'Something went wrong',
                 // description: 'You can contact us with details you have along with this transaction if needed.',
-                description: JSON.stringify(err),
+                description: String(err.name),
                 isClosable: true,
                 duration: 9000
             })
