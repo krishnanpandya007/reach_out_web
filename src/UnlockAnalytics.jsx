@@ -338,7 +338,7 @@ function GpayUpiButton() {
             data: {
             pa: '9510539042@paytm',
             pn: 'ReachOut',
-            tr: '1234ABCSD',  // Your custom transaction reference ID
+            tr: String(Date.now()),  // Your custom transaction reference ID
             url: window.location.href,
             mc: '5816', //originally: 7372
             tn: `ReachOut UnlockAnalytics - Plan duration: (${plans[currentPlan]['duration_in_days']} days)`,
