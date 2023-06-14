@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext, Fragment } from 'react'
+import { useState, useEffect, createContext, useContext, Fragment, useRef } from 'react'
 import axios from './components/configs/customAxios'
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Badge, Box, Button, ButtonGroup, Center, CloseButton, Container, Heading, Link, Skeleton, useDisclosure, useToast } from '@chakra-ui/react';
 import { getCookie } from './components/configs/utils'
@@ -279,6 +279,9 @@ function GpayUpiButton() {
     const plans = ANALYTICS_PLANS;
     const {currentPlan, currentCurrency} = useContext(PaymentDataContext);
 
+    const txId = useRef(String(Date.now()));
+
+
     const canMakePaymentCache = 'canMakePaymentCache';
     const checkCanMakePayment = async (request)=> {
         // Check canMakePayment cache, use cache result directly if it exists.
@@ -329,7 +332,6 @@ function GpayUpiButton() {
             })
             return;
         }
-    
         // Create supported payment method.
         const supportedInstruments = [
         {
@@ -337,7 +339,7 @@ function GpayUpiButton() {
             data: {
             pa: '9510539042@paytm',
             pn: 'ReachOut',
-            tr: String(Date.now()),  // Your custom transaction reference ID
+            tr: txId.current,  // Your custom transaction reference ID
             url: window.location.href,
             mc: '5816', //originally: 7372
             tn: `UnlockAnalytics - Plan duration: (${plans[currentPlan]['duration_in_days']} days)`,
@@ -466,9 +468,8 @@ function GpayUpiButton() {
     }
 
     function completePayment(instrument, result, msg) {
-        instrument.complete(result)
+        instrument.complete({"Status":"SUCCESS","amount":String(Number(plans[currentPlan][`amount_in_${currentCurrency}`]['original']+plans[currentPlan][`amount_in_${currentCurrency}`]['addon']).toFixed(2)),"txnRef":"reference ID","toVpa":"9510539042@paytm","txnId":txId.current,"responseCode":"00"})
             .then(function() {
-              alert('Payment succeeds.');
               console.log(msg);
             })
             .catch(function(err) {
