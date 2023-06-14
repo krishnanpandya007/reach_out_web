@@ -6,7 +6,6 @@ import { ANALYTICS_PLANS, FRONTEND_ROOT_URL } from './constants'
 import { Link as ReactLink } from 'react-router-dom';
 import {BiDownArrowAlt} from 'react-icons/bi'
 import coreAxios from 'axios'
-import { PaymentRequest } from './utils/paymentrequest';
 const PaymentDataContext = createContext({ currentPlan: null, currentCurrency: null, isIpIndian: false, paid: false, changePlan: (plan) => {} });
 
 export default function UnlockAnalytics() {
