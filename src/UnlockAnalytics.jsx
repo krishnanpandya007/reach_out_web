@@ -340,7 +340,7 @@ function GpayUpiButton() {
             tr: String(Date.now()),  // Your custom transaction reference ID
             url: window.location.href,
             mc: '5816', //originally: 7372
-            tn: `ReachOut UnlockAnalytics - Plan duration: (${plans[currentPlan]['duration_in_days']} days)`,
+            tn: `UnlockAnalytics - Plan duration: (${plans[currentPlan]['duration_in_days']} days)`,
             },
         }
         ];
@@ -450,6 +450,7 @@ function GpayUpiButton() {
     
             window.clearTimeout(paymentTimeout);
             console.log(instrument);
+            completePayment(instrument, 200, "Wohoo, buddy");
             // processResponse(instrument); // Handle response from browser.
         }).catch(function(err) {
             toast({
@@ -463,6 +464,18 @@ function GpayUpiButton() {
             // console.log(err);
         });
     }
+
+    function completePayment(instrument, result, msg) {
+        instrument.complete(result)
+            .then(function() {
+              alert('Payment succeeds.');
+              console.log(msg);
+            })
+            .catch(function(err) {
+                alert('payment failed')
+              console.log(err);
+            });
+       }
 
     return (
         <button style={{border: '1px solid grey', padding: '0.6rem 1rem', display: 'flex', alignItems: 'center', gap: '0.6rem'}} onClick={onBuyClicked}>
