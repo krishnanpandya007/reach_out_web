@@ -364,13 +364,13 @@ function GpayUpiButton() {
             value: String(Number(plans[currentPlan][`amount_in_${currentCurrency}`]['original']).toFixed(2)),
             },
         }
-        // ,{
-        //     label: 'Extra addon',
-        //     amount: {
-        //     currency: String(currentCurrency).toUpperCase(),
-        //     value: String(Number(plans[currentPlan][`amount_in_${currentCurrency}`]['addon']).toFixed(2)),
-        //     },
-        // }
+        ,{
+            label: 'Extra addon',
+            amount: {
+            currency: String(currentCurrency).toUpperCase(),
+            value: String(Number(plans[currentPlan][`amount_in_${currentCurrency}`]['addon']).toFixed(2)),
+            },
+        }
         ],
         };
     
