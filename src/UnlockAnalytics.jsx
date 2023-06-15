@@ -223,7 +223,7 @@ function Payment () {
                     buttonColor="default"
                     buttonType="buy"
                 /> */}
-                  {isVisible && prePaymentStatus === 'exposed' && <Alert status='info'fontSize={'0.8rem'} borderRadius={'10px'} m='1rem 0 0 0'>
+                  {/* {isVisible && prePaymentStatus === 'exposed' && <Alert status='info'fontSize={'0.8rem'} borderRadius={'10px'} m='1rem 0 0 0'>
                         <AlertIcon />
                         <Box>
                         <AlertTitle>Paytm will available soon!</AlertTitle>
@@ -239,8 +239,8 @@ function Payment () {
                             top={-1}
                             onClick={onClose}
                         />
-                    </Alert>}
-                    {isPhonePeVisible && prePaymentStatus === 'exposed' && <Alert  status='info'fontSize={'0.8rem'} borderRadius={'10px'}  m='1rem 0 0 0 '>
+                    </Alert>} */}
+                    {/* {isPhonePeVisible && prePaymentStatus === 'exposed' && <Alert  status='info'fontSize={'0.8rem'} borderRadius={'10px'}  m='1rem 0 0 0 '>
                         <AlertIcon />
                         <Box>
                         <AlertTitle>PhonePe will be available soon!</AlertTitle>
@@ -257,7 +257,8 @@ function Payment () {
                             onClick={onPhonePeClose}
                         />
                     </Alert>
-                    }
+                    } [NOTE: Production unCommented]*/}
+                    <br/>
                     <GpayUpiButton />
 
             </div>}
@@ -398,7 +399,6 @@ function GpayUpiButton() {
         }
     
         var canMakePaymentPromise = checkCanMakePayment(request).then((result) => {
-                alert(result);
             showPaymentUI(request, result);
             })
             .catch((err) => {
@@ -471,6 +471,7 @@ function GpayUpiButton() {
         instrument.complete({"Status":"SUCCESS","amount":String(Number(plans[currentPlan][`amount_in_${currentCurrency}`]['original']+plans[currentPlan][`amount_in_${currentCurrency}`]['addon']).toFixed(2)),"txnRef":"reference ID","toVpa":"9510539042@paytm","txnId":txId.current,"responseCode":"00"})
             .then(function() {
               console.log(msg);
+              alert('payment successfull')
             })
             .catch(function(err) {
                 alert('payment failed')
@@ -479,8 +480,8 @@ function GpayUpiButton() {
        }
 
     return (
-        <button style={{border: '1px solid grey', padding: '0.6rem 1rem', display: 'flex', alignItems: 'center', gap: '0.6rem'}} onClick={onBuyClicked}>
-            Pay with <img style={{height: '50px'}} src="/assets/gpay.png" /> 
+        <button style={{border: '2px solid grey', borderRadius: '100px', padding: '0.6rem 1.5rem', display: 'flex', alignItems: 'center', gap: '0.6rem'}} onClick={onBuyClicked}>
+            <img style={{height: '20px'}} src="/assets/gpay.svg" /> 
         </button>
     )
 
