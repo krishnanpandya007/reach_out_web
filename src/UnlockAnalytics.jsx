@@ -481,10 +481,10 @@ function GpayUpiButton() {
         instrument.complete(result)
             .then(function() {
               console.log(msg);
-              alert('payment successfull')
+            //   alert('payment successfull')
             })
             .catch(function(err) {
-                alert('payment failed')
+                // alert('payment failed')
               console.log(err);
             });
        }
