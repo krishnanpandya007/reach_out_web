@@ -424,7 +424,14 @@ function GpayUpiButton() {
     function showPaymentUI(request, canMakePayment) {
     if (!canMakePayment) {
         // handleNotReadyToPay();
-        alert("Not reaady")
+        // alert("Not reaady")
+        toast({
+            status: 'error',
+            title: 'Too long to proceed payment',
+            description: 'Payment timed out after 20 minutes.',
+            isClosable: true,
+            duration: 9000
+        })
         return;
     }
     
@@ -452,7 +459,7 @@ function GpayUpiButton() {
     
             window.clearTimeout(paymentTimeout);
             console.log(instrument);
-            completePayment(instrument, 200, "Wohoo, buddy");
+            completePayment(instrument, 'success', "Wohoo, buddy");
             // processResponse(instrument); // Handle response from browser.
         }).catch(function(err) {
             toast({
@@ -468,7 +475,7 @@ function GpayUpiButton() {
     }
 
     function completePayment(instrument, result, msg) {
-        instrument.complete({"Status":"SUCCESS","amount":String(Number(plans[currentPlan][`amount_in_${currentCurrency}`]['original']+plans[currentPlan][`amount_in_${currentCurrency}`]['addon']).toFixed(2)),"txnRef":"reference ID","toVpa":"9510539042@paytm","txnId":txId.current,"responseCode":"00"})
+        instrument.complete(result)
             .then(function() {
               console.log(msg);
               alert('payment successfull')
