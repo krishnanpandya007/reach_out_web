@@ -461,7 +461,7 @@ function GpayUpiButton() {
             console.log(instrument);
             setTimeout(() => {
 
-                completePayment(instrument, 'success', "Wohoo, buddy");
+                completePayment(instrument, 'SUCCESS', "Wohoo, buddy");
             }, 2000)
             // processResponse(instrument); // Handle response from browser.
         }).catch(function(err) {
