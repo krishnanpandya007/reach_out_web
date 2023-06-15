@@ -342,7 +342,7 @@ function GpayUpiButton() {
             pn: 'ReachOut',
             tr: txId.current,  // Your custom transaction reference ID
             url: window.location.href,
-            mc: '7372', //originally: 7372
+            mc: '5816', //originally: 7372
             tn: `UnlockAnalytics - Plan duration: (${plans[currentPlan]['duration_in_days']} days)`,
             },
         }
@@ -363,7 +363,15 @@ function GpayUpiButton() {
             currency: String(currentCurrency).toUpperCase(),
             value: String(Number(plans[currentPlan][`amount_in_${currentCurrency}`]['original']).toFixed(2)),
             },
-        }],
+        }
+        // ,{
+        //     label: 'Extra addon',
+        //     amount: {
+        //     currency: String(currentCurrency).toUpperCase(),
+        //     value: String(Number(plans[currentPlan][`amount_in_${currentCurrency}`]['addon']).toFixed(2)),
+        //     },
+        // }
+        ],
         };
     
         // Create payment request object.
