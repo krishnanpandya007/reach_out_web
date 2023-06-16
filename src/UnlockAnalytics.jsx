@@ -340,8 +340,7 @@ function GpayUpiButton() {
         {
             supportedMethods: ['https://tez.google.com/pay'],
             data: {
-            // pa: '9510539042@paytm',
-            pa: '9510539042@axl',
+            pa: '9510539042@paytm',
             pn: 'ReachOut',
             tr: txId.current,  // Your custom transaction reference ID
             url: window.location.href,
