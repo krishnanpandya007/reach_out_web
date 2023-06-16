@@ -4,6 +4,7 @@ import React from 'react'
 import ReachOutTitle from './components/ReachOutTitle'
 import ModalEndHelperLinks from './components/ModalEndHelperLinks';
 import { BACKEND_ROOT_URL, base_json_header } from './constants';
+import PageTransition from "./components/configs/PageTransition"
 
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 const PHONE_REGEX = /^\+\d{2,3}\s\d{5}\-\d{5}$/
@@ -127,13 +128,16 @@ function SignIn() {
         const urlParams = new URLSearchParams(window.location.search);
         const msgCode = urlParams.get('msg_code');
 
-        const message = codeToMessage[msgCode] ?? "Oops! looks like sign in is required."
+        if(msgCode){
+            const message = codeToMessage[msgCode] ?? "Oops! looks like sign in is required."
+    
+            toast({
+                description: message,
+                status: 'info',
+                isClosable: true,
+            });
+        }
 
-        toast({
-            description: message,
-            status: 'info',
-            isClosable: true,
-        });
 
     }, [])
 
@@ -142,6 +146,7 @@ function SignIn() {
      }, []);
 
   return (
+    <PageTransition>
     <Center h="100vh">
 
         <div className='modal_container'>
@@ -244,6 +249,7 @@ function SignIn() {
 
         </div>
     </Center>
+    </PageTransition>
   )
 }
 

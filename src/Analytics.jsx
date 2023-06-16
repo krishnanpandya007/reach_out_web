@@ -11,6 +11,7 @@ import GeoView from './components/analytic_views/GeoView'
 import axios from './components/configs/customAxios'
 import { FRONTEND_ROOT_URL } from './constants'
 import { getCookie } from './components/configs/utils'
+import PageTransition from "./components/configs/PageTransition"
 
 function Analytics() {
 
@@ -49,6 +50,7 @@ function Analytics() {
     }
 
   return (
+    <PageTransition>
     <Center>
         <div style={{width:"min(800px, 100vw)", padding: '0.5rem 1rem'}}>
             <Flex justifyContent='space-between' alignItems={'center'} m='1rem 0'>
@@ -84,6 +86,7 @@ function Analytics() {
 
         </div>
     </Center>
+    </PageTransition>
   )
 }
 

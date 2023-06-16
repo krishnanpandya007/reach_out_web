@@ -5,6 +5,8 @@ import './styles/ContactAndSupport.css'
 import { Badge, Center, Flex, IconButton, Link, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Stack } from '@chakra-ui/react'
 import {MdOutlineLocalPhone, MdOutlineMail} from 'react-icons/md'
 import {TfiLinkedin} from 'react-icons/tfi'
+import PageTransition from "../components/configs/PageTransition"
+
 const ContactDataContext = createContext({tracePath: [], otherReasonTitle: '', currentStep: 1, info: {firstName: '', lastName: '', email: '', descr: ''}, changeTrace: (newTrace) => {}, changeOtherReasonTitle: (new_title) => {}, changeStep: (toStep) => {}, changeInfo: (field_name, new_value) => {}, submitForm: () => {}})
 
 const contactReasonTree = {
@@ -88,7 +90,7 @@ function ContactAndSupport() {
   }, []);
 
   return (
-    <>  
+    <PageTransition>  
     <Center>
 
       <Flex alignItems={'center'} flexWrap={'wrap'} mb='1rem' width='clamp(300px, 80%, 800px)' justifyContent={'space-between'}>
@@ -143,7 +145,7 @@ function ContactAndSupport() {
              
         </div>
       </div>
-    </>
+    </PageTransition>
   )
 }
 

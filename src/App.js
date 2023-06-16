@@ -8,7 +8,7 @@ import {  Route, BrowserRouter as Router, Routes } from "react-router-dom"
 // import SignIn from "./SignIn"
 // import TermsAndConditions from "./TermsAndConditions"
 // import WebApp from "./WebApp"
-
+import { AnimatePresence } from 'framer-motion';
 import { lazy } from "react"
 // import Payment from "./components/Payment";
 
@@ -29,6 +29,7 @@ const LazyDocs = lazy(() => import('./Docs'))
 export default function App() {
 
   return (
+      <AnimatePresence mode='wait' >
         <Routes>
           <Route path="/docs/terms_and_conditions" element={<LazyTermsAndConditions />} />
           <Route path="/docs/policy" element={<LazyPolicy />} />
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/docs/*" element={<LazyDocs />} />
           <Route path="/unlock_analytics" element={<LazyUnlockAnalytics />} />
         </Routes>
+      </AnimatePresence>
   )
 
 }

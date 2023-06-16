@@ -1,9 +1,10 @@
 import Header from "./components/StaticHeader"
+import PageTransition from "./components/configs/PageTransition"
 
 
 export default function TermsAndConditions () {
     return (
-        <>
+        <PageTransition>
         <Header title="Docs - ReachOut" />
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             
@@ -30,7 +31,7 @@ export default function TermsAndConditions () {
                 <p>Last updated: January 30, 2023</p>
             </div>
         </div>
-        </>
+        </PageTransition>
           )
 
 } 

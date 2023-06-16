@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import Header from "./components/StaticHeader"
 import {FRONTEND_ROOT_URL} from "./constants"
+import PageTransition from "./components/configs/PageTransition"
 
 export default function Policy () {
 
@@ -13,7 +14,7 @@ export default function Policy () {
     }, [])
 
     return (
-        <>
+        <PageTransition>
         <Header title="Docs - ReachOut" />
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             
@@ -49,7 +50,7 @@ Your privacy is our top priority, and we are dedicated to maintaining the trust 
                 <pre>Last updated: January 30, 2023</pre>
             </div>
         </div>
-        </>
+        </PageTransition>
           )
 
 } 

@@ -8,6 +8,7 @@ import TouchUps from './components/TouchUps'
 import { FRONTEND_ROOT_URL } from './constants'
 import axios from './components/configs/customAxios'
 import Footer from './components/Footer'
+import PageTransition from "./components/configs/PageTransition"
 
 export const UserInfoContext = React.createContext({profile_id: -1, name: '', bio: '', avatar: '', touch_ups: ['link_socials'], set_user_info: (newVal) => {}, update_user_info: (field_name, field_value) => {}})
 
@@ -94,6 +95,7 @@ function WebApp() {
 
   return (
     <UserInfoContext.Provider value={{...userInfo, set_user_info: (newVal) => {setUserInfo(curr => newVal)}, update_user_info: updateUserInfo}}>
+      <PageTransition>
 
       <Center>
         {infoLoaded ?
@@ -143,6 +145,7 @@ function WebApp() {
              </Fade>
          }
       </Center>
+      </PageTransition>
     </UserInfoContext.Provider>
 
   )

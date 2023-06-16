@@ -12,7 +12,8 @@ import {AnimatePresence, motion} from 'framer-motion'
 import {TbBrandAndroid, TbWorld} from 'react-icons/tb'
 import {IoEarth, IoLogoApple, IoLogoGooglePlaystore} from 'react-icons/io5'
 import { AiFillApple, AiFillAndroid } from 'react-icons/ai'
-import {Link as ReactRouterLink} from 'react-router-dom'
+import PageTransition from "./components/configs/PageTransition"
+import {BaseHeader} from './components/Header' 
 // import Particles from 'react-tsparticles';
 // import { loadFull } from "tsparticles";
 /*
@@ -28,7 +29,7 @@ export default function Home() {
     }
   }, [])
   return (
-    <>
+    <PageTransition>
       <HomeHeader />
       <Hero />
       
@@ -37,7 +38,7 @@ export default function Home() {
         <HomeContent />
 
       <Footer />
-    </>
+    </PageTransition>
     
   )
 
@@ -60,17 +61,18 @@ function HomeHeader() {
   // }, [appRef.current]);
   
   return (
-    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '1.5rem'}}>
+    <BaseHeader style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '1.5rem', backgroundColor: 'white'}}>
       <ReachOutTitle imgStyle={{width: '40px', height: '40px'}}>
         <small>ReachOut</small>
       </ReachOutTitle>
+      
 
       <a href={`${FRONTEND_ROOT_URL}/${isAuthenticated ? 'web' : 'signin'}`}>
         <Button variant='outline' rightIcon={<BsArrowRight size={'15px'} />} fontWeight={300} fontSize={'0.8rem'} p={"0 2.3rem"} borderRadius={'100px'}>
           {isAuthenticated ? 'Web App' : 'Sign In'}&nbsp;
         </Button>
       </a>
-    </div>
+    </BaseHeader>
   )
 
 }

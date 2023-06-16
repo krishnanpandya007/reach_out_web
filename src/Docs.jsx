@@ -6,6 +6,7 @@ import {MdOutlineDarkMode, MdOutlineLightMode} from 'react-icons/md'
 import {Link as ReactRouterLink, useLocation, useNavigate} from 'react-router-dom'
 import { useEffect, useState, useRef, lazy, createElement } from 'react'
 import { Suspense } from 'react'
+import PageTransition from "./components/configs/PageTransition"
 
 export default function Docs(){
 
@@ -38,7 +39,7 @@ export default function Docs(){
      }, []);
 
     return  (
-        <>
+        <PageTransition>
             <Flex>
                 <Flex position='sticky' p={5} width='clamp(250px, 28vw, 360px)' alignItems='center' borderRight='1px solid #c4c4c430' borderBottom='1px solid #c4c4c430'>
                     <img width='50' height='50px' style={{borderRadius: '10px'}} src='/social_logo/ReachOut.png' />
@@ -185,7 +186,7 @@ export default function Docs(){
                 }
             </Flex>
 
-        </>
+        </PageTransition>
 
     )
 

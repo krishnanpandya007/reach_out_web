@@ -5,7 +5,9 @@ import { getCookie } from './components/configs/utils'
 import { ANALYTICS_PLANS, FRONTEND_ROOT_URL } from './constants'
 import { Link as ReactLink } from 'react-router-dom';
 import {BiDownArrowAlt} from 'react-icons/bi'
+import PageTransition from "./components/configs/PageTransition"
 import coreAxios from 'axios'
+
 const PaymentDataContext = createContext({ currentPlan: null, currentCurrency: null, isIpIndian: false, paid: false, changePlan: (plan) => {} });
 
 export default function UnlockAnalytics() {
@@ -44,7 +46,7 @@ export default function UnlockAnalytics() {
 
 
     return (
-
+        <PageTransition>
         <Center bg="url('/assets/unlock_analytics_bg.svg')" fontFamily={'Poppins,Roboto,monospace'} bgSize={'cover'} w='100vw' h='100vh'>
             <PaymentDataContext.Provider value={{...paymentData, changePlan: changePlan}}>
                 <Container paddingLeft={'3rem'} borderLeft={'4px solid white'}>
@@ -85,7 +87,7 @@ export default function UnlockAnalytics() {
             </PaymentDataContext.Provider>
 
         </Center>
-
+        </PageTransition>
     )
 
 }
@@ -338,7 +340,8 @@ function GpayUpiButton() {
         {
             supportedMethods: ['https://tez.google.com/pay'],
             data: {
-            pa: '9510539042@paytm',
+            // pa: '9510539042@paytm',
+            pa: '9510539042@axl',
             pn: 'ReachOut',
             tr: txId.current,  // Your custom transaction reference ID
             url: window.location.href,
