@@ -429,8 +429,8 @@ function GpayUpiButton() {
         // alert("Not reaady")
         toast({
             status: 'error',
-            title: 'Too long to proceed payment',
-            description: 'Payment timed out after 20 minutes.',
+            title: 'Install Gpay first',
+            description: 'If already, link an account there.',
             isClosable: true,
             duration: 9000
         })
@@ -461,10 +461,7 @@ function GpayUpiButton() {
     
             window.clearTimeout(paymentTimeout);
             console.log(instrument);
-            setTimeout(() => {
-
-                completePayment(instrument, 'SUCCESS', "Wohoo, buddy");
-            }, 2000)
+            completePayment(instrument, 'SUCCESS', "Wohoo, buddy");
             // processResponse(instrument); // Handle response from browser.
         }).catch(function(err) {
             toast({
