@@ -344,7 +344,7 @@ function GpayUpiButton() {
             pn: 'ReachOut',
             tr: txId.current,  // Your custom transaction reference ID
             url: window.location.href,
-            mc: '5816', //originally: 7372
+            mc: '5815', //originally: 7372
             tn: `UnlockAnalytics - Plan duration: (${plans[currentPlan]['duration_in_days']} days)`,
             },
         }
