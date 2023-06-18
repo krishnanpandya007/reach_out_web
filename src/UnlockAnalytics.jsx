@@ -432,7 +432,7 @@ function GpayUpiButton() {
         toast({
             status: 'error',
             title: 'Install Gpay first',
-            description: 'If already, link an account there.',
+            description: 'If already, link your bank account.',
             isClosable: true,
             duration: 9000
         })
@@ -470,7 +470,7 @@ function GpayUpiButton() {
                 status: 'error',
                 title: 'Something went wrong',
                 // description: 'You can contact us with details you have along with this transaction if needed.',
-                description: String(err.name),
+                description: String(err),
                 isClosable: true,
                 duration: 9000
             })
