@@ -342,13 +342,20 @@ function GpayUpiButton() {
             data: {
             pa: '9510539042@paytm',
             pn: 'ReachOut',
-            tr: txId.current,  // Your custom transaction reference ID
+            tr: txId.current.substring(0, 5),  // Your custom transaction reference ID
             url: window.location.href,
             mc: '5815', //originally: 7372
             tn: `UnlockAnalytics - Plan duration: (${plans[currentPlan]['duration_in_days']} days)`,
             },
         }
         ];
+        toast({
+            description: txId.current.substring(0, 5),
+            status: 'info',
+            title: 'Tn Id',
+            isClosable: true,
+            duration: 100000
+        })
     
         // Create order detail data.
         const details = {
