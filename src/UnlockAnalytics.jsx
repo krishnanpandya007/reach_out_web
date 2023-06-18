@@ -349,13 +349,14 @@ function GpayUpiButton() {
             },
         }
         ];
-        toast({
-            description: txId.current.substring(0, 5),
-            status: 'info',
-            title: 'Tn Id',
-            isClosable: true,
-            duration: 100000
-        })
+        alert(txId.current.substring(0, 5));
+        // toast({
+        //     description: txId.current.substring(0, 5),
+        //     status: 'info',
+        //     title: 'Tn Id',
+        //     isClosable: true,
+        //     duration: 100000
+        // })
     
         // Create order detail data.
         const details = {
