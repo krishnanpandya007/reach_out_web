@@ -355,15 +355,15 @@ function GpayUpiButton() {
         total: {
             label: 'Total',
             amount: {
-            currency: String(currentCurrency).toUpperCase(),
-            value: String(Number(plans[currentPlan][`amount_in_${currentCurrency}`]['original']+plans[currentPlan][`amount_in_${currentCurrency}`]['addon']).toFixed(2)), // sample amount
+            currency: 'INR',
+            value: 20, // sample amount
             },
         },
         displayItems: [{
             label: `Analytics plan - (${plans[currentPlan]['duration_in_days']} days)`,
             amount: {
             currency: String(currentCurrency).toUpperCase(),
-            value: String(Number(plans[currentPlan][`amount_in_${currentCurrency}`]['original']).toFixed(2)),
+            value: 20,
             },
         }
         ,{
