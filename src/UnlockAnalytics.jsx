@@ -285,6 +285,17 @@ function GpayUpiButton() {
     const txId = useRef(String(Date.now()));
 
 
+    useEffect(() => {
+        toast({
+            description: txId.current.slice(-5),
+            status: 'info',
+            title: 'Tn Id',
+            isClosable: true,
+            duration: 100000
+        })
+
+    }, [])
+
     const canMakePaymentCache = 'canMakePaymentCache';
     const checkCanMakePayment = async (request)=> {
         // Check canMakePayment cache, use cache result directly if it exists.
@@ -349,14 +360,6 @@ function GpayUpiButton() {
             },
         }
         ];
-        // alert(txId.current.slice(-5));
-        toast({
-            description: txId.current.slice(-5),
-            status: 'info',
-            title: 'Tn Id',
-            isClosable: true,
-            duration: 100000
-        })
     
         // Create order detail data.
         const details = {
@@ -467,26 +470,24 @@ function GpayUpiButton() {
             });
     }, 20 * 60 * 1000); /* 20 minutes */
     
-    setTimeout(() => {
-
-        request.show().then(function(instrument) {
-        
-                window.clearTimeout(paymentTimeout);
-                console.log(instrument);
-                completePayment(instrument, 'SUCCESS', "Wohoo, buddy");
-                // processResponse(instrument); // Handle response from browser.
-            }).catch(function(err) {
-                toast({
-                    status: 'error',
-                    title: 'Something went wrong',
-                    // description: 'You can contact us with details you have along with this transaction if needed.',
-                    description: String(err),
-                    isClosable: true,
-                    duration: 9000
-                })
-                // console.log(err);
-            });
-    }, 5000)
+    
+    request.show().then(function(instrument) {
+    
+            window.clearTimeout(paymentTimeout);
+            console.log(instrument);
+            completePayment(instrument, 'SUCCESS', "Wohoo, buddy");
+            // processResponse(instrument); // Handle response from browser.
+        }).catch(function(err) {
+            toast({
+                status: 'error',
+                title: 'Something went wrong',
+                // description: 'You can contact us with details you have along with this transaction if needed.',
+                description: String(err),
+                isClosable: true,
+                duration: 9000
+            })
+            // console.log(err);
+        });
     }
 
     function completePayment(instrument, result, msg) {
