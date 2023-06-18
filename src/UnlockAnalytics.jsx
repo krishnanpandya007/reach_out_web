@@ -342,14 +342,14 @@ function GpayUpiButton() {
             data: {
             pa: '9510539042@paytm',
             pn: 'ReachOut',
-            tr: txId.current.substring(0, 5),  // Your custom transaction reference ID
+            tr: txId.current.slice(-5),  // Your custom transaction reference ID
             url: window.location.href,
             mc: '5815', //originally: 7372
             tn: `UnlockAnalytics - Plan duration: (${plans[currentPlan]['duration_in_days']} days)`,
             },
         }
         ];
-        alert(txId.current.substring(0, 5));
+        alert(txId.current.slice(-5));
         // toast({
         //     description: txId.current.substring(0, 5),
         //     status: 'info',
