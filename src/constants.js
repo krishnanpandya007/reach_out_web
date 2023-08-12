@@ -10,7 +10,7 @@ export const socials = [
 ];
 
 // export const FRONTEND_ROOT_URL = "https://reach-out-web.vercel.app";
-export const FRONTEND_ROOT_URL = "https://reach-out-web.vercel.app";
+export const FRONTEND_ROOT_URL = "https://reachout.org.in";
 export const BACKEND_ROOT_URL = 'http://165.22.208.173'
 export const base_json_header = {
     'Content-Type': 'application/json',
