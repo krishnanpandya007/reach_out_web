@@ -24,6 +24,7 @@ const LazySignIn = lazy(() => import('./SignIn'));
 const LazyWebApp = lazy(() => import('./WebApp'));
 const LazyAnalytics = lazy(() => import('./Analytics'));
 const LazyDocs = lazy(() => import('./Docs'))
+const LazyProfileView = lazy(() => import('./components/ProfileView'))
 
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/auth/redirect/" element={<LazyAuthRedirect />} />
           <Route path="/" element={<LazyHome/>} />
           <Route path="/signin" element={<LazySignIn/>} /> 
+          <Route path="/web/profile/:profile_id" element={<LazyProfileView />} />
           <Route path="/web" element={<LazyWebApp />} />
           <Route path="/analytics" element={<LazyAnalytics />} />
           <Route path="/docs/*" element={<LazyDocs />} />

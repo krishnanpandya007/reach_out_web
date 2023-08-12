@@ -7,7 +7,7 @@ import { UserInfoContext } from '../WebApp'
 import UpdateProfile from './UpdateProfile'
 import axios from './configs/customAxios'
 
-const GreetSection = styled.div`
+export const GreetSection = styled.div`
 
     flex: 1;
     display: flex;

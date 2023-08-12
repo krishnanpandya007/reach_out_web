@@ -1,70 +1,147 @@
 import React, { useEffect, useState } from 'react'
-import { APP_URL, socials } from '../constants';
+import { APP_URL, BACKEND_ROOT_URL, socials } from '../constants';
 import './styles/AuthRedirect.css'
+import { Button, Input, useToast } from '@chakra-ui/react';
+import axios from './configs/customAxios';
+
+const  validators = {
+  LinkedIn: {
+    validator_regex: /^(https?:\/\/)?([a-z]{2,3}\.)?linkedin\.com\/(in|pub|company)\/[a-zA-Z0-9_-]+\/?$/,
+    hint_text: 'LinkedIn profile URL',
+    type: 'url'
+  },
+  Snapchat: {
+    validator_regex: /^[a-zA-Z][a-zA-Z0-9_]{2,14}$/,
+    hint_text: 'Snapchat username',
+    type: 'text'
+  },
+  Facebook: {
+    validator_regex: /^https?:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9.]+\/?$/,
+    hint_text: 'Facebook profile URL',
+    type: 'url'
+  },
+
+}
 
 function AuthRedirect() {
 
   const [errorFullURL, setErrorFullURL] = useState(false);
   const [currentSyncState, setCurrentSyncState] = useState('loading');
-  const [data, setData] = useState({platform: null, revoked_action: null, uid: -1})
+  const [platform, setPlatform] = useState(null)
+  const [primaryLabelConfig, setPrimaryLabelConfig] = useState({checking: true, label: ''})
+  const toast = useToast();
 
-  const redirectToApp = () => {
-    window.location.href = `${APP_URL}/home`
+  // const 
+
+  const checkPrimaryLabel = () => {
+    if(validators[platform]['validator_regex'].test(primaryLabelConfig.label)){
+      setPrimaryLabelConfig({...primaryLabelConfig, checking: false})
+      validateData();
+    }else{
+      toast({
+        status: 'error',
+        title: 'Invalid details',
+        description: 'Double check entered details.',
+        isClosable: true,
+        duration: 9000
+    })
+    }
   }
 
   useEffect(() => {
-
+    // redirectToApp('/link/socials/?link_social_status=success&link_social_msg=Krishnan Pandya')
     let params = new URL(window.location.href).searchParams;
-    if(!params.has('state') || (params.get('state').split('-').length-1 !== 2)){
-      setErrorFullURL(true);
-      setCurrentSyncState('failed');
-      return;
-    } else {
-      
-      let [ revoked_action, platform, uid ] = params.get('state').split('-');
-      setData({platform: platform, revoked_action: revoked_action, uid: uid});
-      if(!params.has('code')){
-        setCurrentSyncState('failed');
-        setErrorFullURL(true);
-
-        return;
-        // Cancelled by Authorization Server/ Client
-      }
-
-      setTimeout(() => {
-        setCurrentSyncState(() => {
-          setCurrentSyncState('success');
-          redirectToApp();
-        })
-      }, 10000);
+    let [ platform, token ] = params.get('state').split('@@');
+    setPlatform(platform);
+    if(!Object.keys(validators).includes(platform)){
+      setPrimaryLabelConfig({checking: false, label: ''});
+      validateData();
     }
 
-  }, []);
+  }, [])
+
+  const redirectToApp = (customPath=null) => {
+    if(customPath === null){
+      window.location.href = `${APP_URL}/home`
+    }
+    window.location.href = `${APP_URL}${customPath}`
+  }
+
+  const validateData = async () => {
+    /*
+    https://reachout.org.in/auth/redirect/
+    ?code=AQC_vPcX7Ia0S9zIWqxIv1TiIHr4TBdHzRSjMRmhFGMpNA8m0-T8F7h1HDiIrT_oajdh7yBRr2C0wF5gr73yXXoiN4mhhek4lbWoSTW_TrFE_SsiEQbwF6pdMg23tyKRviCHUw3hITLFPJtwYLwg4hpN6ArUayNsrzaiXur3oBnig7F6aJ6TuSyLv4HBAfeGSO0xxae1QiSSaoHB6DAtSeDUDhsl_79OZKbZ7yQoU7Ig0A
+    &state=Instagram--eyJwcm9maWxlX2lkIjoyLCJmbG93X3R5cGUiOiJMaW5raW5nIiwicGxhdGZvcm0iOiJJbnN0YWdyYW0ifQ:k_kIJdIESKy4nll5VkrlZgWNLG57Djr596reGcv3A9U#_
+    */
+        let params = new URL(window.location.href).searchParams;
+        if(!params.has('state') || (params.get('state').split('@').length-1 !== 2)){
+          alert('Aha')
+          setErrorFullURL(true);
+          setCurrentSyncState('failed');
+          return;
+        } else {
+          
+          let [ platform, token ] = params.get('state').split('@@');
+          setPlatform(platform);
+          if(!params.has('code')){
+            alert('Aha')
+            setCurrentSyncState('failed');
+            setErrorFullURL(true);
+    
+            return;
+            // Cancelled by Authorization Server/ Client
+          }
+          // Make server call for calculation and recieving app redirect url, redirect user to that
+    
+          axios.post(`${BACKEND_ROOT_URL}/auth2/login/`, {
+            mode: 'social',
+            code: params.get('code'),
+            state: token,
+            profile_link: primaryLabelConfig.label
+          }).then((res) => {
+            const { redirect_app_path } = res.data
+            redirectToApp(redirect_app_path);
+          }).catch((res) => {
+            const { redirect_app_path } = res.data
+            setCurrentSyncState('failed');
+
+            redirectToApp(redirect_app_path);
+          })          // setTimeout(() => {
+          //   setCurrentSyncState(() => {
+          //     setCurrentSyncState('success');
+          //     redirectToApp();
+          //   })
+          // }, 10000);
+        }
+    
+      }
+
+  
   return (
     <div class="container">
-      <div className='portal__header'><h3>Login {currentSyncState === 'loading' ? 'process...' : currentSyncState === 'success' ? 'success' : 'failed'}</h3></div>
-      <SocialIntegrationGraphicalView currentState={currentSyncState} linkMedia={data.platform} />
-      <br/>
-      <br/>
-      {
-        errorFullURL ?
-          (<>
-            <p>Looks like you got redirected at Wrong place 🤔</p>
-            <br/>
-            <button className='relogin__button' onClick={() => {window.location.href=`${APP_URL}/link_socials`}}>Retry from App</button>
-          </>):
-          <>
-          <p>You’ll be automatically redirected to the app when process completed!😎</p>
-          <h4>So, how's your day??</h4>
-        </>
-      }
-      <div className='bottom__banner'>
-      
-      <a href="https://reachout.org.in/terms_and_conditions">Terms</a>
-      <a href="https://www.google.com">Policy</a>
-      <div style={{flex: '1'}}/>
-      <b>ReachOut&copy; 2023</b>
-      </div>
+      <div className='portal__header'><h3>Connection {currentSyncState === 'loading' ? 'processing...' : currentSyncState === 'success' ? 'success' : 'failed'}</h3></div>
+        {primaryLabelConfig.checking ? <div style={{display: 'flex', gap: '0.5rem'}}><Input style={{fontSize: '0.8rem'}} onChange={(e)=> {setPrimaryLabelConfig({...primaryLabelConfig, label: e.target.value})}} type={validators[platform]?.type} placeholder={validators[platform]?.hint_text} /><Button style={{fontSize: '0.6rem'}}  onClick={checkPrimaryLabel}>Validate</Button></div> : <><SocialIntegrationGraphicalView currentState={currentSyncState} linkMedia={platform} />
+        <br/>
+        <br/>
+        {
+          errorFullURL ?
+            (<>
+              <p>Looks like you got redirected at Wrong place 🤔</p >
+              <br/>
+              <button className='relogin__button' onClick={() => {window.location.href=`${APP_URL}/link_socials`}}>Retry from App</button>
+            </>):
+            <>
+            <p>You’ll be automatically redirected to the app when process completed!😎</p>
+          </>
+        }
+        <div className='bottom__banner'>
+        
+        <a href="https://reachout.org.in/terms_and_conditions">Terms</a>
+        <a href="https://www.google.com">Policy</a>
+        <div style={{flex: '1'}}/>
+        <b>ReachOut&copy; 2023</b>
+        </div>
+        </>}
     </div>
   )
 }
