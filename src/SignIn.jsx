@@ -71,7 +71,7 @@ function SignIn() {
             
             if (response.status === 200){
                 const urlParams = new URLSearchParams(window.location.search);
-                const nextUrl = urlParams.get('next') ?? false;
+                let nextUrl = urlParams.get('next') ?? false;
         
                 toast({
                     title: `Logged In! 😎`,
@@ -105,7 +105,7 @@ function SignIn() {
             setTimeout(() => {
 
                 window.location.href = '/web'
-            }, 1000)
+            }, 500)
         }
         
 
