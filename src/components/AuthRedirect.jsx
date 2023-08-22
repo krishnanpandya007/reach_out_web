@@ -24,7 +24,6 @@ const  validators = {
 }
 
 function AuthRedirect() {
-  alert('sexy')
   const [errorFullURL, setErrorFullURL] = useState(false);
   const [currentSyncState, setCurrentSyncState] = useState('loading');
   const [platform, setPlatform] = useState(null)
@@ -62,10 +61,11 @@ function AuthRedirect() {
   }, [])
 
   const redirectToApp = (customPath=null) => {
-    if(customPath === null){
-      window.location.href = `${APP_URL}/home`
-    }
-    window.location.href = `${APP_URL}${customPath}`
+    window.close()
+    // if(customPath === null){
+    //   window.location.href = `${APP_URL}/home`
+    // }
+    // window.location.href = `${APP_URL}${customPath}`
   }
 
   const validateData = async () => {
@@ -75,9 +75,7 @@ function AuthRedirect() {
     &state=Instagram--eyJwcm9maWxlX2lkIjoyLCJmbG93X3R5cGUiOiJMaW5raW5nIiwicGxhdGZvcm0iOiJJbnN0YWdyYW0ifQ:k_kIJdIESKy4nll5VkrlZgWNLG57Djr596reGcv3A9U#_
     */
         let params = new URL(window.location.href).searchParams;
-        alert('Haha')
         if(!params.has('state') || (params.get('state').split('@').length-1 !== 2)){
-          alert('Aha')
           setErrorFullURL(true);
           setCurrentSyncState('failed');
           return;
@@ -86,7 +84,6 @@ function AuthRedirect() {
           let [ platform, token ] = params.get('state').split('@@');
           setPlatform(platform);
           if(!params.has('code')){
-            alert('Aha')
             setCurrentSyncState('failed');
             setErrorFullURL(true);
     
@@ -94,7 +91,6 @@ function AuthRedirect() {
             // Cancelled by Authorization Server/ Client
           }
           // Make server call for calculation and recieving app redirect url, redirect user to that
-          alert('making call')
     
           axios.post(`${BACKEND_ROOT_URL}/auth2/login/`, {
             mode: 'social',
@@ -102,12 +98,10 @@ function AuthRedirect() {
             state: token,
             profile_link: primaryLabelConfig.label
           }).then((res) => {
-            alert('1')
 
             const { redirect_app_path } = res.data
             redirectToApp(redirect_app_path);
           }).catch((res) => {
-            alert('2')
 
             const { redirect_app_path } = res.data
             setCurrentSyncState('failed');
