@@ -61,11 +61,11 @@ function AuthRedirect() {
   }, [])
 
   const redirectToApp = (customPath=null) => {
-    window.close()
-    // if(customPath === null){
-    //   window.location.href = `${APP_URL}/home`
-    // }
-    // window.location.href = `${APP_URL}${customPath}`
+    // window.close()
+    if(customPath === null){
+      window.location.href = `${APP_URL}/home`
+    }
+    window.location.href = `${APP_URL}${customPath}`
   }
 
   const validateData = async () => {
