@@ -6,6 +6,7 @@ import { Badge, Center, Flex, IconButton, Link, Popover, useToast, PopoverArrow,
 import {MdOutlineLocalPhone, MdOutlineMail} from 'react-icons/md'
 import {TfiLinkedin} from 'react-icons/tfi'
 import PageTransition from "../components/configs/PageTransition"
+import axios from './configs/customAxios';
 
 const ContactDataContext = createContext({tracePath: [], otherReasonTitle: '', currentStep: 1, info: {firstName: '', lastName: '', email: '', descr: ''}, changeTrace: (newTrace) => {}, changeOtherReasonTitle: (new_title) => {}, changeStep: (toStep) => {}, changeInfo: (field_name, new_value) => {}, submitForm: () => {}})
 
@@ -88,7 +89,7 @@ function ContactAndSupport() {
       // setData(curr => ({...curr, loading: false}));
       // setSuccess(true);
       // }, 2000)
-      axios.post(`${BACKEND_ROOT_URL}/api/contact_and_support/`, {
+      axios.post(`/api/contact_and_support/`, {
         trace_path: data.tracePath,
         otherReasonTitle: data.otherReasonTitle,
         info: data.info}).then((res) => {
