@@ -2,7 +2,7 @@ import React from 'react'
 import { createContext } from 'react'
 import Header from './StaticHeader'
 import './styles/ContactAndSupport.css'
-import { Badge, Center, Flex, IconButton, Link, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Stack } from '@chakra-ui/react'
+import { Badge, Center, Flex, IconButton, Link, Popover, useToast, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Stack } from '@chakra-ui/react'
 import {MdOutlineLocalPhone, MdOutlineMail} from 'react-icons/md'
 import {TfiLinkedin} from 'react-icons/tfi'
 import PageTransition from "../components/configs/PageTransition"
@@ -53,6 +53,7 @@ function ContactAndSupport() {
   const [data, setData] = React.useState({tracePath: [], otherReasonTitle: '', currentStep: 1, info: {firstName: '', lastName: '', email: '', descr: ''},loading :false});
 
   const [success, setSuccess] = React.useState(false);
+  const toast = useToast();
 
 
 
@@ -77,12 +78,29 @@ function ContactAndSupport() {
 
   }
 
-  const submitForm = () => {
+  const submitForm = async () => {
     setData(curr => ({...curr, loading: true}));
-    setTimeout(() => {
-      setData(curr => ({...curr, loading: false}));
-      setSuccess(true);
-    }, 2000)
+    // setTimeout(() => {
+      // setData(curr => ({...curr, loading: false}));
+      // setSuccess(true);
+      // }, 2000)
+      axios.post(`${BACKEND_ROOT_URL}/api/contact_and_support/`, {
+        trace_path: data.tracePath,
+        otherReasonTitle: data.otherReasonTitle,
+        info: data.info}).then((res) => {
+       setData(curr => ({...curr, loading: false}));
+        setSuccess(true);
+      }).catch((res) => {
+
+        setData(curr => ({...curr, loading: false}));
+        toast({
+          title: `Unable to fulfill your contact request, currently!`,
+          description: res.status === 400 ? res.data['message'] : 'Try sending query by email provided in header portion.',
+          status: 'error',
+          isClosable: true,
+        });
+        
+      })
   }
 
   React.useEffect(() => {
@@ -111,7 +129,7 @@ function ContactAndSupport() {
               <PopoverArrow />
               <PopoverCloseButton />
               <PopoverHeader>Contact email</PopoverHeader>
-              <PopoverBody><a href='mailto:server.reachout@gmail.com'><Badge textTransform={'initial'} size={'lg'} colorScheme='facebook'>server.reachout@gmail.com</Badge></a> <br/> <small><b>Suggestion:</b> prefix your email with "urgent:" for quick support.</small></PopoverBody>
+              <PopoverBody><a href='mailto:server.reachout@gmail.com'><Badge textTransform={'initial'} size={'lg'} colorScheme='facebook'>server.reachout@gmail.com</Badge></a> <br/> <small><b>Suggestion:</b> prefix your email title with "urgent:" for quick support.</small></PopoverBody>
             </PopoverContent>
           </Popover>
 
