@@ -46,6 +46,10 @@ const contactReasonTree = {
     },  
     'Feature': null
   },
+  'Beta closed access': {
+    'Add me': null,
+    'Remove me': null
+  }
 }
 
 function ContactAndSupport() {
