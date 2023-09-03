@@ -5,6 +5,7 @@ import ReachOutTitle from './components/ReachOutTitle'
 import ModalEndHelperLinks from './components/ModalEndHelperLinks';
 import { BACKEND_ROOT_URL, base_json_header } from './constants';
 import PageTransition from "./components/configs/PageTransition"
+import googleOneTap from 'google-one-tap'
 
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 const PHONE_REGEX = /^\+\d{2,3}\s\d{5}\-\d{5}$/
@@ -144,6 +145,23 @@ function SignIn() {
     React.useEffect(() => {
         document.title = "SignIn - ReachOut"
      }, []);
+
+    React.useEffect(() => {
+
+        const options = {
+            client_id:
+              "85619004436-enpfc7ca57gvjmo4ee2ecno3gi2c635b.apps.googleusercontent.com", // required
+            auto_select: true, // optional
+            cancel_on_tap_outside: false, // optional
+            context: "signin", // optional
+        };
+        
+        googleOneTap(options, (response) => {
+        // Send response to server
+        console.log('Here is the response');
+        console.log(response);
+        });
+    }, [])
 
   return (
     <PageTransition>
