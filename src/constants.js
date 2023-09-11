@@ -12,6 +12,7 @@ export const socials = [
 // export const FRONTEND_ROOT_URL = "https://reach-out-web.vercel.app";
 export const FRONTEND_ROOT_URL = "https://www.reachout.org.in";
 export const BACKEND_ROOT_URL = 'https://backend-61489.reachout.org.in'
+export const GOOGLE_CLIENT_ID = "85619004436-enpfc7ca57gvjmo4ee2ecno3gi2c635b.apps.googleusercontent.com"
 export const base_json_header = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',

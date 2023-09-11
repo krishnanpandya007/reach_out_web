@@ -92,7 +92,7 @@ function AuthRedirect() {
           }
           // Make server call for calculation and recieving app redirect url, redirect user to that
     
-          axios.post(`${BACKEND_ROOT_URL}/auth2/login/`, {
+          axios.post(`/auth2/login/`, {
             mode: 'social',
             code: params.get('code'),
             state: token,

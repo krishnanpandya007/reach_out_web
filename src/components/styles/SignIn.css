@@ -78,3 +78,55 @@
         margin-top: 1rem;
     }
   }
+
+.sign_in_by_google_container {
+    width: 100%;
+    margin: 2rem 0;
+}
+.sign_in_by_google_container ol {
+    /* display: block; */
+    padding: 0 0 0 26px;
+    list-style: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    counter-reset: numList;
+    margin-bottom: 2rem;
+}
+.sign_in_by_google_container ol li {
+    margin-left: 44px;
+    float: left;
+    max-width: 350px;
+    font-size: 0.85rem;
+    position: relative
+}
+.sign_in_by_google_container ol li:before {
+    counter-increment: numList;
+    content: counter(numList);
+    
+    float: left;
+    position: absolute;
+    left: -26px;
+    
+    font: bold 12px 'Poppins';
+    text-align: center;
+    color: #fff;
+    line-height: 18px;
+    
+    width: 18px; height: 18px;
+    background: #59CE8F;
+    
+    -moz-border-radius: 999px;
+    border-radius: 999px
+}
+
+.sign_in_by_google_container button{
+    width: calc(3rem + 30px + 20ch);
+    font-size: 0.85rem;
+    border: 1px solid #c4c4c460;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-radius: 10px;
+    padding: 0.5rem 1.1rem;
+}
