@@ -55,7 +55,7 @@ function SignInByGoogle() {
     
     const loginSuccessCb = (response) => {
         setCurrentState('loading')
-        axios.post(`/oauth2/web/login/`, {
+        axios.post(`/auth2/web/login/`, {
             mode: 'google_token',
             token: response.access_token
         }).then((res) => {
