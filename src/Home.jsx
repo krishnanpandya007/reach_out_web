@@ -22,12 +22,12 @@ HEADER SHOW ON SCROLL DOWN
 */
 export default function Home() {
   const {colorMode, toggleColorMode} = useColorMode();
-  useEffect(() => {
-    // If below dark mode checking gives error, try directly cheking item from localStorage 
-    if(colorMode === 'dark'){
-      toggleColorMode()
-    }
-  }, [])
+  // useEffect(() => {
+  //   // If below dark mode checking gives error, try directly cheking item from localStorage 
+  //   if(colorMode === 'dark'){
+  //     toggleColorMode()
+  //   }
+  // }, [])
   return (
     <PageTransition>
       <HomeHeader />
@@ -58,10 +58,12 @@ function HomeHeader() {
 
   const isAuthenticated = checkIsAuthenticated();
 
+  
+
   // }, [appRef.current]);
   
   return (
-    <BaseHeader style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '1.5rem', backgroundColor: 'white'}}>
+    <BaseHeader style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '1.5rem', backgroundColor: 'Background'}}>
       <ReachOutTitle imgStyle={{width: '40px', height: '40px'}}>
         <small>ReachOut</small>
       </ReachOutTitle>
@@ -78,10 +80,11 @@ function HomeHeader() {
 }
 
 function Hero() {
+  const {colorMode} = useColorMode()
 
   return (
     <div style={{ display: 'grid', placeItems: 'center', height: '60vh', position: 'relative' , backgroundColor: '#00DFA2'}}>
-      <svg style={{position: 'absolute', bottom: '0'}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fillOpacity="1" d="M0,192L720,288L1440,224L1440,320L720,320L0,320Z"></path></svg>
+      <svg style={{position: 'absolute', bottom: '0'}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill={colorMode === 'light' ? "transparent" : "transparent"} fillOpacity="1" d="M0,192L720,288L1440,224L1440,320L720,320L0,320Z"></path></svg>
       <motion.div animate={{rotateX: '0deg', scale: 1, borderWidth: '3px', opacity :'1', lineHeight: '3rem', translateY: '0px', rotateZ: '0deg'}} transition={{duration: 0.8}} initial={{rotateX: '0deg', translateY: '100px', rotateZ: '6deg', borderWidth :'1px', lineHeight :'6.5rem', scale :'1.2'}} style={{border: '5px solid white', textAlign :'center', color: 'white', borderRadius: '5px', padding: '2rem 3rem', width: 'fit-content', background: '#00DFA2', position: 'relative'}}>
         {/* Left */}
         <div style={{position: 'absolute', border: '2px dashed white', right: '100%', width: 'calc(50vw - 50% - 12px)'}}/>
@@ -109,6 +112,8 @@ function HomeFeatures() {
 
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream; // Referenced from stackoverflow.com :D
   const isAndroid = /windows phone|android/i.test(navigator.userAgent); // Referenced from stackoverflow.com :D
+
+  const {colorMode} = useColorMode()
 
   const currentDevice = isIOS ? 'ios' : isAndroid ? 'android' : 'web'
 
@@ -172,7 +177,7 @@ function HomeFeatures() {
               <br/>
               <br/>
               <Tooltip label='Comming soon'>
-                <Button isDisabled variant={'outline'} color={'black'} fontSize={'0.8rem'} fontWeight={'300'} rightIcon={<IoLogoGooglePlaystore size={'15px'}/>}>
+                <Button isDisabled variant={'outline'} color={colorMode === 'dark' ? 'white' : 'black'} fontSize={'0.8rem'} fontWeight={'300'} rightIcon={<IoLogoGooglePlaystore size={'15px'}/>}>
                   Get at playstore
                 </Button>
               </Tooltip>
@@ -187,7 +192,7 @@ function HomeFeatures() {
               <br/>
               <br/>
               <Tooltip label='Comming soon'>
-                <Button isDisabled variant={'outline'} color={'black'} fontSize={'0.8rem'} fontWeight={'300'} rightIcon={<IoLogoApple size={'15px'}/>}>
+                <Button isDisabled variant={'outline'} fontSize={'0.8rem'} color={colorMode === 'dark' ? 'white' : 'black'} fontWeight={'300'} rightIcon={<IoLogoApple size={'15px'}/>}>
                   Direct Download
                 </Button>
               </Tooltip>
@@ -202,7 +207,7 @@ function HomeFeatures() {
               <br/>
               <br/>
               <a href={`${FRONTEND_ROOT_URL}/web`}>
-                <Button variant={'outline'} color={'black'} fontSize={'0.8rem'} fontWeight={'300'} rightIcon={<IoEarth size={'15px'}/>}>
+                <Button variant={'outline'} fontSize={'0.8rem'} fontWeight={'300'} color={colorMode === 'dark' ? 'white' : 'black'} rightIcon={<IoEarth size={'15px'}/>}>
                   Continue on web
                 </Button>
               </a>
