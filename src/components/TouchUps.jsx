@@ -31,7 +31,7 @@ function TouchUps({hideTouchUps}) {
 
     const {touch_ups: touchUps} = React.useContext(UserInfoContext);
 
-    if(touchUps == null || touchUps == undefined){
+    if(touchUps == null || touchUps == undefined || touchUps.length === 0){
         return (
             <></>
         )

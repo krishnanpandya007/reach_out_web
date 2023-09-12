@@ -97,12 +97,9 @@ function AvatarInput({ staleAvatar, setStaleAvatar }){
     React.useEffect(() => {
 
         axios.get('/api/social/profile_pics').then((res) => {
-          if(res.status === 200){
-            setSocials({loading: false, avatars: res.data['profilePics']})
-            return;
-          }else{
-            setSocials({loading: false, avatars: {}})
-          }
+          setSocials({loading: false, avatars: res.data['profilePics']})
+        }).catch((err) => {
+          setSocials({loading: false, avatars: {}})
         })
 
     }, [])
