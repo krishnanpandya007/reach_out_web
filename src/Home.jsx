@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import axios from "./components/configs/customAxios";
 import { BACKEND_ROOT_URL, FRONTEND_ROOT_URL, base_json_header } from "./constants";
 import ReachoutTitle from './components/ReachOutTitle'
-import {Heading, Flex, Button, Stack, Badge, Center, useColorMode, Link, ButtonGroup, Tooltip} from '@chakra-ui/react'
+import {Heading, Flex, Button, Stack, Badge, Center, useColorMode, Link, ButtonGroup, Tooltip, Show, useMediaQuery} from '@chakra-ui/react'
 import ReachOutTitle from "./components/ReachOutTitle";
 import { getCookie } from './components/configs/utils'
 import {useCallback} from 'react'
@@ -81,11 +81,12 @@ function HomeHeader() {
 
 function Hero() {
   const {colorMode} = useColorMode()
+  const [isLargerThan500] = useMediaQuery('(min-width: 500px)')
 
   return (
     <div style={{ display: 'grid', placeItems: 'center', height: '60vh', position: 'relative' , backgroundColor: '#00DFA2'}}>
       <svg style={{position: 'absolute', bottom: '0'}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill={colorMode === 'light' ? "transparent" : "transparent"} fillOpacity="1" d="M0,192L720,288L1440,224L1440,320L720,320L0,320Z"></path></svg>
-      <motion.div animate={{rotateX: '0deg', scale: 1, borderWidth: '3px', opacity :'1', lineHeight: '3rem', translateY: '0px', rotateZ: '0deg'}} transition={{duration: 0.8}} initial={{rotateX: '0deg', translateY: '100px', rotateZ: '6deg', borderWidth :'1px', lineHeight :'6.5rem', scale :'1.2'}} style={{border: '5px solid white', textAlign :'center', color: 'white', borderRadius: '5px', padding: '2rem 3rem', width: 'fit-content', background: '#00DFA2', position: 'relative'}}>
+      <motion.div animate={{rotateX: '0deg', scale: 1, borderWidth: '3px', opacity :'1', lineHeight: isLargerThan500 ? '3rem' : '2.4rem', translateY: '0px', rotateZ: '0deg'}} transition={{duration: 0.8}} initial={{rotateX: '0deg', translateY: '100px', rotateZ: '6deg', borderWidth :'1px', lineHeight :'6.5rem', scale :'1.2'}} style={{border: '5px solid white', textAlign :'center', color: 'white', borderRadius: '5px', padding: '2rem 3rem', width: 'fit-content', background: '#00DFA2', position: 'relative'}}>
         {/* Left */}
         <div style={{position: 'absolute', border: '2px dashed white', right: '100%', width: 'calc(50vw - 50% - 12px)'}}/>
         <div style={{position: 'absolute', backgroundColor: '#00DFA2', border: '3px solid white', left: '-13px', top: '20px', borderRadius :'100px', width: '25px', height: '25px', display :'grid', placeItems: 'center', }}><div style={{height: '10px', width: '10px' , backgroundColor :'white', borderRadius: '100px'}} /></div>
@@ -100,8 +101,20 @@ function Hero() {
         <div style={{position: 'absolute', backgroundColor: '#00DFA2', border: '3px solid white', right: '20px', top: '-13px', borderRadius :'100px', width: '25px', height: '25px',display :'grid', placeItems: 'center' }}><div style={{height: '10px', width: '10px' , backgroundColor :'white', borderRadius: '100px'}} /></div>
 
 
-        <h2 style={{fontSize: '2.1rem', fontWeight: 'bolder'}}>Sync all socials,</h2>
-        <h2 style={{fontSize: '2.1rem', fontWeight: 'bolder'}}>at one place.</h2>
+        {/* <Show breakpoint="(min-width: 500px)"> */}
+          <h2 style={{fontSize: isLargerThan500 ? '2.1rem' : '1.53rem', fontWeight: 'bold'}}>Sync all socials,</h2>
+        {/* </Show> */}
+        {/* <Show breakpoint="(max-width: 500px)"> */}
+          {/* <h2 style={{fontSize: '1.5rem', fontWeight: 'bolder'}}>Sync all socials,</h2> */}
+        {/* </Show> */}
+
+        {/* <Show breakpoint="(max-width: 500px)">
+          <h2 style={{fontSize: '1.5rem', fontWeight: 'bolder'}}>at one place.</h2>
+        </Show>
+        <Show breakpoint="(min-width: 500px)"> */}
+          <h2 style={{fontSize: isLargerThan500 ? '2.1rem' : '1.53rem', fontWeight: 'bold  '}}>at one place.</h2>
+        {/* </Show> */}
+
       </motion.div>
     </div>
   )
