@@ -4,12 +4,12 @@ import React from 'react'
 
 function Footer() {
   return (
-    <Flex justifyContent='space-between' fontSize={'0.7rem'} mt='1rem'>
+    <Flex justifyContent='space-between' marginTop={'auto'} fontSize={'0.7rem'} mt='1rem'>
         <span>&copy;ReachOut 2023</span>
         <Flex gap='1rem'>
             <Link as={ReactRouterLink} to='/docs/terms_and_conditions'>Terms</Link>
-            <Link to='/docs/about' as={ReactRouterLink}>About</Link>
-            <Link to='/contact' as={ReactRouterLink}>Contact/Support</Link>
+            <Link as={ReactRouterLink} to='/docs/about' >About</Link>
+            <Link as={ReactRouterLink} to='/contact' >Contact/Support</Link>
         </Flex>
     </Flex>
   )
