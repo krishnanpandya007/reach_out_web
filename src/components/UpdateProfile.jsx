@@ -157,7 +157,7 @@ function AvatarInput({ staleAvatar, setStaleAvatar }){
 
                 </div>
                 <input type="file" onChange={uploadDroppedFile} style={{display: 'none'}} ref={selectorRef} name="myImage" accept="image/*" />
-                <Center _hover={{cursor: 'pointer'}} onDrop={uploadDroppedFile} onDragOver={(e) => {e.preventDefault();e.stopPropagation();}} onClick={() => {selectorRef.current?.click()}} flex='1' border='2px dashed #59CE8F50'><IoIosImages size={30} opacity='0.7' /> <p style={{fontSize: '0.8rem', width: '60%', marginLeft: '0.5rem'}}>{uploading ? <b>Uploading...</b> : 'Click to select avatar / Drop your avatar pic here.'}</p></Center>
+                <Center _hover={{cursor: 'pointer'}} onDrop={uploadDroppedFile} onDragOver={(e) => {e.preventDefault();e.stopPropagation();}} onClick={() => {selectorRef.current?.click()}} flex='1' border='2px dashed #59CE8F50'><IoIosImages size={30} opacity='0.7' /> <p style={{fontSize: '0.8rem', width: '60%', marginLeft: '0.5rem'}}>{uploading ? <b>Uploading...</b> : 'Select / Drop your avatar pic here.'}</p></Center>
             </Flex>
             <Badge fontSize='0.7em' colorScheme='green'>
                 Social Avatars
