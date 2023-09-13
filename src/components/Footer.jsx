@@ -7,9 +7,9 @@ function Footer() {
     <Flex justifyContent='space-between' fontSize={'0.7rem'} mt='1rem'>
         <span>&copy;ReachOut 2023</span>
         <Flex gap='1rem'>
-            <Link href='/docs/terms_and_conditions' as={ReactRouterLink}>Terms</Link>
-            <Link href='/docs/about' as={ReactRouterLink}>About</Link>
-            <Link href='/contact' as={ReactRouterLink}>Contact/Support</Link>
+            <Link as={ReactRouterLink} to='/docs/terms_and_conditions'>Terms</Link>
+            <Link to='/docs/about' as={ReactRouterLink}>About</Link>
+            <Link to='/contact' as={ReactRouterLink}>Contact/Support</Link>
         </Flex>
     </Flex>
   )

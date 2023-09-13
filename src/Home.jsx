@@ -100,20 +100,8 @@ function Hero() {
         <div style={{position: 'absolute', border: '2px dashed white', bottom: '100%', right: '32px', height: 'calc(30vh - 50%)', }}/>
         <div style={{position: 'absolute', backgroundColor: '#00DFA2', border: '3px solid white', right: '20px', top: '-13px', borderRadius :'100px', width: '25px', height: '25px',display :'grid', placeItems: 'center' }}><div style={{height: '10px', width: '10px' , backgroundColor :'white', borderRadius: '100px'}} /></div>
 
-
-        {/* <Show breakpoint="(min-width: 500px)"> */}
-          <h2 style={{fontSize: isLargerThan500 ? '2.1rem' : '1.53rem', fontWeight: 'bold'}}>Sync all socials,</h2>
-        {/* </Show> */}
-        {/* <Show breakpoint="(max-width: 500px)"> */}
-          {/* <h2 style={{fontSize: '1.5rem', fontWeight: 'bolder'}}>Sync all socials,</h2> */}
-        {/* </Show> */}
-
-        {/* <Show breakpoint="(max-width: 500px)">
-          <h2 style={{fontSize: '1.5rem', fontWeight: 'bolder'}}>at one place.</h2>
-        </Show>
-        <Show breakpoint="(min-width: 500px)"> */}
-          <h2 style={{fontSize: isLargerThan500 ? '2.1rem' : '1.53rem', fontWeight: 'bold  '}}>at one place.</h2>
-        {/* </Show> */}
+        <h2 style={{fontSize: isLargerThan500 ? '2.1rem' : '1.53rem', fontWeight: 'bold'}}>Sync all socials,</h2>
+        <h2 style={{fontSize: isLargerThan500 ? '2.1rem' : '1.53rem', fontWeight: 'bold  '}}>at one place.</h2>
 
       </motion.div>
     </div>
