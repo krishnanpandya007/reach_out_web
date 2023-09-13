@@ -4,7 +4,7 @@ import React from 'react'
 
 function Footer() {
   return (
-    <Flex justifyContent='space-between' position='fixed' marginLeft='0' marginRight='0' fontSize={'0.7rem'} mt='1rem'>
+    <Flex justifyContent='space-between' position='fixed' left='0' right='0' bottom='0' fontSize={'0.7rem'} mt='1rem'>
         <span>&copy;ReachOut 2023</span>
         <Flex gap='1rem'>
             <Link as={ReactRouterLink} to='/docs/terms_and_conditions'>Terms</Link>
