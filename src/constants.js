@@ -60,4 +60,12 @@ export const ANALYTICS_PLANS = [
 
 export const ANONYMOUS_AVATAR_URL = `${BACKEND_ROOT_URL}/media/images/profile_pics/anonymous.png`
 
+// export const CLIENT_BORDER_AROUND_TIMEOUT = 5 // 5 seconds
+export const LOGIN_QR_SESSION_TIMEOUT = 5*60 // 5 minutes
+export const LOGIN_QR_EXPIRY_TIME = 1*60 // 1 minute
+/*
+This is specifically used for adding specific value to some threshold to fullfill theoratical timeline and core- cases
+currently only being used at-- Login Qr manipulation
+*/
+
 export const APP_URL = 'reachoutapp://reachout.org.in';
