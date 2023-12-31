@@ -241,6 +241,7 @@ function SearchModule() {
     const [value, setValue] = useState([]);
     const [queryResults, setQueryResults] = useState([]);
     const searchInputRef = useRef(null);
+    const {colorMode} = useColorMode();
 
     // Result windowed by max 5 ans. (links)
     const get_filtered_list = (currVal) => {
@@ -256,6 +257,7 @@ function SearchModule() {
                 }
             })
         })
+        console.log(filtered_links)
         
         setQueryResults(filtered_links)
 
@@ -302,15 +304,19 @@ function SearchModule() {
             </PopoverTrigger>
             <PopoverContent >
                 <PopoverBody >
-                    <Stack alignItems={'center'}>
+                    <Stack spacing={'0'} alignItems={'center'}>
 
                         {   queryResults.length === 0 ? <b style={{fontSize: '0.8rem', color: '#b4b4b4'}}>No results found!</b>:
                             queryResults.map((lbl_lnk, idx) => (
                                 
-                                <Link onClick={() => {setValue('')}} key={idx} as={ReactRouterLink} br='8px'  w='100%' to={`${lbl_lnk[0]}/${lbl_lnk[1]}`}>
+                                <Link _hover={{bgColor: colorMode === 'light' ? '#00000007' : '#ffffff07'}} display={'flex'} borderRadius={'8px'} padding={'10px'} flexDirection={'column'} onClick={() => {setValue('')}} key={idx} as={ReactRouterLink} br='8px'  w='100%' to={`${lbl_lnk[0]}/${lbl_lnk[1]}`}>
                                     {/* <Button colorScheme={location.pathname.includes(`${section_label}/${label_link}`) ? 'teal' : 'gray'} justifyContent='space-between' size='sm' rightIcon={<TbExternalLink/>}> */}
                                         <div style={{display: 'flex'}}>
                                             {lbl_lnk[1].replaceAll('-', ' ')}&nbsp;&nbsp; <TbExternalLink/>   
+                                        </div>
+                                        <div style={{display: 'flex', paddingLeft: '5px'}}>
+                                            <div style={{border: `1px solid ${colorMode === 'light' ? '#00000050' : '#ffffff50'}`, width: '8px', height: '9px', borderBottomLeftRadius: '4px', borderTop: 'none', borderRight: 'none'}} />
+                                            <small style={{opacity: '0.8', fontSize: '0.75rem', marginLeft: '2px'}}>{` ${lbl_lnk[0]}`}</small>
                                         </div>
                                     {/* </Button> */}
                                 </Link>
@@ -334,7 +340,7 @@ function FeedbackForm(){
 
         setTimeout(() => {
             setState('submitted');
-        }, 5000)
+        }, 2000)
 
     }
 

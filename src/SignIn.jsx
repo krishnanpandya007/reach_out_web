@@ -44,9 +44,9 @@ import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import { AnimatePresence, color, motion } from "framer-motion";
 import axios from "./components/configs/customAxios";
 import { Link as ReactRouterLink } from "react-router-dom";
+import coreAxios from "axios";
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PHONE_REGEX = /^\+\d{2,3}\s\d{5}\-\d{5}$/;
-
 const codeToMessage = {
   required_signin: "Sign in is required to proceed further...",
   signin_to_continue: "To continue, please sign in!",
@@ -55,7 +55,7 @@ const codeToMessage = {
 const LoginQrContext = React.createContext({
   state: "ready",
   qr_image: null,
-  session: { running: false, sessionTimerId: null, qrRefreshTimerId: null },
+  // session: { running: false, sessionTimerId: null, qrRefreshTimerId: null },
   set_state: (new_state) => {},
   set_qr_image: (new_qr_image_data) => {},
   set_session: (edited_session) => {},
@@ -72,17 +72,17 @@ function SignIn() {
   const login_qr_set_state = (new_state) => {
     // assume Asserting as new_state is in [ready, loading, generated, suspended, unavailable, error]
 
-    setLoginQrContext({ ...loginQrContext, state: new_state });
+    setLoginQrContext(e => ({ ...e, state: new_state }));
   };
 
   const login_qr_set_session = (edited_session) => {
     // assume Asserting as new_state is in [generate, generating, generated]
 
-    setLoginQrContext({ ...loginQrContext, session: edited_session });
+    setLoginQrContext(e => ({ ...e, session: edited_session }));
   };
 
   const login_qr_set_image_data = (new_image_data) => {
-    setLoginQrContext({ ...loginQrContext, qr_image: new_image_data });
+    setLoginQrContext(e => ({ ...e, qr_image: new_image_data }));
   };
 
   return (
@@ -661,7 +661,7 @@ function SignInByLoginQr() {
           <AlertTitle fontSize={"0.7rem"}>NOTE: </AlertTitle>
           <AlertDescription fontSize={"0.75rem"} lineHeight={"1rem"}>
             {" "}
-            website login by `SignIn code` was discontinued from 12/10/2023
+            website login by `SignIn code` was discontinued from 12 Oct. 2023
             onwards.
           </AlertDescription>
           <CloseButton
@@ -682,9 +682,9 @@ function SignInByLoginQr() {
             <b>Steps:</b>
           </small>
           <ol style={{ fontSize: "0.85rem", marginLeft: "1rem" }}>
-            <li>Open your ReachOut apk. on mobile.</li>
-            <li>Tap on your profile picture to open sidebar.</li>
-            <li>Tap on `Scan QR`.</li>
+            <li><b>Open</b> your <b>ReachOut app.</b> on mobile.</li>
+            <li>Tap on your profile picture to <b>open sidebar</b>.</li>
+            <li>Tap on <b>`Scan QR`</b>.</li>
             <li>Scan shown QR on this screen.</li>
             <li>Wait a moment to complete 😉.</li>
           </ol>
@@ -744,6 +744,8 @@ function LoginQR() {
     * data should contain [sessionKey:epochs, error, message]
    - Get Login Qr GET (/auth2/session/qr)
     * pass along parameters: (sessionKey)
+   - Listen Session QR GET (/auth2/session/listen/<session_id_without_epochs_or_metadata>)
+    * pass along parameters: (sessionKey)
    - Terminate session DELETE (/auth2/session/) [also as BEACON_REQUEST]
     * This is automatically triggered by the browser when client unfocuses the screen
     * Also manually called when 5 minutes + 10 seconds (WORST_CLIENT_SYN_TIME*2) passed and auto triggers Initiate session aftewards
@@ -792,35 +794,115 @@ function LoginQR() {
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // Login Qr VARIANTS
 function LoginQrReady() {
-  const { set_state: setCurrentState, set_qr_image } = React.useContext(LoginQrContext);
+  const { set_state: setCurrentState, state: currentState, set_qr_image } = React.useContext(LoginQrContext);
+  const toast = useToast();
 
-  const generateCurrentSession = async () => {
-    // check if current sessionStorage.currentSession?.epochs < 5mins ? return null
-    // gets session from server and syncs with sessionStorage only
-  };
-
-  const immediatePullSession = () => {
-    // Check if sessionStorage.currentSession == null ? initiateSession() : null + _immediatePullSession()
-  };
-
-  const generateQr = async () => {
-    console.log('[MOCK] fetching login qr...')
-    setCurrentState("loading");
-
-    // make api request, faking response ;)
-    await sleep(2000);
-    let status = 200;
-    let data = { qr_image_data: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAeFBMVEX///8AAAB4eHgnJye7u7vo6OiioqJwcHDy8vLBwcFnZ2evr6/i4uKHh4dVVVWcnJy1tbU1NTXS0tKVlZWpqamOjo7Y2Nh/f3/Hx8dMTEzx8fH4+Phra2sbGxtHR0fg4OA8PDwREREwMDBcXFwiIiIYGBgxMTFBQUH/lneRAAAKh0lEQVR4nO2df0OyMBDH0xBFU0nwJ6SWVu//HT7ujie/eAyHYFrd9y8a27GP6ca22+3hQaVSqVQqlUqlUqlUKpVKpVKpVKWKu21HzbEYpaQJXUfmursRphdg2of0JD2mp5w0d61EN65M2G256gWLcdKKrpd0PRGmB1A4hfQVWuWkF+dadCsTtp1tP0rCHl2PHAixYj1J+Ohci7YSKmE1Qm5pXH6HfUhPbkE4DLwSxTbC4dQoNHlCbnU8kzScAGGfTHPKigpEbFUSxmWVCIa1CIPSPB0bIasD6XNKGQDhEO4+oSFJiIakglqEXmmeM4RPkD50IHxGE3ztQugpoUVKaHQhYSwIc4ZuQTgZ+yfybISx0WBfSjjzKRfaiyHFRuidVmI8aYxw3DrVzkbIei4lZAVgbkkp1v6QCXeiFuPGCH1hu98s4YhSrO80TNgXtfCVUAkvJ3y0EIalhAXjw7siHIQHZf8kPzpouhKEcy/8UmzyRG0gTKbRl6Z3SIgfvdRQmOD+cAaEBfoFhBMlVEIlbJCwPT8o95zJ4qBgJQiXQ5N1bO4uQio2pevFnRNKren2RBByxbg/TMHQ/scR4lwbEo6BkOfacuNDJVTCbyTE+dJyws6tCb1d/0SRJJzMvpRNAg9Nzp1HSZG5Tj8F4W5j7gYuhNFpJXZeY4Q2FfSHLHznTimFJ159QYg6Q2jTTQh7kKkLhGMlPJUSGimhTUwYd8o0kYRLo+2GbicOhHsqsEZCto2Ek9JaxLUIXVQwtuAZ4Y0DIVcs1x+iobtaIcWK4VxbOWHBO40SKmHzhHtZsY+LCD+kof0VCecvj27ab7FiidHDen+4kSP0KD2i6+jB/BG8HvK8tOl60zKG1nSdIOF271iLl3kxRpPCDzSBdJtzFc6Xrum6YO3proTVkz2+jRBnogrWLe5KSqiEP4sQWxo5+YCEuDJTsLp2feH0ylTc7cjKYCXRd3YK6Ty9soCUkTQhzfHcCH8lcKm1nrBikYWwgrcJS46erIT4TjOjFHYfw6VWJVTCv024wspUJfTulRCbwKWNDQltYwtWwfqhO2EMd6uPLZRQCZXwXgixCZSEWxdCfi/lqeUIDLFwBFxAiOaYsN0wYbLq/VcSPj4/P78Nk6+U3mZ/SPlYlxNS/lVyNJddL0zhtzabsxHyk9dASCaSyNTl0TeFk0EtQlRIlnA+JOdgYCO0CWeickJC1hIIWfxlqLdCKmUjLFi3UEIjJQR9F6H8RedGwFUJuVHuyxs2QhxQMyF3O/zJ41ZNN0XL0Wi0REes3pMRruUlG5OyWR9yjjJPes7zVkoYkOmoc2quR4bYR6W1G31p904p62PKckCFV5Z6ucllhTTjxP8bJ0k/b5TcM5MRyq+BTU2MLZTwKCUUuivC8h2WmaoSyp1drFXLWc0Rjrrn1Z5NDuJX6BanvJcSdkz+SZgecqY4znig9ImNamCeM0uBMOgbE5fOnbqvkGYRB+QNlx6/oBuzPcc2epIz1U0TXuedRgmVsEnC15sR+o0RzhdBECzklomtSQ+CIYmucY6jgDCYHzLOA0G4mg+PYqOkBcc2GZhrbyUInyhTTKWqt6hIyKVxkpqV29zKxcoJcZ5Gepu00BBLeu7JOW8PDF1KyNFtwvqE5f40tQjreQwp4c8kRAcD30L4iVTuhPg7xF1BBYSvFkIcEVxKuBh8KeZ2ehMPTjUmcSYuBjdjnAUNIpOTLbC5J/ojJgu5Zto3KdmscXh8TNQBwq7JFNWLOOAi/ujfXbJi9BbUTHwxCv6TOCM8hzz1Ig646MyeGZTcrc6yjiQwE861IWHTc21SSgj60YROv0MZcYDlROjyO6z+TiNla0uzwIBwN+bVpYCuO0DYDo9tKasTibaUFYommx4Q8nQqtqUzMuEyo3RO1v6QhTdkVEG5EInK9YdScndeEzwuhNY1YBmRTnqboHLvNC6EzXmbKOFvJyxYfr+MsPLvsAnCyXGkHfAr9AQH4qQpj+u5AN2duhC2YRTP4gmXlylZ5Ux0PX2laxrjB9HxwXM2+gQmZHjGc5JjCyn+6F8xyYXQpjN7ZrCTYeEO7CbG+DZCp+ieVyGs522ihH+JsCBScgKEs/smpLWnNKbVJW6zV7Q+xF4Dq/5x7Slry2jtKV3QahS/MPOSETdcS1iyYv6PtrnuIyEZ7fOCFu9d4xRu0Z/oYfxaSGtPmaF6EVpxbjkLhYBZ8UNn2TbVYTe2gIoVRI3AYhjAgOslA781ERcDPfcKwv9i4WcLoayYNfIHFrvmbKIS/l5CXLotIHy7iPDtewnRJ4oJh8YPqcOOFDvySWKxT9QSUjp9cmWSQfHH4MqUi09DJvpsgp+/PHpArZmQfai4UfbBUBPzNDICT06cCVO4P5QhVVly7YlV8GVANR2h1Z3QGhdjZCkg1y1YvXLCpmMMKeFfIizw8/4RhOilz4tixrf+v7g7eH0mX31yt09ezB9bfnSHUpDwkYrx21xELvYhEtLD/jvk9k6UvbS134yJl6O5zFc/20NQmTC1fPSsDaVkM1H40Vv+bS3sdlBdMGcV9oc8SOF+umlvE7kR5MwaMAr3zEhCp7k21jX9aZRQCZXwuwlRMRDKIGQ5cYEtVEw6V7EWQPhQ/vFINU0oR09nCGUUJUlo7fGVUAmVsEhjsOTU0vDLI0+q4guzbGnwhbnybgRsAb9BWIHEkkf2FqyCpVZZGN+U5T7gJnwxzghr3LPksRFa93Kj5AppEzudK0gJjZQQDMnCd0Voa2ls0yHWiAMo6TFUj7By3MTkKI6bWKB3qNIwV8JCSHETC3wxqHLvPpkILySsHPsS9eFQzDqxgoQ8sXPNmOwusp731ADh9aPOK6ES1iVsORNWjzhQOZ43a03xuV/pBoThXrE5n/7wgXC2NeG8+R/Q21JhJMTY3kjIhuJPUzjiJ1xIePVTOivEvrT1+PVmopRQCX85oVxQCYFwXpUQR8B4KG0ThE7nzEjCXWoOg9kA4dqk9H06eaZTTpiePjLNzuimwquGCSucFSRynvGCthLahBFzlFAJlfD2hIPbEXqLLxWcf3iGkI5NzPa0BXS9FYQeHZs4uh2hnKepQCgNLQUhxuS8CaGca2uYMFJCJaxLKIej8hxSSVjgEOBCeOnaU2VCPlSbjtweYEsTmuQxVnI3NgdvB0D4MT4WpvzR2J1wRIWr7ypt7Dxg6T7GwrFFSxpyJ2RdurOrAUKXEzxYuT0zVQlveKazEt4FoVwU29UnlL9DK+GnA2G93+Fk7J/IsxHGRr480aptSsU81dKPzR9c1Q6ZnkpCyjNmQwN4csxPEHKK8GgltMnpLNkufPT8dZebbq3nH0o1d/rD1U/pRFnPzpNSQnf9FcLy36+VULY0bCgqJTzTKLOaJhwGXolirNhwelDWig+OeYIREC4okw8meI5jReljJKQHZyALMLcThB0wVJ3QRWfmaVriyzCAdGvEcvwyfLZOhYS5jRv3R3gm9qV8p5GE37wGrIR3RGh7nZQqiDjgTngmUjITrh0Iq/8O427bUblTXC15utjULcB0QdiU9Hg3ZcJpqbmJMde1xX1QqVQqlUqlUqlUKpVKpVKpVCpVpn9lFgUCI6E3/AAAAABJRU5ErkJggg==`,
-      width: 100, height: 100 }; // null indicates no available sessions!
-    //  update qr with this data
-    if(status === 200){
-
-      set_qr_image(data.qr_image_data);
-      setCurrentState('generated')
-    } else {
-      // TODO: need to handle this...
-      setCurrentState('error')
+  const generateQr = async (currentSessionId) => {
+    console.log('[MOCK] fetching login qr...', )
+    if(currentState === 'generated' || currentState === 'ready'){
+      setCurrentState("loading");
+  
+      // make api request, faking response ;)
+      // await sleep(2000);
+      const response = await axios.get(`/auth2/login_qr_session/qr/${currentSessionId}`)
+      // let status = 200;
+      // let data = { qr_image_data: `data:image/png;base64,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`}; // null indicates no available sessions!
+      //  update qr with this data
+      if(response.status === 200){
+        console.log("This is Recieved QR data: ", response.data.qr_image_data)
+  
+        set_qr_image(response.data.qr_image_data);
+        setCurrentState('generated')
+      } else {
+        // TODO: need to handle this...
+        setCurrentState('error')
+      }
+    }else {
+      // Either suspended or sessionsAreFull
+      // Skip to re generate it!
     }
+  }
+
+  const destroySession = async () => {
+
+    axios.delete(`/auth2/login_qr_session/terminate/${sessionStorage.getItem('currentSession').split(':')[0]}`)
+
+  }
+
+  const listenHandler = (axiosResponse) => {
+    console.log('Empty logger::', axiosResponse)
+    // Check the response code
+    if(axiosResponse.status === 200){
+      // User is logged in
+      const urlParams = new URLSearchParams(window.location.search);
+      let nextUrl = urlParams.get("next") ?? false;
+
+      toast({
+        title: `Logged In! 😎`,
+        status: "success",
+        isClosable: true,
+      });
+      if (nextUrl) {
+        // Redirecting back
+        nextUrl = decodeURIComponent(nextUrl);
+        setTimeout(() => {
+          window.location.href = nextUrl;
+        }, 1000);
+        return;
+      }
+      setTimeout(() => {
+        window.location.href = "/web";
+      }, 500);
+    } else if (axiosResponse.status === 400) {
+
+      if(axiosResponse.data.message === 'session_timeout') {
+        // 5 minutes has passed
+        toast({
+          status: 'error',
+          title: "Anyone there?...",
+          description: 'Looks like no QR scans...',
+          isClosable: true,
+          duration: 9000
+        });
+        setCurrentState("ready");
+
+      } else if(axiosResponse.data.message === 'already_listened'){
+        // Someone already listening to that QR, SUS!!
+        // Let client know to open this URL in new TAB
+        toast({
+          status: 'error',
+          title: "Attention!",
+          description: 'Please open this page in new tab for security reasons!',
+          isClosable: true,
+          duration: 9000
+        });
+        setCurrentState("ready");
+      }
+      toast({
+        status: 'error',
+        title: "Oops",
+        description: 'Something went wrong',
+        isClosable: true,
+        duration: 9000
+      });
+      setCurrentState("ready");
+
+
+    } else {
+      // Status code 500
+      toast({
+        status: 'error',
+        title: "Try again later!",
+        description: 'Something went wrong',
+        isClosable: true,
+        duration: 9000
+      })
+      setCurrentState('ready')
+    }
+
+    // Make a request to server to destroy session
+    destroySession();
+
   }
 
   const initiateSession = async () => {
@@ -828,29 +910,52 @@ function LoginQrReady() {
     setCurrentState("loading");
 
     // make api request
-    await sleep(2000);
-    let status = 200;
-    let data = { session: `ev23djd389r394ury4ufheruyf43${Date.now().toString()}:1697519509` }; // null indicates no available sessions!
+    // await sleep(2000);
+    // let status = 200;
+    const create_session_response = await axios.get(`/auth2/login_qr_session/create/`)
+    
+    if(create_session_response.status !== 200){
+      if(create_session_response.data.message === 'login_sessions_full'){
+        setCurrentState("unavailable");
+      } else {
+        setCurrentState("error");
+      }
+      return;
+    }
+    
+    /*
+    We either move above request and hanler to function and trigger it also when session been awaked
+    */
+    // const generate_qr_response = await axios.get(`/auth2/login_qr_session/qr/`)
 
+    // let data = { session: `ev23djd389r394ury4ufheruyf43${Date.now().toString()}:1697519509` }; // null indicates no available sessions!
+    // let status = 200;
     // if sessions are full (or no sessions available): update ui "unavailable"
-    if (status === 200) {
+    let qrGeneratorTimerId;
+    if (create_session_response.status === 200) {
       // setCurrentState('generate')
       /*
       RepeatTimer: every x seconds, 
       */
-      generateQr();
-      const qrGeneratorTimerId = setInterval(generateQr, LOGIN_QR_EXPIRY_TIME*1000/4);
+      generateQr(create_session_response.data.session.split(':')[0]);
+      /**
+       * Now that first QR is generated, we can listen to sessionChanges to server by long pooling
+       */
+      qrGeneratorTimerId = setInterval(() => {generateQr(create_session_response.data.session.split(':')[0])}, LOGIN_QR_EXPIRY_TIME*1000);
 
-      setTimeout(() => {
+      // setting this in context
+
+      setTimeout(() => { 
         console.log('clearing')
         clearInterval(qrGeneratorTimerId);
         setCurrentState('ready')
-      }, LOGIN_QR_SESSION_TIMEOUT*1000/4-1000)// Subtracting markable amount of 1second to avoid collision
+      }, LOGIN_QR_SESSION_TIMEOUT*1000-1000)// Subtracting markable amount of 1second to avoid collision
 
-
-      /**
-       * Collision scenario
-       * G - GenerateQr
+      
+      /*
+      *
+       * Collision scenario *
+       * G - GenerateQr (manual call)
        * C - ClearInterval called by setTimeout
        * I - Interval called every defined second to execute g()
        * 
@@ -859,35 +964,58 @@ function LoginQrReady() {
        *      I     I     I     I     I |
        * G                              | -> I and C getting called at same time (collision), to avoid it, we padded c some time leftwards (subtracting noticable amount ex.. 1sec)
        *                              C |    (another solution: a counter value, if its below some threshold, generate qr otherwise return to "ready" state)
-      */
+       */
 
 
-    } else {
-      // Error reserving session
-      setCurrentState("error");
-    }
+    } 
 
     // sync values with sessionStorage
-    sessionStorage.setItem('currentSession', data.session);
+    sessionStorage.setItem('currentSession', create_session_response.data.session);
 
     // check for any other concurrent (ongoing) sessions running or not.
-    let needToPullSession = IsOtherActiveSessionRunning(window);
+    // let needToPullSession = IsOtherActiveSessionRunning(window);
 
-    if (needToPullSession) {
-      // suspend current one and ask user permission to make current session as active and other inactive
-      setCurrentState("suspended");
-      return;
-    }
+    // if (needToPullSession) {
+    //   console.log('Need to Pull')
+    //   // suspend current one and ask user permission to make current session as active and other inactive
+    //   setCurrentState("suspended");
+    //   return;
+    // }
 
     // sync value with localStorage because needToPullSession === false
-    localStorage.setItem('activeSession', data.session)
-
+    localStorage.setItem('activeSession', create_session_response.data.session)
     // add storage Value listener: attach to check IsOtherActive if ? update ui "suspended": then call immediatePullSession()
-    window.addEventListener('storage', () => {
-      setCurrentState("suspended");
+    const listen_login_qr_controller = new AbortController();
+    
+    window.addEventListener('storage', (event) => {
+      if(event.key === 'activeSession'){
+        // Stop listening (abort Controller)...
+        // Stop listening to changes from server
+        listen_login_qr_controller.abort();
+        //  clear TimeOut
+        clearInterval(qrGeneratorTimerId);
+        setCurrentState("suspended");
+      }
     })
 
-    // REPLACE AT GENERATE QR: update ui "generated"
+    // document.addEventListener("visibilitychange", function terminateSession() {
+    //   if (document.visibilityState === "hidden") {
+    //     console.info('Auto terminating session...');
+    //     const res = navigator.sendBeacon(`${BACKEND_ROOT_URL}/auth2/login_qr_session/terminate/${create_session_response.data.session.split(':')[0]}/`);
+    //     console.log("My result::")
+    //     console.log(res)
+    //   }
+    // });
+    /**TODO: Just destroy TimeOut/Interval after terminating session or resolving session! */
+
+    console.log("LISTENNING>>>>>......")
+    // Below request may delay more (max 5 minutes) once it got response it'll react according to status code
+    const listen_session_response = await coreAxios.post(`${BACKEND_ROOT_URL}/auth2/login_qr_session/listen/${create_session_response.data.session.split(':')[0]}/`, {}, {signal: listen_login_qr_controller.signal, withCredentials: true})
+
+    clearInterval(qrGeneratorTimerId);
+
+    listenHandler(listen_session_response);
+    
   };
 
   return (
@@ -974,8 +1102,7 @@ function LoginQrGenerated() {
       >
         <img
           style={{ maxWidth: "100%", maxHeight: "100%" }}
-          src="data:image/png;base64,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"
-        />
+          src={qr_image}/>
       </Center>
     </motion.div>
   );
@@ -1035,7 +1162,7 @@ function LoginQrSuspended() {
         fontSize={12}
         bg={"#D80032"}
       >
-        Continue here
+        Start new here
       </Button>
     </motion.div>
   );
@@ -1091,7 +1218,6 @@ function LoginQrUnavailable() {
     </motion.div>
   );
 }
-
 function LoginQrError() {
   const { set_state: setCurrentState } = React.useContext(LoginQrContext);
 

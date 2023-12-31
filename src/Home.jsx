@@ -84,7 +84,7 @@ function Hero() {
   const [isLargerThan500] = useMediaQuery('(min-width: 500px)')
 
   return (
-    <div style={{ display: 'grid', placeItems: 'center', height: '60vh', position: 'relative' , backgroundColor: '#00DFA2'}}>
+    <div style={{ display: 'grid', placeItems: 'center', height: '60vh', position: 'relative' , background: "url('./assets/home_hero_bg.svg')", backgroundSize: 'cover', backgroundPositionY: 'top', backgroundColor: '#00DFA2'}}>
       <svg style={{position: 'absolute', bottom: '0'}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill={colorMode === 'light' ? "transparent" : "transparent"} fillOpacity="1" d="M0,192L720,288L1440,224L1440,320L720,320L0,320Z"></path></svg>
       <motion.div animate={{rotateX: '0deg', scale: 1, borderWidth: '3px', opacity :'1', lineHeight: isLargerThan500 ? '3rem' : '2.4rem', translateY: '0px', rotateZ: '0deg'}} transition={{duration: 0.8}} initial={{rotateX: '0deg', translateY: '100px', rotateZ: '6deg', borderWidth :'1px', lineHeight :'6.5rem', scale :'1.2'}} style={{border: '5px solid white', textAlign :'center', color: 'white', borderRadius: '5px', padding: '2rem 3rem', width: 'fit-content', background: '#00DFA2', position: 'relative'}}>
         {/* Left */}
