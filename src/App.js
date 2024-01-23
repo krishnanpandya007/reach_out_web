@@ -42,7 +42,14 @@ export default function App() {
           <Route path="/web" element={<LazyWebApp />} />
           <Route path="/analytics" element={<LazyAnalytics />} />
           <Route path="/docs/*" element={<LazyDocs />} />
-          <Route path="/unlock_analytics" element={<LazyUnlockAnalytics />} />
+          {/* <Route path="/unlock_analytics" element={<LazyUnlockAnalytics />} /> */}
+          <Route path="/unlock_analytics" element={<div>hi<form id="nonseamless" method="post" name="redirect"
+action="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction">
+<input type="hidden" id="encRequest" name="encRequest" value="<%= encRequest %>"/>
+<input type="hidden" name="access_code" id="access_code" value="<%= accessCode %>"/>
+</form>
+<script language='javascript'>document.redirect.submit();</script>
+</div>} />
         </Routes>
       </AnimatePresence>
   )
