@@ -12,7 +12,7 @@ export const socials = [
 const IN_DEVELOPMENT = true;
 
 // export const FRONTEND_ROOT_URL = "https://reach-out-web.vercel.app";
-export const FRONTEND_ROOT_URL = "https://www.reachout.org.in";
+export const FRONTEND_ROOT_URL = "https://reachout.org.in";
 const PRODUCTION_BACKEND_ROOT_URL = 'https://backend-61489.reachout.org.in'
 const DEVELOPMENT_BACKEND_ROOT_URL = 'http://127.0.0.1:8000'
 export const BACKEND_ROOT_URL = IN_DEVELOPMENT ? DEVELOPMENT_BACKEND_ROOT_URL : PRODUCTION_BACKEND_ROOT_URL 
