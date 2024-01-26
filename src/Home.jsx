@@ -68,12 +68,27 @@ function HomeHeader() {
         <small>ReachOut</small>
       </ReachOutTitle>
       
+    <div className="header__action__bars" style={{gap: '0.7rem', display: 'flex'}}>
+
+    <a href={`/docs`}>
+        <Button variant='outline' fontWeight={300} fontSize={'0.8rem'} p={"0 1.3rem"} borderRadius={'100px'}>
+          Docs
+        </Button>
+      </a>
+
+
+      <a href={`/unlock_analytics`}>
+        <Button variant='outline' fontWeight={300} fontSize={'0.8rem'} p={"0 1.3rem"} borderRadius={'100px'}>
+          Analytics plans
+        </Button>
+      </a>
 
       <a href={`${FRONTEND_ROOT_URL}/${isAuthenticated ? 'web' : 'signin'}`}>
         <Button variant='outline' rightIcon={<BsArrowRight size={'15px'} />} fontWeight={300} fontSize={'0.8rem'} p={"0 2.3rem"} borderRadius={'100px'}>
           {isAuthenticated ? 'Web App' : 'Sign In'}&nbsp;
         </Button>
       </a>
+    </div>
     </BaseHeader>
   )
 
@@ -174,7 +189,7 @@ function HomeFeatures() {
             {
              viewDevice === 'android' &&  
               <motion.div key="android" initial={{translateX: '20px', opacity: 0}} transition={{type: 'tween'}} animate={{ translateX: 0, opacity: 1 }} exit={{ translateX: -20, opacity: 0 }} style={{maxWidth :'250px', color: '#a2a2a2', fontSize: '0.9rem', display: 'inline-block'}}>
-              Android ipsum dolor sit amet consectetur adipisicing elit. Sunt, ad.
+              Get connected with socials from android app at playstore.
               <br/>
               <br/>
               <Tooltip label='Comming soon'>
@@ -189,7 +204,7 @@ function HomeFeatures() {
             {
              viewDevice === 'ios' &&  
               <motion.div key="ios" initial={{translateX: '20px', opacity: 0}} transition={{type: 'tween'}} animate={{ translateX: 0, opacity: 1 }} exit={{ translateX: -20, opacity: 0 }} style={{maxWidth :'250px', color: '#a2a2a2', fontSize: '0.9rem', display: 'inline-block'}}>
-              Ios ipsum dolor sit amet consectetur adipisicing elit. Sunt, ad.
+              Get connected with socials from IOS app get it now.
               <br/>
               <br/>
               <Tooltip label='Comming soon'>
@@ -204,7 +219,7 @@ function HomeFeatures() {
             {
               viewDevice === 'web' &&  
               <motion.div key="web" initial={{translateX: '20px', opacity: 0}} transition={{type: 'tween'}} animate={{ translateX: 0, opacity: 1 }} exit={{ translateX: -20, opacity: 0 }} style={{maxWidth :'250px', color: '#a2a2a2', fontSize: '0.9rem', display: 'inline-block'}}>
-              Web ipsum dolor sit amet consectetur adipisicing elit. Sunt, ad.
+              Portable and accessible from almost all devices.
               <br/>
               <br/>
               <a href={`${FRONTEND_ROOT_URL}/web`}>

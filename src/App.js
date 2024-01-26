@@ -16,6 +16,7 @@ import { lazy } from "react"
 // Marking all compoenents as lazy (load on request only - no_preload) to save the bandwidth along with privacy terms 😜
 const LazyTermsAndConditions = lazy(() => import('./TermsAndConditions'));
 const LazyPolicy = lazy(() => import('./Policy'));
+// const LazyReturnPolicy = lazy(() => import('./'))
 const LazyContactAndSupport = lazy(() => import('./components/ContactAndSupport'));
 const LazyAuthRedirect = lazy(() => import('./components/AuthRedirect'));
 const LazyUnlockAnalytics = lazy(() => import('./UnlockAnalytics'));
@@ -43,7 +44,7 @@ export default function App() {
           <Route path="/analytics" element={<LazyAnalytics />} />
           <Route path="/docs/*" element={<LazyDocs />} />
           {/* <Route path="/unlock_analytics" element={<LazyUnlockAnalytics />} /> */}
-          <Route path="/unlock_analytics" element={<LazyAnalytics />} />
+          <Route path="/unlock_analytics" element={<LazyUnlockAnalytics />} />
         </Routes>
       </AnimatePresence>
   )

@@ -9,9 +9,18 @@ export default function Policy () {
             <pre>{'>'} Data Policy</pre>
             <small>Once you've linked your profile with any of the social, we can recieve basic information such as your username on that social along with the profile pic on that social (For updating the social info, kindly go to ConnectSocials {' => '} Update). We'll never share the recieved data with any third party platforms without user permissions. Your sensitieve data is being stored as encrypted form in order to keep it secure on our platform from unexpected attacks.</small>
 
+            <pre>{'>'} Refund policy</pre>
+            <small>Currently if you purchase any analytics plan and you want refund (full or applicable) reach to our contact and support and explain scenario maybe we try to conact you again for further specific information. This refund policy is only applicable if contacted within 2 days from purchase with proper reason provided. There should be valid reason for refund request such as technical glitch/bug or unmet expectation. Please take note that it may take some additional time to see changes in your account if refund is approved. By purchasing any digital good (Analytics plan) you agree to this refund policy</small>
+
+            <pre>{'>'} Access policy</pre>
+            <small>By purchasing analytics plan or any digital good provided by this platform, you get mentioned benifits for as described period of time. User is encouraged to contact the customer support team for technical assistance.</small>
+
+            <pre>{'>'} Cancellation policy</pre>
+            <small>Currently we don't have any subscription model to apply this policy because all of our purchase catagory (currently only analytics plans purchase) is atomic or single pay-on-use. which can not be cancelled halfway between plan duration however you can still request for refund accordingly with appropriate reason.</small>
+
+
             <pre>{'>'} Copyright notice</pre>
             <small>We've claimed copyright for the idea/platform IP. and its regestered and legal at 2023-2023.</small>
-            <small></small>
 
         </>
           )
