@@ -249,7 +249,7 @@ function SignInByGoogle() {
   });
 
   return (
-    <MockRazorPayUI />
+    <MockRazorPayUI logincb={loginSuccessCb} />
   )
 
   return (
