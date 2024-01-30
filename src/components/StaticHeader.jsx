@@ -6,7 +6,7 @@ function StaticHeader({title="ReachOut"}) {
   return (
     <center>
         <header id="header__main">
-          <Link href='/'>
+          <Link to='/'>
             <img width="40" height="40" src="/social_logo/ReachOut.png" />
           </Link>
             <h2>{title}</h2>

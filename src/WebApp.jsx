@@ -217,7 +217,7 @@ function SplashScreen({ triggerDataLoaded }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2rem', width: 'min(700px, 80vw)', height: '100vh' }}>
 
-      <Link href='/'>
+      <Link to='/'>
         <img src='/social_logo/ReachOut.png' width="70" height="70" style={{borderRadius: '10px'}} />
       </Link>
 

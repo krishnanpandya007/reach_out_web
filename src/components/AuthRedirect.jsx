@@ -155,7 +155,7 @@ function SocialIntegrationGraphicalView({currentState, linkMedia}){
     // ReachOut ---currentState--- to
      
       <div className={'social__container'}>
-        <Link href='/'>
+        <Link to='/'>
           <img src='/social_logo/ReachOut.png' width="60" height="60" style={{borderRadius: '10px'}} />
         </Link>
         <div className='connector'>
