@@ -9,6 +9,7 @@ import { FRONTEND_ROOT_URL } from './constants'
 import axios from './components/configs/customAxios'
 import Footer from './components/Footer'
 import PageTransition from "./components/configs/PageTransition"
+import {Link} from 'react-router-dom'
 
 export const UserInfoContext = React.createContext({profile_id: -1, name: '', bio: '', avatar: '', touch_ups: ['link_socials'], set_user_info: (newVal) => {}, update_user_info: (field_name, field_value) => {}})
 
@@ -216,7 +217,9 @@ function SplashScreen({ triggerDataLoaded }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2rem', width: 'min(700px, 80vw)', height: '100vh' }}>
 
-      <img src='/social_logo/ReachOut.png' width="70" height="70" style={{borderRadius: '10px'}} />
+      <Link href='/'>
+        <img src='/social_logo/ReachOut.png' width="70" height="70" style={{borderRadius: '10px'}} />
+      </Link>
 
       <small style={{opacity: '0.8'}}>{credentialsChecked ? 'Syncing data...' : 'Checking Credentials...'}</small>
 

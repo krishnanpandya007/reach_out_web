@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { APP_URL, BACKEND_ROOT_URL, socials } from '../constants';
 import './styles/AuthRedirect.css'
 import { Button, Input, useToast } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import axios from './configs/customAxios';
 
 const  validators = {
@@ -154,7 +155,9 @@ function SocialIntegrationGraphicalView({currentState, linkMedia}){
     // ReachOut ---currentState--- to
      
       <div className={'social__container'}>
-        <img src='/social_logo/ReachOut.png' width="60" height="60" style={{borderRadius: '10px'}} />
+        <Link href='/'>
+          <img src='/social_logo/ReachOut.png' width="60" height="60" style={{borderRadius: '10px'}} />
+        </Link>
         <div className='connector'>
             {
               currentState === 'loading' ?

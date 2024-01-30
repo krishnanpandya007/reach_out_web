@@ -5,6 +5,7 @@ import './styles/Header.css'
 import { Button, Center, Divider, Menu, MenuButton, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Skeleton, useColorMode, useDisclosure } from '@chakra-ui/react'
 import { UserInfoContext } from '../WebApp'
 import UpdateProfile from './UpdateProfile'
+import {Link } from 'react-router-dom'
 import axios from './configs/customAxios'
 
 export const GreetSection = styled.div`
@@ -146,7 +147,7 @@ function WebAppHeaderContent({displayTouchUps}) {
                 </ModalContent>
               </Modal>
               <MenuItem onClick={editInfoHandleOpen} as={Button} borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}>
-                <img width="20" height="20" src="./assets/menu_edit.png" />
+                  <img width="20" height="20" src="./assets/menu_edit.png" />
                 <span>Edit Info</span>
                 <UpdateProfile isOpen={editInfoOpen} onClose={editInfoHandleClose} />
               </MenuItem>
