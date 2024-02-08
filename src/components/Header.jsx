@@ -2,10 +2,10 @@ import React, { Suspense } from 'react'
 import styled from '@emotion/styled'
 import ReachOutTitle from './ReachOutTitle'
 import './styles/Header.css'
-import { Button, Center, Divider, Menu, MenuButton, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Skeleton, useColorMode, useDisclosure } from '@chakra-ui/react'
+import { Button, Center, Divider, Link, Menu, MenuButton, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Skeleton, useColorMode, useDisclosure } from '@chakra-ui/react'
 import { UserInfoContext } from '../WebApp'
 import UpdateProfile from './UpdateProfile'
-import {Link } from 'react-router-dom'
+import {Link as ReactRouterLink } from 'react-router-dom'
 import axios from './configs/customAxios'
 
 export const GreetSection = styled.div`
@@ -159,7 +159,7 @@ function WebAppHeaderContent({displayTouchUps}) {
                 <span style={{opacity: '0.7'}}>Profile QR</span>
               </MenuItem>
 
-              <MenuItem onClick={onOpen} as={Button} borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}>
+              <MenuItem as={ReactRouterLink} to="/analytics" borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}>
                 {/* <img width="20" height="20" src="./assets/menu_qr.png" /> */}
                 <svg role="img" xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" viewBox="0 0 22 22" aria-labelledby="lineChartIconTitle" stroke={colorMode === 'light' ? 'black' : 'white'} stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" fill="none" color={colorMode === 'light' ? 'black' : 'white'}> <title id="lineChartIconTitle">Line Chart</title> <path d="M3,16 L8,11"/> <circle cx="9" cy="10" r="1"/> <circle cx="14" cy="15" r="1"/> <path d="M10 11L13 14M15 14L21 8"/> </svg>
                 <span style={{opacity: '0.7'}}>Analytics</span>
