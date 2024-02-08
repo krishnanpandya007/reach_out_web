@@ -9,7 +9,7 @@ export const socials = [
     'Discord'
 ];
 
-const IN_DEVELOPMENT = false;
+const IN_DEVELOPMENT = true;
 
 // export const FRONTEND_ROOT_URL = "https://reach-out-web.vercel.app";
 export const FRONTEND_ROOT_URL = "https://reachout.org.in";

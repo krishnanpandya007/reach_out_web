@@ -23,7 +23,7 @@ function ProfileCardSection({ profiles, loadMoreProfiles }) {
 
     <Flex flexWrap="wrap" p={1} gap={'1rem'} alignItems='center' justifyContent='space-around'>
         {
-            profiles.map((profile) => (
+            (profiles.length === 0) && (!loading) ? <div style={{padding: '3rem 1rem', width: '100%', border: '1px solid #c4c4c460', borderRadius: '10px', color: 'grey', display: 'grid', placeItems: 'center'}}><b>Oops!</b><small>No profiles to show...</small></div> :  profiles.map((profile) => (
                 <SlideFade in key={profile.id}>
                     <ProfileCard {...profile} />
                 </SlideFade> 
@@ -101,7 +101,7 @@ function ProfileCard({ id, profilePicUrl, reached, name, bio, socials }){
     }
 
     return (
-        <Container _hover={{backgroundColor: '#59CE8F07', cursor:'pointer'}} style={{display: 'flex', gap: '0.8rem',width: 'clamp(250px, 70vw, 350px)', border: '1px solid ' + useColorModeValue('#DCDCDC', '#87878740'), borderRadius: '10px', padding: '0.7rem', marginBottom: '1rem'}}>
+        <Container _hover={{cursor:'pointer'}} style={{display: 'flex', gap: '0.8rem',width: 'clamp(250px, 70vw, 350px)', border: '1px solid ' + useColorModeValue('#DCDCDC', '#87878740'), borderRadius: '10px', padding: '0.7rem', marginBottom: '1rem'}}>
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <div style={{width: 'max(6vw, 70px)', aspectRatio: '1',background: `url('${profilePicUrl}') 50% 50% no-repeat`, backgroundSize :'cover',borderRadius: '8px', boxShadow: 'box-shadow:0px 0px 5.3px rgba(0, 0, 0, -0.001),0px 0px 17.9px rgba(0, 0, 0, 0.02),0px 0px 80px rgba(0, 0, 0, 0.07);'}} />
                 <Button onClick={() => {reachProfile(isReached ? 'un-reach' : 'reach')}} colorScheme={isReached ? 'red' : 'whatsapp'} variant={'outline'} size="sm" fontSize={'small'} w="100%" mt={2}>

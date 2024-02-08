@@ -147,31 +147,46 @@ function WebAppHeaderContent({displayTouchUps}) {
                 </ModalContent>
               </Modal>
               <MenuItem onClick={editInfoHandleOpen} as={Button} borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}>
-                  <img width="20" height="20" src="./assets/menu_edit.png" />
-                <span>Edit Info</span>
+                  {/* <img width="20" height="20" src="./assets/menu_edit.png" /> */}
+                  <svg role="img" xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" viewBox="0 0 22 22" aria-labelledby="editIconTitle" stroke={colorMode === 'light' ? 'black' : 'white'} stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" fill="none" color={colorMode === 'light' ? 'black' : 'white'}> <title id="editIconTitle">Edit</title> <path d="M18.4142136 4.41421356L19.5857864 5.58578644C20.366835 6.36683502 20.366835 7.63316498 19.5857864 8.41421356L8 20 4 20 4 16 15.5857864 4.41421356C16.366835 3.63316498 17.633165 3.63316498 18.4142136 4.41421356zM14 6L18 10"/> </svg>
+                <span style={{opacity: '0.7'}}>Edit Info</span>
                 <UpdateProfile isOpen={editInfoOpen} onClose={editInfoHandleClose} />
               </MenuItem>
 
               <MenuItem onClick={onOpen} as={Button} borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}>
-                <img width="20" height="20" src="./assets/menu_qr.png" />
-                <span>Profile QR</span>
+                {/* <img width="20" height="20" src="./assets/menu_qr.png" /> */}
+                <svg width="21px" height="21px" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="qrIconTitle" stroke={colorMode === 'light' ? 'black' : 'white'} stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" color={colorMode === 'light' ? 'black' : 'white'}> <title id="qrIconTitle">QR Code</title> <rect x="10" y="3" width="7" height="7" transform="rotate(90 10 3)"/> <rect width="1" height="1" transform="matrix(-1 0 0 1 7 6)"/> <rect x="10" y="14" width="7" height="7" transform="rotate(90 10 14)"/> <rect x="6" y="17" width="1" height="1"/> <rect x="14" y="20" width="1" height="1"/> <rect x="17" y="17" width="1" height="1"/> <rect x="14" y="14" width="1" height="1"/> <rect x="20" y="17" width="1" height="1"/> <rect x="20" y="14" width="1" height="1"/> <rect x="20" y="20" width="1" height="1"/> <rect x="21" y="3" width="7" height="7" transform="rotate(90 21 3)"/> <rect x="17" y="6" width="1" height="1"/> </svg>
+                <span style={{opacity: '0.7'}}>Profile QR</span>
+              </MenuItem>
+
+              <MenuItem onClick={onOpen} as={Button} borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}>
+                {/* <img width="20" height="20" src="./assets/menu_qr.png" /> */}
+                <svg role="img" xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" viewBox="0 0 22 22" aria-labelledby="lineChartIconTitle" stroke={colorMode === 'light' ? 'black' : 'white'} stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" fill="none" color={colorMode === 'light' ? 'black' : 'white'}> <title id="lineChartIconTitle">Line Chart</title> <path d="M3,16 L8,11"/> <circle cx="9" cy="10" r="1"/> <circle cx="14" cy="15" r="1"/> <path d="M10 11L13 14M15 14L21 8"/> </svg>
+                <span style={{opacity: '0.7'}}>Analytics</span>
               </MenuItem>
 
               <MenuItem onClick={displayTouchUps} as={Button} borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}>
-                <img width="20" height="20" src="./assets/menu_touchups.png" />
-                <span>Touch ups</span>
+                {/* <img width="20" height="20" src="./assets/menu_qr.png" /> */}
+                <svg width="21px" height="21px" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="rocketIconTitle" stroke={colorMode === 'light' ? 'black' : 'white'} stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" color="#2329D6"> <title id="rocketIconTitle">Rocket</title> <path d="M12.7526 9.92418C12.2059 10.2861 11.679 10.7057 11.1924 11.1924C10.4754 11.9093 10.4947 11.9482 9.85359 12.682M12.7526 9.92418C16.178 7.65685 20.3848 7.65685 20.3848 7.65685C20.3848 7.65685 20.3848 11.8636 18.1174 15.289M12.7526 9.92418L18.1174 15.289M18.1174 15.289C17.7555 15.8358 17.3359 16.3626 16.8492 16.8492C16.1323 17.5662 16.0934 17.5469 15.3596 18.188M6.11523 17.429C5.74278 17.9526 5.53552 18.2635 5.53552 18.2635L9.77816 22.5061C9.77816 22.5061 10.0891 22.2988 10.6127 21.9264M6.11523 17.429L2.70709 14.0208L8.36394 11.1924L9.85359 12.682M6.11523 17.429C6.83965 16.4105 8.18898 14.5874 9.85359 12.682M10.6127 21.9264L14.0208 25.3345L16.8492 19.6777L15.3596 18.188M10.6127 21.9264C11.6311 21.202 13.4542 19.8526 15.3596 18.188"/> <path d="M5.00003 23C5.35031 21.5825 5.99994 21.0001 6.5 21.5C7.00003 22 6.41751 22.6497 5.00003 23Z"/> </svg>                
+                <span style={{opacity: '0.7'}}>Touch ups</span>
               </MenuItem>
 
+              {/* <MenuItem onClick={displayTouchUps} as={Button} borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}> */}
               <MenuItem onClick={toggleColorMode} as={Button} borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}>
-                <img width="20" height="20" src="./assets/menu_theme.png" />
-                <span>Change theme</span>
+
+                {/* <img width="20" height="20" src="./assets/menu_touchups.png" /> */}
+                <svg width="21px" height="21px" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" aria-labelledby="nightModeIconTitle" stroke={colorMode === 'light' ? 'black' : 'white'} stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" fill="none" color={colorMode === 'light' ? 'black' : 'white'}> <title id="nightModeIconTitle">Night Mode</title> <path d="M12 19a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/> <path d="M15.899 12.899a4 4 0 0 1-4.797-4.797A4.002 4.002 0 0 0 12 16c1.9 0 3.49-1.325 3.899-3.101z"/> <path d="M12 5V3M12 21v-2"/> <path d="M5 12H2h3zM22 12h-3 3zM16.95 7.05L19.07 4.93 16.95 7.05zM4.929 19.071L7.05 16.95 4.93 19.07zM16.95 16.95l2.121 2.121-2.121-2.121zM4.929 4.929L7.05 7.05 4.93 4.93z"/> </svg>
+                <span style={{opacity: '0.7'}}>Change theme</span>
+
               </MenuItem>
+
+
 
               <Divider />
 
-              <MenuItem isLoading={loggingOut} closeOnSelect={false} onClick={logout} as={Button} color="tomato" borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}>
-                <img width="20" height="20" src="./assets/menu_logout.png" />
-                <span>Logout</span>
+              <MenuItem isLoading={loggingOut} closeOnSelect={false} onClick={logout} as={Button} color="#FF004D" borderRadius={0} justifyContent="flex-start" gap="1rem" fontWeight={'400'} fontSize='0.8rem' w="100%" p={6}>
+              <svg role="img" xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" viewBox="0 0 22 22" aria-labelledby="exitIconTitle" stroke="#FF004D" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#FF004D"> <title id="exitIconTitle">Exit</title> <path d="M18 15l3-3-3-3"/> <path d="M11.5 12H20"/> <path stroke-linecap="round" d="M21 12h-1"/> <path d="M15 4v16H4V4z"/> </svg>
+                <span style={{opacity: '0.8'}}>Logout</span>
               </MenuItem>
 
               
