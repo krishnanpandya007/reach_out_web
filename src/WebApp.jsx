@@ -27,6 +27,9 @@ function WebApp() {
 
   const changeFeedMode = (newMode) => {
 
+    console.log("This thing can be logged here..");
+    console.log(newMode);
+
     setCurrentModeConfigs({mode: newMode, profiles: [], loading: false});
 
   }
@@ -41,6 +44,9 @@ function WebApp() {
     */
 
     let res;
+
+    console.log("Regenerating posts at");
+    console.log(currentModeConfigs.mode)
 
     if(currentModeConfigs.mode === 'my_reaches'){
 
@@ -59,7 +65,7 @@ function WebApp() {
       ]}))
     }
 
-  }, [])
+  }, [currentModeConfigs.mode])
 
   const displayTouchUps = () => {
 
@@ -116,20 +122,20 @@ function WebApp() {
                   </Text>
                   <Tooltip fontSize={'0.7rem'} label='Current Feed Mode' placement='bottom-start'>
                     <Badge  mt='-0.5rem' fontSize='0.7em' colorScheme='green'>
-                      {currentModeConfigs.mode}
+                      {currentModeConfigs.mode === 'nearme' ? "You may know" : currentModeConfigs.mode}
                     </Badge>
                   </Tooltip>
                   
                 </div>
                 <Menu>
-                  <MenuButton as={Button} fontSize='0.8rem' borderRadius={'15px'} size='md' leftIcon={<IoFilter />} variant='solid'>
+                  <MenuButton as={Button} fontSize='0.8rem' borderRadius={'10px'} size='md' leftIcon={<IoFilter />} variant='solid'>
                       Filter
                   </MenuButton>
                   <MenuList minWidth='180px'>
                     <MenuOptionGroup defaultValue='standard' type='radio' onChange={changeFeedMode}>
                       <MenuItemOption fontSize={'0.85rem'} _checked={{backgroundColor: '#03C98820', color: '#03C988'}} value='standard'>Reach Out</MenuItemOption>
                       <MenuItemOption fontSize={'0.85rem'} _checked={{backgroundColor: '#03C98820', color: '#03C988'}} value='nearme'>You may know</MenuItemOption>
-                      <MenuItemOption fontSize={'0.85rem'} _checked={{backgroundColor: '#03C98820', color: '#03C988'}} value='my_reaches'>My Reaches</MenuItemOption>
+                      {/* <MenuItemOption fontSize={'0.85rem'} _checked={{backgroundColor: '#03C98820', color: '#03C988'}} value='my_reaches'>My Reaches</MenuItemOption> */}
                     </MenuOptionGroup>
                   </MenuList>
 

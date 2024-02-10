@@ -1,5 +1,6 @@
 import { Button, Center, Container, Divider, Flex, Image, Link, Skeleton, SlideFade, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react'
 import {FiDownloadCloud} from 'react-icons/fi'
+import {Link as ReactRouterLink} from 'react-router-dom'
 import React from 'react'
 import axios from './configs/customAxios';
 
@@ -30,7 +31,7 @@ function ProfileCardSection({ profiles, loadMoreProfiles }) {
             ))
         } 
         {
-            loading && [...Array(POST_PER_PAGE)].map((i) => <Skeleton><div style={{width: 'clamp(250px, 70vw, 350px)', aspectRatio: '2.1', marginBottom: '1rem'}} key={i} /></Skeleton>)
+            loading && [...Array(POST_PER_PAGE)].map((i, idx) => <Skeleton key={idx}><div style={{width: 'clamp(250px, 70vw, 350px)', aspectRatio: '2.1', marginBottom: '1rem'}} key={i} /></Skeleton>)
         }
     </Flex>
     <br/>
@@ -101,7 +102,7 @@ function ProfileCard({ id, profilePicUrl, reached, name, bio, socials }){
     }
 
     return (
-        <Container _hover={{cursor:'pointer'}} style={{display: 'flex', gap: '0.8rem',width: 'clamp(250px, 70vw, 350px)', border: '1px solid ' + useColorModeValue('#DCDCDC', '#87878740'), borderRadius: '10px', padding: '0.7rem', marginBottom: '1rem'}}>
+        <Container as={ReactRouterLink} to={`/web/profile/${id}?back_path=${window.location.pathname}`} _hover={{cursor:'pointer'}} style={{display: 'flex', gap: '0.8rem',width: 'clamp(250px, 70vw, 350px)', border: '1px solid ' + useColorModeValue('#DCDCDC', '#87878740'), borderRadius: '10px', padding: '0.7rem', marginBottom: '1rem'}}>
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <div style={{width: 'max(6vw, 70px)', aspectRatio: '1',background: `url('${profilePicUrl}') 50% 50% no-repeat`, backgroundSize :'cover',borderRadius: '8px', boxShadow: 'box-shadow:0px 0px 5.3px rgba(0, 0, 0, -0.001),0px 0px 17.9px rgba(0, 0, 0, 0.02),0px 0px 80px rgba(0, 0, 0, 0.07);'}} />
                 <Button onClick={() => {reachProfile(isReached ? 'un-reach' : 'reach')}} colorScheme={isReached ? 'red' : 'whatsapp'} variant={'outline'} size="sm" fontSize={'small'} w="100%" mt={2}>
@@ -109,12 +110,14 @@ function ProfileCard({ id, profilePicUrl, reached, name, bio, socials }){
                 </Button>
             </div>
             <div style={{flex: '1', display: 'flex', flexDirection :'column', justifyContent :'flex-start'}}>
-                <b style={{fontSize: '0.9rem', fontWeight: '600'}}>{name}</b>
-                <p style={{display: 'inline', fontSize: 'min(0.75rem, calc(0.4rem + 1vw))', lineHeight: '1rem', opacity: '0.7', fontWeight :'300'}}>{bio ?? 'No bio provided'}</p>
-                <div style={{flex: '1', display: 'flex', alignItems: 'center', margin: '0.3rem 0'}}>
-                <Divider />
+                <div style={{flex: '1', display: 'flex',flexDirection: 'column'}}>
+                  <b style={{fontSize: '0.9rem', fontWeight: '600'}}>{name}</b>
+                  <p style={{display: 'inline', fontSize: 'min(0.75rem, calc(0.4rem + 1vw))', lineHeight: '1rem', opacity: '0.7', fontWeight :'300'}}>{bio ?? 'No bio provided'}</p>
+                </div> 
+                <div style={{ display: 'flex', alignItems: 'center', margin: '0.3rem 0'}}>
+                  <Divider />
                 </div>
-                <div style={{display: 'flex', gap: '10px', flexWrap :'wrap', alignItems: 'center'}}>
+                <div style={{display: 'flex', gap: '10px', flexWrap :'wrap', alignItems: 'center', padding: '0.25rem 0'}}>
 
                     {
                         socials.length === 0 ? <b style={{color: '#c4c4c4', fontSize: '0.8rem'}}>&#8226; Peace &#8226;</b> : 
