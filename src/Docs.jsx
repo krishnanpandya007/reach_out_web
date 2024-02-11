@@ -42,7 +42,7 @@ export default function Docs(){
         <PageTransition>
             <Flex>
                 <Flex position='sticky' p={5} width='clamp(250px, 28vw, 360px)' alignItems='center' borderRight='1px solid #c4c4c430' borderBottom='1px solid #c4c4c430'>
-                    <Link to='/'>
+                    <Link as={ReactRouterLink} to='/'>
                         <img width='50' height='50px' style={{borderRadius: '10px'}} src='/social_logo/ReachOut.png' />
                     </Link>
                     <Heading variant='h5' fontFamily='Poppins' fontSize='1.8rem' pl={4}>Docs</Heading>

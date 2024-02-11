@@ -1060,7 +1060,7 @@ function LoginQrReady() {
 
   return (
     <motion.div
-      key="generate"
+      key="ready"
       whileTap={{ scale: 0.95 }}
       style={{
         width: "100%",
@@ -1137,7 +1137,7 @@ function LoginQrGenerated() {
       <Center
         h="100%"
         onClick={() => {
-          setCurrentState("generate");
+          setCurrentState("ready");
         }}
       >
         <img
@@ -1165,7 +1165,7 @@ function LoginQrSuspended() {
 
   return (
     <motion.div
-      key="generate"
+      key="suspended"
       style={{
         width: "100%",
         height: "calc(100% - 2rem)",
@@ -1216,7 +1216,7 @@ function LoginQrUnavailable() {
 
   return (
     <motion.div
-      key="generate"
+      key="unavailable"
       style={{
         width: "100%",
         height: "calc(100% - 2rem)",
@@ -1267,7 +1267,7 @@ function LoginQrError() {
 
   return (
     <motion.div
-      key="generate"
+      key="error"
       style={{
         width: "100%",
         height: "calc(100% - 2rem)",
