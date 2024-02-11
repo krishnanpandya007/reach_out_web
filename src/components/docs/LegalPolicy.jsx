@@ -18,7 +18,7 @@ export default function Policy () {
             <pre>{'>'} Cancellation policy</pre>
             <small>Currently we don't have any subscription model to apply this policy because all of our purchase catagory (currently only analytics plans purchase) is atomic or single pay-on-use. which can not be cancelled halfway between plan duration however you can still request for refund accordingly with appropriate reason.</small>
 
-            <pre>{'>'}No Shipping policy</pre>
+            <pre>{'>'} No Shipping policy</pre>
             <small>As we do not provide any physical goods or products to end consumer till current date, We do not cite/mention any kind of shipping or delivery policy with any purchase (any platform or payment gateway), you'll make on this platform.</small>
 
 
