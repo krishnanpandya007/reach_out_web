@@ -19,7 +19,8 @@ const LazyPolicy = lazy(() => import('./Policy'));
 // const LazyReturnPolicy = lazy(() => import('./'))
 const LazyContactAndSupport = lazy(() => import('./components/ContactAndSupport'));
 const LazyAuthRedirect = lazy(() => import('./components/AuthRedirect'));
-const LazyUnlockAnalytics = lazy(() => import('./UnlockAnalytics'));
+// const LazyUnlockAnalytics = lazy(() => import('./UnlockAnalytics'));
+const LazyUnlockAnalytics = lazy(() => import('./UnlockAnalyticsNew'));
 const LazyHome = lazy(() => import('./Home'));
 const LazySignIn = lazy(() => import('./SignIn'));
 const LazyWebApp = lazy(() => import('./WebApp'));

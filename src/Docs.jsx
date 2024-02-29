@@ -66,7 +66,7 @@ export default function Docs(){
                     // mobile
                     isOpen && <Flex position='sticky' flexDirection={'column'} height='calc(100vh - 2.5rem - 51px )' justifyContent='flex-start' p={5} width='100vw'  borderRight='1px solid #c4c4c430'>
                     <div style={{display: 'flex', alignItems: 'center', marginBottom: '1.5rem', paddingLeft: '1rem', borderLeft: '3px solid #c4c4c4'}}>
-                        <pre style={{color: '#b4b4b4', fontSize: 'small'}}>Documentation Version: </pre><Badge size='lg' colorScheme='green'>BETA</Badge>
+                        <pre style={{color: '#b4b4b4', fontSize: 'small'}}>Documentation Version: </pre><Badge size='lg' colorScheme='green'>1.0.1</Badge>
                     </div>
                     <Stack direction='column' w='100%' justifyContent='flex-start'>
                         <Accordion allowMultiple key={location.pathname} defaultIndex={sections.indexOf(location.pathname.split('/')[2])}>
@@ -110,7 +110,7 @@ export default function Docs(){
                 <Show breakpoint='(min-width: 700px)'>
                     <Flex flexDirection={'column'} height='calc(100vh - 2.5rem - 51px )' justifyContent='flex-start' p={5} width='clamp(250px,28vw, 360px)'  borderRight='1px solid #c4c4c430'>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '1.5rem', paddingLeft: '1rem', borderLeft: '3px solid #c4c4c4'}}>
-                            <pre style={{color: '#b4b4b4', fontSize: 'small'}}>Documentation Version: </pre><Badge size='lg' colorScheme='green'>BETA</Badge>
+                            <pre style={{color: '#b4b4b4', fontSize: 'small'}}>Documentation Version: </pre><Badge size='lg' colorScheme='green'>1.0.1</Badge>
                         </div>
                         <Stack direction='column' w='100%' justifyContent='flex-start'>
                             <Accordion allowMultiple key={location.pathname} defaultIndex={Object.keys(docs_tree).indexOf(url_section)}>
