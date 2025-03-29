@@ -110,6 +110,9 @@ function WebAppHeaderContent({displayTouchUps}) {
       }
 
       setLoggingOut(false);
+    }).catch((err) => {
+      
+      setLoggingOut(false);
     })
   }
 

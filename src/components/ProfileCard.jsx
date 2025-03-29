@@ -122,7 +122,11 @@ function ProfileCard({ id, profilePicUrl, reached, name, bio, socials }){
                     {
                         socials.length === 0 ? <b style={{color: '#c4c4c4', fontSize: '0.8rem'}}>&#8226; Peace &#8226;</b> : 
                         socials.map((social, idx) => {
-                            return (<Link key={idx} onClick={() => {logHit(social['socialMedia'])}} href={social['profile_link']} isExternal style={{width: 'max(12%, 25px)'}}><Image _hover={{cursor: 'pointer'}} style={{width: 'max(12%, 25px)'}} src={`./social_logo/${social['socialMedia']}.png`} /></Link>)
+                            return (<Link key={idx} onClick={() => {logHit(social['socialMedia'])}} href={social['profile_link']} isExternal style={{width: 'max(12%, 25px)'}}>
+                              {/* <Image _hover={{cursor: 'pointer'}} style={{width: 'max(12%, 25px)'}} src={`./social_logo/${social['socialMedia']}.png`} /> */}
+                              <Image _hover={{cursor: 'pointer'}} style={{width: 'max(12%, 25px)'}} src={`${social['socialMedia']}`} />
+
+                              </Link>)
                         })
                     }
                 </div>
