@@ -20,6 +20,8 @@
 | 🔹 [`reach_out_flutter`](https://github.com/krishnanpandya007/reach_out_flutter) | Cross-platform mobile app built in Flutter                         |
 | 🔸 [`reachoutd`](https://github.com/krishnanpandya007/reachoutd) | Background services: cronjobs, email dispatchers, and automation scripts |
 
+[`Full Report`](public/showcase/report.pdf)
+
 > 🧩 Together, these 4 repos form the complete **ReachOut Platform**.
 
 ---
@@ -55,28 +57,48 @@ Here’s a look at our creative vision across platforms:
 
 ### 🖥️ Web Platform (React)
 
-<img src="designs/web_homepage_ui.png" alt="Web UI" width="100%"/>
-> Homepage and Analytics Dashboard — Figma designed, responsive layout.
+<img src="public/showcase/web/dashboard.png" alt="Web UI" width="100%"/>
+<img src="public/showcase/web/home.png" alt="Web UI" width="100%"/>
+<img src="public/showcase/web/payment.png" alt="Web UI" width="100%"/>
+<img src="public/showcase/web/signin.png" alt="Web UI" width="100%"/>
 
 ---
 
 ### 📱 Mobile App (Flutter)
 
-<img src="designs/mobile_app_screens.png" alt="Mobile UI" width="100%"/>
-> Cross-platform design with smooth onboarding, profile scan & share UX.
+<img src="public/showcase/app/connect_socials.png" alt="Mobile UI" height="500px"/> <img src="public/showcase/app/drawer.png" alt="Mobile UI" height="500px"/>
+<img src="public/showcase/app/error_handling.png" alt="Mobile UI" height="500px"/>
+<img src="public/showcase/app/home.png" alt="Mobile UI" height="500px"/>
+<img src="public/showcase/app/linking.png" alt="Mobile UI" height="500px"/>
+<img src="public/showcase/app/nearby_share.png" alt="Mobile UI" height="500px"/>
+<img src="public/showcase/app/profile.png" alt="Mobile UI" height="500px"/>
+<img src="public/showcase/app/settings.png" alt="Mobile UI" height="500px"/>
+<img src="public/showcase/app/signin.png" alt="Mobile UI" height="500px"/>
+<img src="public/showcase/app/sync_page.png" alt="Mobile UI" height="500px"/>
+<img src="public/showcase/app/contact_support.png" alt="Mobile UI" height="500px"/>
+
+
 
 ---
 
 ### 📢 Marketing Posters
 
-<table>
-<tr>
-<td><img src="designs/poster_1.png" width="300"/></td>
-<td><img src="designs/poster_2.png" width="300"/></td>
-</tr>
-</table>
+
+<img src="public/showcase/posters/1.png" alt="Poster UI" height="500px"/> <img src="public/showcase/posters/2.png" alt="Poster UI" height="500px"/>
+<img src="public/showcase/posters/3.png" alt="Poster UI" height="500px"/>
+<img src="public/showcase/posters/4.png" alt="Poster UI" height="500px"/>
+<img src="public/showcase/posters/5.png" alt="Poster UI" height="500px"/>
+<img src="public/showcase/posters/6.png" alt="Poster UI" height="500px"/>
+
 
 > Designed for social promotion, campus events, and startup showcases.
 
 ---
+
+## 📬 Contact
+
+- 👨‍💻 Author: Krishnan A. Pandya  
+- 🔗 LinkedIn: [KrishnanPandya](https://linkedin.com/in/krishnanpandya)  
+- 📧 Email: krishnanpandya0001@gmail.com  
+- 🌐 Website: [reachout-web.vercel.app](https://reachout-web.vercel.app)
 
