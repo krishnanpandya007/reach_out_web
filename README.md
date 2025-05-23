@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# 🚀 ReachOut – One Link to Rule All Socials
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Made with React](https://img.shields.io/badge/Made%20with-React-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
+![Flutter](https://img.shields.io/badge/Mobile-Flutter-blue?style=for-the-badge&logo=flutter)
+![Django](https://img.shields.io/badge/Backend-Django-success?style=for-the-badge&logo=django)
+[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 
-## Available Scripts
+> 🔗 Your **digital identity** deserves more than scattered links.  
+> 🎯 ReachOut connects all your social media into one interactive profile, with QR code access and powerful analytics.
+> 🔗 ReachOut lets users consolidate all their social media into a **single shareable link** with a **QR code** and **advanced analytics** – powered by this web frontend.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 📦 Part of a Full-Stack Ecosystem
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| Repo              | Description                                                              |
+|-------------------|---------------------------------------------------------------------------|
+| 🔹 `reach_out_web`      | **[This repo]** – React.js web app for user profiles and analytics dashboard |
+| 🔸 [`reach_out_backend`](https://github.com/krishnanpandya007/reach_out_backend) | Django-based REST API and user data management                     |
+| 🔹 [`reach_out_flutter`](https://github.com/krishnanpandya007/reach_out_flutter) | Cross-platform mobile app built in Flutter                         |
+| 🔸 [`reachoutd`](https://github.com/krishnanpandya007/reachoutd) | Background services: cronjobs, email dispatchers, and automation scripts |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+> 🧩 Together, these 4 repos form the complete **ReachOut Platform**.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ✨ Features
 
-### `npm run build`
+- ✅ One-tap access to all your socials
+- 📊 Custom analytics dashboard (visits, geo-stats, link clicks)
+- 🧠 Scalable Django backend with secure APIs
+- 📱 Cross-platform app (Flutter + Web)
+- 🎨 Modern UI/UX (Figma-designed)
+- 🔒 Developer account integrations for data safety
+- 🆔 Unique QR code for every user profile
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🧰 Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Layer        | Technology     |
+|--------------|----------------|
+| Frontend     | React.js, TailwindCSS |
+| Mobile App   | Flutter        |
+| Backend/API  | Django + DRF   |
+| Database     | PostgreSQL     |
+| Hosting      | Vercel (Web), DigitalOcean (API) |
+| UI/UX Design | Figma          |
+| Analytics    | Custom Charts with Chart.js / Recharts |
 
-### `npm run eject`
+---
+## 🎨 Design Showcase
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Here’s a look at our creative vision across platforms:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 🖥️ Web Platform (React)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<img src="designs/web_homepage_ui.png" alt="Web UI" width="100%"/>
+> Homepage and Analytics Dashboard — Figma designed, responsive layout.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+### 📱 Mobile App (Flutter)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<img src="designs/mobile_app_screens.png" alt="Mobile UI" width="100%"/>
+> Cross-platform design with smooth onboarding, profile scan & share UX.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+### 📢 Marketing Posters
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<table>
+<tr>
+<td><img src="designs/poster_1.png" width="300"/></td>
+<td><img src="designs/poster_2.png" width="300"/></td>
+</tr>
+</table>
 
-### Analyzing the Bundle Size
+> Designed for social promotion, campus events, and startup showcases.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
