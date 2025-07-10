@@ -17,7 +17,7 @@
 |-------------------|---------------------------------------------------------------------------|
 | 🔹 `reach_out_web`      | **[This repo]** – React.js web app for user profiles and analytics dashboard |
 | 🔸 [`reach_out_backend`](https://github.com/krishnanpandya007/reach_out_backend) | Django-based REST API and user data management                     |
-| 🔹 [`reach_out_flutter`](https://github.com/krishnanpandya007/reach_out_flutter) | Cross-platform mobile app built in Flutter                         |
+| 🔹 [`reach_out_flutter`](https://github.com/krishnanpandya007/flutter_reach_out) | Cross-platform mobile app built in Flutter                         |
 | 🔸 [`reachoutd`](https://github.com/krishnanpandya007/reachoutd) | Background services: cronjobs, email dispatchers, and automation scripts |
 
 [`Full Report`](public/showcase/report.pdf)
