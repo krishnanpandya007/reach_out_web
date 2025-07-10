@@ -102,3 +102,4 @@ Here’s a look at our creative vision across platforms:
 - 📧 Email: krishnanpandya0001@gmail.com  
 - 🌐 Website: [reachout-web.vercel.app](https://reachout-web.vercel.app)
 
+> Note: Website is not fully functional as the backend hosting plan has expired
